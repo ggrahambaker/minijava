@@ -7,8 +7,8 @@
  */
 
 
-import MiniJava.node.*;
-import MiniJava.analysis.DepthFirstAdapter;
+import minijava.node.*;
+import minijava.analysis.DepthFirstAdapter;
 import java.io.PrintWriter;
 import java.util.*;
 

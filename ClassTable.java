@@ -13,6 +13,7 @@ import minijava.node.TId;
  */
 public class ClassTable {
    HashMap<String, ClassInfo> table = new HashMap<String, ClassInfo>();
+
    
    /** 
     * This method adds a new table entry for class "id".  It will throw a
@@ -33,6 +34,11 @@ public class ClassTable {
                    LinkedList<PMethod> methods) throws Exception {
       String name = id.getText();
       //TODO Fill in the guts of this method.
+      if (table.containsKey(name)) {
+         String msg = name + " redeclared on line " + id.getLine();
+         throw new ClassClashException(msg); // There was a clash
+      }
+      table.put(name, new ClassInfo(id, extendsId, vars, methods));    // No clash; add new binding
       
    }
    

@@ -11,12 +11,12 @@ import java.io.PushbackReader;
 import java.util.Stack;
 
 //These imports are all for SableCC-generated packages.
-import MiniJava.analysis.DepthFirstAdapter;
-import MiniJava.lexer.Lexer;
-import MiniJava.node.Node;
-import MiniJava.node.Start;
-import MiniJava.node.Token;
-import MiniJava.parser.Parser;
+import minijava.analysis.DepthFirstAdapter;
+import minijava.lexer.Lexer;
+import minijava.node.Node;
+import minijava.node.Start;
+import minijava.node.Token;
+import minijava.parser.Parser;
 
 /**
  * We extend the DepthFirstAdapter built for us by SableCC so that it

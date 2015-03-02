@@ -27,6 +27,9 @@ public class MethodTable {
     */
    public MethodTable(LinkedList<PMethod> methods) throws Exception {
       //TODO Fill in the guts of this method.
+      for(PMethod method : methods){
+        put(new TId(method.toString()), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());
+      }
    }
    
    /** 
@@ -44,6 +47,12 @@ public class MethodTable {
                    LinkedList<PFormal> formals,
                    LinkedList<PVarDecl> locals) throws Exception {
       //TODO Fill in the guts of this method.
+      String name = id.getText();
+      if (table.containsKey(name)) {
+         String msg = name + " redeclared on line " + id.getLine();
+         throw new MethodClashException(msg); // There was a clash
+      }
+      table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
    }
    
    /** Lookup and return the MethodInfo for the specified method */

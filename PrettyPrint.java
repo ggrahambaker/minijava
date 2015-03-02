@@ -6,9 +6,9 @@
 
 // These imports are for SableCC-generated packages.
 
-import MiniJava.lexer.Lexer;
-import MiniJava.parser.Parser;
-import MiniJava.node.*;
+import minijava.lexer.Lexer;
+import minijava.parser.Parser;
+import minijava.node.*;
 
 // We also need some general Java I/O classes
 

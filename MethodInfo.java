@@ -44,6 +44,10 @@ public class MethodInfo {
                      LinkedList<PFormal> formals,
                      LinkedList<PVarDecl> locals) throws VarClashException {
       //TODO Fill in the guts of this method.
+      this.retType = retType;
+      this.name = name;
+      // this.formals = new VarTable(formals);
+      this.locals = new VarTable(locals);
    }
 
    /* Accessors */   
