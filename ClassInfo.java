@@ -60,7 +60,11 @@ public class ClassInfo {
    public MethodTable getMethodTable() { return methods; }
    
    public void dump() {
-		// TODO:  Fill in the guts here
+       System.out.println("-------------------------------------");
+       System.out.println("Class: " + className.getText());
+       System.out.println("-------------------------------------");
+       vars.dump();
+       methods.dump();
    } 
    
    public void dumpIRT(boolean dot) {
