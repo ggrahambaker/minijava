@@ -35,7 +35,8 @@ public class ClassTable {
       String name = id.getText();
       //if name is already in the table, throw exception
       if(table.containsKey(name)){
-    	  throw new ClassClashException("The name " + name + " is already used at line " + id.getPos() + ". Try another name for this class");
+    	  String msg = name + " redeclared on line " + id.getLine();
+          throw new ClassClashException(msg); // There was a clash
       } else{ //otherwise, try to add the class
     	  try { 
     	     ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
@@ -79,8 +80,7 @@ public class ClassTable {
    /** dump prints info on each of the classes in the table */
    public void dump() {
       for(String name : table.keySet()){
-    	  System.out.println(name + ":");
-    	  System.out.println(table.get(name) + "\n");
+    	  table.get(name).dump();
       }
    }
    
