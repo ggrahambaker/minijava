@@ -6,6 +6,7 @@ import minijava.node.AFormal;
 import minijava.node.PFormal;
 import minijava.node.PType;
 import minijava.node.PVarDecl;
+import minijava.node.AVarDecl;
 import minijava.node.TId;
 
 /** 
@@ -46,7 +47,15 @@ public class MethodInfo {
       //TODO Fill in the guts of this method.
       this.retType = retType;
       this.name = name;
-      this.formals = new VarTable(formals);
+      // make formals VarDel, add to 'locals' linked list
+      for(PFormal f: formals){
+        AVarDecl var = new AVarDecl();
+        var.setType(((AFormal)f).getType());
+        var.setId(((AFormal)f).getId());
+        locals.add(var);
+      }
+
+      this.formals = formals;
       this.locals = new VarTable(locals);
    }
 
