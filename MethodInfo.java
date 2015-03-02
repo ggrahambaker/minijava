@@ -84,7 +84,7 @@ public class MethodInfo {
 	   if(it.hasNext())
 	       System.out.println(", ");	       
        }
-       System.out.prinln(" ) : " + getRetType().toString());
+       System.out.println(" ) : " + getRetType().toString());
        locals.dump();
        System.out.println();
    }
