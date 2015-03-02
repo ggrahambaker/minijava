@@ -10,6 +10,7 @@ import minijava.node.PMethod;
 import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
+import java.util.*;
 
 /** 
  * This class maintains information on a <i>collection</i> of methods.  It
@@ -71,8 +72,13 @@ public class MethodTable {
     */
    public void dump() {
       //TODO Fill in the guts of this method.
-       for(MethodInfo mi:table.values().iterator())
+       Iterator<MethodInfo> it = table.values().iterator();
+       MethodInfo mi;
+       while(it.hasNext()) {
+	   mi = it.next();
+	   it.remove();
            mi.dump();
+       }
    }
    
    public void dumpIRT(boolean dot) {
