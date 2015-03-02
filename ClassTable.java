@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Set;
 
+import minijava.node.AMethod;
 import minijava.node.PMethod;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
@@ -13,7 +14,6 @@ import minijava.node.TId;
  */
 public class ClassTable {
    HashMap<String, ClassInfo> table = new HashMap<String, ClassInfo>();
-
    
    /** 
     * This method adds a new table entry for class "id".  It will throw a
@@ -33,17 +33,37 @@ public class ClassTable {
                    LinkedList<PVarDecl> vars,
                    LinkedList<PMethod> methods) throws Exception {
       String name = id.getText();
-      //TODO Fill in the guts of this method.
-      if (table.containsKey(name)) {
-         String msg = name + " redeclared on line " + id.getLine();
-         throw new ClassClashException(msg); // There was a clash
+      //if name is already in the table, throw exception
+      if(table.containsKey(name)){
+    	  throw new ClassClashException("The name " + name + " is already used at line " + id.getPos() + ". Try another name for this class");
+      } else{ //otherwise, try to add the class
+    	  try { 
+    	     ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
+    	     table.put(name, newClass);
+    	  } catch(Exception e){ //pass along any exceptions that occur when making the class
+    		  throw e;
+    	  }
       }
-      table.put(name, new ClassInfo(id, extendsId, vars, methods));    // No clash; add new binding
-      
    }
    
    public void putMain(String className, String methodName) throws Exception {
-      
+	   try {
+		  // handle the method list
+	      LinkedList<PMethod> methodList = new LinkedList<PMethod>();
+	      methodList.add(new AMethod(null, new TId(methodName), null, null, null));
+	      // generate the appropriate class info
+	      TId name = new TId(className);
+          ClassInfo main = new ClassInfo(name, null, null, methodList);
+          // check for duplicates and add the main class info if it is good
+          if(table.containsKey(className)){
+        	  throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
+          } else {
+        	  table.put(className, main);
+          }
+	   } catch (Exception e){ //throw any exceptions that occur
+		   throw e;
+	   }
+       
    }
    
    /** Lookup and return the ClassInfo record for the specified class */
@@ -58,7 +78,10 @@ public class ClassTable {
    
    /** dump prints info on each of the classes in the table */
    public void dump() {
-      //TODO Fill in the guts of this method.
+      for(String name : table.keySet()){
+    	  System.out.println(name + ":");
+    	  System.out.println(table.get(name) + "\n");
+      }
    }
    
       
