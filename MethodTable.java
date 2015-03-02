@@ -71,6 +71,9 @@ public class MethodTable {
     */
    public void dump() {
       //TODO Fill in the guts of this method.
+        // for(MethodInfo mi:table.values().iterator())
+        //   mi.dump();
+       
    }
    
    public void dumpIRT(boolean dot) {

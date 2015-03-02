@@ -46,7 +46,7 @@ public class MethodInfo {
       //TODO Fill in the guts of this method.
       this.retType = retType;
       this.name = name;
-      // this.formals = new VarTable(formals);
+      this.formals = new VarTable(formals);
       this.locals = new VarTable(locals);
    }
 
@@ -63,6 +63,10 @@ public class MethodInfo {
     */
    public void dump() {
       //TODO Fill in the guts of this method.
+      // build string
+      // localFormalClash ( arg:int ) : int
+      // System.out.print(getName().toString() + " ( " + +")" + getRetType().toString());
+       
    }
    
    public void dumpIRT(boolean dot) {

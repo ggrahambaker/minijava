@@ -15,8 +15,8 @@ import minijava.node.TId;
  * @author Brad Richards
  */
 public class VarTable {
-   HashMap<String, VarInfo> table = new HashMap<String, VarInfo>();
-   
+    HashMap<String, VarInfo> table = new HashMap<String, VarInfo>();
+    
    /** 
     * Constructor populates table from an initial list of VarDecls.
     * @param vars  A list of PVarDecl nodes from our AST.
@@ -46,7 +46,6 @@ public class VarTable {
         VarInfo vi = table.get(name);
         val = vi.getType();
       } 
-    	  
         return val;// So things will compile for now...
    }
    
@@ -66,8 +65,8 @@ public class VarTable {
    /** Print out the entire contents of the table */
    public void dump() {
       //TODO Fill in the guts of this method.
-      
-
+       for(String s:table.keySet().iterator())
+	       System.out.print("  "+s+" : "+table.get(s).toStr());
    }
    
    public void dumpIRT(boolean dot) {
