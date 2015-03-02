@@ -23,6 +23,9 @@ public class VarTable {
      */
    public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
       //TODO Fill in the guts of this method.
+      for(PVarDecl var : vars){
+        put(new TId(var.toString()), ((AVarDecl) var).getType());
+      }
        
    }
    
@@ -40,8 +43,11 @@ public class VarTable {
     public PType get(String name) {
 	PType val = null;
 	//TODO Fill in the guts of this method.
-	if (table.containsKey(name)) 
-	    PType val = table.get(name);
+	if (table.containsKey(name)) {
+    VarInfo vi = table.get(name);
+    val = vi.getType();
+  }
+	   
         return val;// So things will compile for now...
    }
    
@@ -61,8 +67,8 @@ public class VarTable {
    /** Print out the entire contents of the table */
    public void dump() {
       //TODO Fill in the guts of this method.
-       for(String s:table.keySet().iterator())
-	   System.out.println("  "+s+" : "+table.get(s).toStr());
+      for(String s:table.keySet().iterator())
+	      System.out.println("  "+s+" : "+table.get(s).toStr());
    }
    
    public void dumpIRT(boolean dot) {

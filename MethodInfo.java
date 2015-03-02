@@ -69,6 +69,7 @@ public class MethodInfo {
        PFormal last = formals.peekLast();
        for(PFormal f: formals.listIterator()) {
 	   System.out.print( ((AFormal)f).getId().toString()+" : "+((AFormal)f).getType.toString());
+
 	   if(last!=f)
 	       System.out.println(", ");
        }
