@@ -1,5 +1,6 @@
 package symtable;
 
+import symtable;
 import minijava.analysis.DepthFirstAdapter;
 import minijava.node.*;
 import java.io.PrintWriter;

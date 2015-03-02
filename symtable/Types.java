@@ -1,5 +1,6 @@
 package symtable;
 
+//import symtable;
 import minijava.node.*;
 
 /**
