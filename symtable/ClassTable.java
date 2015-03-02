@@ -81,6 +81,7 @@ public class ClassTable {
    public void dump() {
       for(String name : table.keySet()){
     	  table.get(name).dump();
+	  System.out.println();
       }
    }
    
