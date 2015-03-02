@@ -67,8 +67,9 @@ public class VarTable {
        while(it.hasNext()){
 	   s=it.next();
 	   it.remove();
-	   System.out.println("  "+s+" : "+table.get(s).toStr());
+	   System.out.println("  "+s+" : "+table.get(s).toString());
        }
+       System.out.println();
    }
    
    public void dumpIRT(boolean dot) {
