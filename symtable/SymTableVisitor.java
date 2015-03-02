@@ -1,9 +1,7 @@
 package symtable;
 
 import minijava.analysis.DepthFirstAdapter;
-<<<<<<< HEAD
 import minijava.node.*;
-
 import java.io.PrintWriter;
 import java.util.*;
 /** 
@@ -48,6 +46,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    
    public void caseAMainClassDecl(AMainClassDecl node)
    {
+       table.putMain(node.getId(),'main');
       inAMainClassDecl(node);
       //out.print("class ");
       //depth++;
@@ -79,17 +78,18 @@ public class SymTableVisitor extends DepthFirstAdapter
 	  node.getId().apply(this);	  
 	  //out.print(node.getId().getText());
       }
+      List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
+      List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
+      table.put(node.getId(), node.getId(),copy1, copy2);
       //      out.println(" {");
       {
-         List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
-         for(PVarDecl e : copy)
+         for(PVarDecl e : copy1)
          {
             e.apply(this);
          }
       }
       {
-         List<PMethod> copy = new ArrayList<PMethod>(node.getMethod());
-         for(PMethod e : copy)
+         for(PMethod e : copy2)
          {
             e.apply(this);
          }
@@ -102,33 +102,50 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseASubClassDecl(ASubClassDecl node)
    {
       inASubClassDecl(node);
+<<<<<<< HEAD
       // out.print("class ");
+=======
+      //out.print("class ");
+>>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
       if(node.getId() != null)
       {
-         out.print(node.getId().getText());
+	  node.getId().apply(this);
       }
+<<<<<<< HEAD
       // out.print(" extends ");
+=======
+      //out.print(" extends ");
+>>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
       if(node.getExtends() != null)
       {
          node.getExtends().apply(this);
-         out.print(node.getExtends().getText());
+         node.getExtends().apply(this);
       }
+<<<<<<< HEAD
       // out.println(" {");
+=======
+      List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
+      List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
+      table.put(node.getId(), node.getExtends(),copy1, copy2);
+      //out.println(" {");
+>>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
       {
-         List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
-         for(PVarDecl e : copy)
+         for(PVarDecl e : copy1)
          {
             e.apply(this);
          }
       }
       {
-         List<PMethod> copy = new ArrayList<PMethod>(node.getMethod());
-         for(PMethod e : copy)
+         for(PMethod e : copy2)
          {
             e.apply(this);
          }
       }
+<<<<<<< HEAD
       // out.println("}\n");
+=======
+      //out.println("}\n");
+>>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
       outASubClassDecl(node);
    }
    
@@ -572,12 +589,12 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseAAllocExp(AAllocExp node)
    {
       inAAllocExp(node);
-      out.print("(new int[");
+      //out.print("(new int[");
       if(node.getExp() != null)
       {
          node.getExp().apply(this);
       }
-      out.print("])");
+      //out.print("])");
       outAAllocExp(node);
    }
    
@@ -585,12 +602,10 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseANewExp(ANewExp node)
    {
       inANewExp(node);
-      out.print("(new ");
       if(node.getId() != null)
       {
-         out.print(node.getId().getText());
+	  node.getId().apply(this);
       }
-      out.print("())");
       outANewExp(node);
    }
 
