@@ -68,7 +68,7 @@ public class MethodInfo {
        System.out.print(getName().toString() + " ( ");
        for(PFormal f: formals)
 	   System.out.print( ((AFormal)f).getId().toString()+" : "+((AFormal)f).getType.toString());
-       + +")" + getRetType().toString());
+       // + +")" + getRetType().toString());
        
    }
    
