@@ -65,13 +65,15 @@ public class MethodInfo {
       //TODO Fill in the guts of this method.
       // build string
       // localFormalClash ( arg:int ) : int
-       System.out.print(getName().toString() + " ( ");
-       PFormal last = formals.peekLast();
-       for(PFormal f: formals.listIterator()) {
-	   System.out.print( ((AFormal)f).getId().toString()+" : "+((AFormal)f).getType.toString());
-
-	   if(last!=f)
-	       System.out.println(", ");
+       System.out.print(getName().toString() + " (");
+       AFormal s;
+       ListIterator<PFormal> it = getFormals().listIterator();
+       while(it.hasNext()){
+	   s=(AFormal)it.next();
+	   it.remove();
+	   System.out.println("  "+s.getId().toString()+" : "+s.getType().toString());
+	   if(it.hasNext())
+	       System.out.println(", ");	       
        }
        System.out.prinln(" ) : " + getRetType().toString());
        locals.dump();
