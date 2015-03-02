@@ -59,7 +59,7 @@ public class ClassTable {
 	      if(table.containsKey(className)){
         	  throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
           } else {
-        	  table.put(className, main);
+        	  table.put(className.toString(), main);
 	      }
 	   } catch (Exception e){ //throw any exceptions that occur
 	       throw e;
