@@ -2,10 +2,7 @@ package symtable;
 
 import minijava.analysis.DepthFirstAdapter;
 //import minijava.node.*;
-import minijava.node.ABaseClassDecl;
-import minijava.node.AMainClassDecl;
-import minijava.node.ASubClassDecl;
-
+import minijava.node.*;
 import java.io.PrintWriter;
 import java.util.*;
 
