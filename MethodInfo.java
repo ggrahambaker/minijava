@@ -65,7 +65,10 @@ public class MethodInfo {
       //TODO Fill in the guts of this method.
       // build string
       // localFormalClash ( arg:int ) : int
-      // System.out.print(getName().toString() + " ( " + +")" + getRetType().toString());
+       System.out.print(getName().toString() + " ( ");
+       for(PFormal f: formals)
+	   System.out.print( ((AFormal)f).getId().toString()+" : "+((AFormal)f).getType.toString());
+       + +")" + getRetType().toString());
        
    }
    
