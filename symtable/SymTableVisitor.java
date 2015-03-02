@@ -3,8 +3,6 @@ package symtable;
 import minijava.analysis.DepthFirstAdapter;
 import minijava.node.*;
 
-
-
 /** 
  * This visitor class builds a symbol table as it traverses the tree.  The
  * table, an instance of ClassTable, can be returned via getTable().
