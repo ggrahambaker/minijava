@@ -60,7 +60,8 @@ public class ClassInfo {
    public MethodTable getMethodTable() { return methods; }
    
    public void dump() {
-		// TODO:  Fill in the guts here
+       vars.dump();
+       methods.dump();
    } 
    
    public void dumpIRT(boolean dot) {
