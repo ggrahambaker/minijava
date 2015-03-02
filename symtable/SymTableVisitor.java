@@ -1,9 +1,9 @@
 package symtable;
 
 import minijava.analysis.DepthFirstAdapter;
-import minijava.node.ABaseClassDecl;
-import minijava.node.AMainClassDecl;
-import minijava.node.ASubClassDecl;
+import minijava.node.*;
+
+
 
 /** 
  * This visitor class builds a symbol table as it traverses the tree.  The
@@ -14,6 +14,7 @@ import minijava.node.ASubClassDecl;
 public class SymTableVisitor extends DepthFirstAdapter
 {
    private ClassTable table = new ClassTable();
+   private PrintWriter out;
    
    /** getTable returns the entire table */
    public ClassTable getTable() {
@@ -23,6 +24,19 @@ public class SymTableVisitor extends DepthFirstAdapter
    /** 
     * Figure out which visitor methods to override...
     */
+
+
+    public PrintVisitor(PrintWriter out) {
+      this.out = out;
+   	}
+
+   	public void caseStart(Start node)
+   	{
+   	   inStart(node);
+   	   node.getPProgram().apply(this);
+   	   node.getEOF().apply(this);
+   	   outStart(node);
+   	}
 
    
 
