@@ -42,7 +42,7 @@ public class VarTable {
 	PType val = null;
 	//TODO Fill in the guts of this method.
 	if (table.containsKey(name)) 
-	    val = table.get(name);
+	    val = table.get(name).getType();
         return val;// So things will compile for now...
    }
    
