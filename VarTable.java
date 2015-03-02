@@ -9,6 +9,7 @@ import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
 
+import java.util.*;
 /** 
  * A VarTable records name and type information about a <i>collection</i> 
  * of variables.  An exception is thrown if we try to add a duplicate name.
@@ -23,9 +24,6 @@ public class VarTable {
      */
    public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
       //TODO Fill in the guts of this method.
-      for(PVarDecl var : vars){
-        put(new TId(var.toString()), ((AVarDecl) var).getType());
-      }
        
    }
    
@@ -43,11 +41,8 @@ public class VarTable {
     public PType get(String name) {
 	PType val = null;
 	//TODO Fill in the guts of this method.
-	if (table.containsKey(name)) {
-    VarInfo vi = table.get(name);
-    val = vi.getType();
-  }
-	   
+	if (table.containsKey(name)) 
+	    val = table.get(name);
         return val;// So things will compile for now...
    }
    
@@ -67,8 +62,14 @@ public class VarTable {
    /** Print out the entire contents of the table */
    public void dump() {
       //TODO Fill in the guts of this method.
-      for(String s:table.keySet().iterator())
-	      System.out.println("  "+s+" : "+table.get(s).toStr());
+       String s;
+       Iterator<String> it = table.keySet().iterator();
+       while(it.hasNext()){
+	   s=it.next();
+	   it.remove();
+	   System.out.println("  "+s+" : "+table.get(s).toString());
+       }
+       System.out.println();
    }
    
    public void dumpIRT(boolean dot) {
