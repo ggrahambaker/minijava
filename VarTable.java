@@ -41,13 +41,11 @@ public class VarTable {
     public PType get(String name) {
 	PType val = null;
 	//TODO Fill in the guts of this method.
-	if (table.containsKey(name)){
-    VarInfo vi = table.get(name);
-    val = vi.getType();
+	if (table.containsKey(name))
+	    val = table.get(name).getType();
+	return val;
   }
 	  
-        return val;// So things will compile for now...
-   }
    
    /** Lookup and return a variable's VarInfo record */
    public VarInfo getInfo(String name) {
