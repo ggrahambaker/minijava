@@ -73,6 +73,8 @@ public class MethodInfo {
 	       System.out.println(", ");
        }
        System.out.prinln(" ) : " + getRetType().toString());
+       locals.dump();
+       System.out.println();
    }
    
    public void dumpIRT(boolean dot) {
