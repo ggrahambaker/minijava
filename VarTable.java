@@ -41,8 +41,11 @@ public class VarTable {
     public PType get(String name) {
 	PType val = null;
 	//TODO Fill in the guts of this method.
-	if (table.containsKey(name)) 
-	    val = table.get(name);
+	if (table.containsKey(name)){
+    VarInfo vi = table.get(name);
+    val = vi.getType();
+  }
+	  
         return val;// So things will compile for now...
    }
    
