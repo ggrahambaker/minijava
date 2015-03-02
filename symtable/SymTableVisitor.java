@@ -58,12 +58,12 @@ public class SymTableVisitor extends DepthFirstAdapter
    
    public void caseAMainClassDecl(AMainClassDecl node)
    {
-      table.putMain(node.getId(),'main');
+       //table.putMain(node.getId(),'main');
       inAMainClassDecl(node);
 
       if(node.getId() != null)
       {
-    	  table.putMain(node.getId(), 'main');
+    	  table.putMain(node.getId(), node.getId().toString());
     	  node.getId().apply(this);
       }
 
@@ -88,7 +88,7 @@ public class SymTableVisitor extends DepthFirstAdapter
       }
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
-      table.put(node.getId(), node.getId(),copy1, copy2);
+      table.put(node.getId(), null,copy1, copy2);
       //      out.println(" {");
       {
 
@@ -151,14 +151,14 @@ public class SymTableVisitor extends DepthFirstAdapter
       outASubClassDecl(node);
    }
    
-   
+    /*
    public void caseAVarDecl(AVarDecl node)
    {
       inAVarDecl(node);
       if(node.getType() != null && node.getId() != null)
       {
-        VarTable ci = table.get(id).getVarTable();
-        ci.put(node.getId(), node.getType());
+	  //    VarTable ci = table.get(id).getVarTable();
+	  //ci.put(node.getId(), node.getType());
         node.getType().apply(this);
       }
       // out.println(";");
@@ -589,6 +589,6 @@ public class SymTableVisitor extends DepthFirstAdapter
       }
       outANewExp(node);
    }
-
+    */
 
 }
