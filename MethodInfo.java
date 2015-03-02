@@ -1,6 +1,6 @@
 package symtable;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import minijava.node.AFormal;
 import minijava.node.PFormal;
@@ -8,6 +8,7 @@ import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.AVarDecl;
 import minijava.node.TId;
+
 
 /** 
  * A MethodInfo instance records information about a single MiniJava method.
