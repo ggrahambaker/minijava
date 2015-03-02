@@ -66,10 +66,13 @@ public class MethodInfo {
       // build string
       // localFormalClash ( arg:int ) : int
        System.out.print(getName().toString() + " ( ");
-       for(PFormal f: formals)
+       PFormal last = formals.peekLast();
+       for(PFormal f: formals.listIterator()) {
 	   System.out.print( ((AFormal)f).getId().toString()+" : "+((AFormal)f).getType.toString());
-       + +")" + getRetType().toString());
-       
+	   if(last!=f)
+	       System.out.println(", ");
+       }
+       System.out.prinln(" ) : " + getRetType().toString());
    }
    
    public void dumpIRT(boolean dot) {
