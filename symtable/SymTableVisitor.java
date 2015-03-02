@@ -20,7 +20,7 @@ public class SymTableVisitor extends DepthFirstAdapter
     
     /** getTable returns the entire table */
     public ClassTable getTable() {
-	return table;
+	    return table;
     } 
     
     /** 
@@ -29,8 +29,8 @@ public class SymTableVisitor extends DepthFirstAdapter
     
     
     public SymTableVisitor(PrintWriter out) {
-	this.out = out;
-
+	   this.out = out;
+    }
    
    
    /** When descending into a new node, increment the indentation level.
@@ -53,14 +53,14 @@ public class SymTableVisitor extends DepthFirstAdapter
       //depth++;
       if(node.getId() != null)
       {
-	  table.putMain(node.getId(),'main');
-	  node.getId().apply(this);
+    	  table.putMain(node.getId(), 'main');
+    	  node.getId().apply(this);
       }
       //out.println(" {");
       //indent(); out.println("public static void main(String[] bogus) {");
       if(node.getStmt() != null)
       {
-	  node.getStmt().apply(this);
+	      node.getStmt().apply(this);
       }
       //indent(); out.println("}");
       //depth--;
@@ -102,18 +102,18 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseASubClassDecl(ASubClassDecl node)
    {
       inASubClassDecl(node);
-      out.print("class ");
+      // out.print("class ");
       if(node.getId() != null)
       {
          out.print(node.getId().getText());
       }
-      out.print(" extends ");
+      // out.print(" extends ");
       if(node.getExtends() != null)
       {
          node.getExtends().apply(this);
          out.print(node.getExtends().getText());
       }
-      out.println(" {");
+      // out.println(" {");
       {
          List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
          for(PVarDecl e : copy)
@@ -128,7 +128,7 @@ public class SymTableVisitor extends DepthFirstAdapter
             e.apply(this);
          }
       }
-      out.println("}\n");
+      // out.println("}\n");
       outASubClassDecl(node);
    }
    
@@ -136,17 +136,17 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseAVarDecl(AVarDecl node)
    {
       inAVarDecl(node);
-      indent();
+      // indent();
       if(node.getType() != null)
       {
          node.getType().apply(this);
       }
-      out.print(" ");
+      // out.print(" ");
       if(node.getId() != null)
       {
          out.print(node.getId().getText());
       }
-      out.println(";");
+      // out.println(";");
       outAVarDecl(node);
    }
    
@@ -154,29 +154,29 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseAMethod(AMethod node)
    {
       inAMethod(node);
-      out.println();
-      indent(); out.print("public ");
+      // out.println();
+      // indent(); out.print("public ");
       if(node.getType() != null)
       {
          node.getType().apply(this);
       }
-      out.print(" ");
+      // out.print(" ");
       if(node.getId() != null)
       {
-         out.print(node.getId().getText());
+         node.getId().getText();
       }
-      out.print("(");
+      // out.print("(");
       {
          List<PFormal> copy = new ArrayList<PFormal>(node.getFormal());
          int len = copy.size();
          for(int i=0; i<len-1; i++) {
             copy.get(i).apply(this);
-            out.print(", ");
+            // out.print(", ");
          }
          if (len > 0)
             copy.get(len-1).apply(this);
       }
-      out.println(") {");
+      // out.println(") {");
       {
          List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
          for(PVarDecl e : copy)
@@ -191,7 +191,7 @@ public class SymTableVisitor extends DepthFirstAdapter
             e.apply(this);
          }
       }
-      indent(); out.println("}");
+      // indent(); out.println("}");
       outAMethod(node);
    }
    
