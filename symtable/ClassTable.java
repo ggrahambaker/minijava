@@ -47,13 +47,13 @@ public class ClassTable {
       }
    }
    
-   public void putMain(String className, String methodName) throws Exception {
+   public void putMain(TId className, String methodName) throws Exception {
 	   try {
 		  // handle the method list
 	      LinkedList<PMethod> methodList = new LinkedList<PMethod>();
 	      methodList.add(new AMethod(null, new TId(methodName), null, null, null));
 	      // generate the appropriate class info
-	      TId name = new TId(className);
+	      TId name = className;
 	      ClassInfo main = new ClassInfo(name, null, null, methodList);
 	      // check for duplicates and add the main class info if it is good
 	      if(table.containsKey(className)){
