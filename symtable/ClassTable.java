@@ -54,17 +54,17 @@ public class ClassTable {
 	      methodList.add(new AMethod(null, new TId(methodName), null, null, null));
 	      // generate the appropriate class info
 	      TId name = new TId(className);
-          ClassInfo main = new ClassInfo(name, null, null, methodList);
-          // check for duplicates and add the main class info if it is good
-          if(table.containsKey(className)){
+	      ClassInfo main = new ClassInfo(name, null, null, methodList);
+	      // check for duplicates and add the main class info if it is good
+	      if(table.containsKey(className)){
         	  throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
           } else {
         	  table.put(className, main);
-          }
+	      }
 	   } catch (Exception e){ //throw any exceptions that occur
-		   throw e;
+	       throw e;
 	   }
-       
+	   
    }
    
    /** Lookup and return the ClassInfo record for the specified class */
