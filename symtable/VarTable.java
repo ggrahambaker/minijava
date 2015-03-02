@@ -45,7 +45,6 @@ public class VarTable {
 	    val = table.get(name).getType();
 	return val;
   }
-	  
    
    /** Lookup and return a variable's VarInfo record */
    public VarInfo getInfo(String name) {
