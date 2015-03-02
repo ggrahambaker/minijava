@@ -13,6 +13,8 @@ import java.util.*;
 public class SymTableVisitor extends DepthFirstAdapter
 {
     private ClassTable table = new ClassTable();
+    private String id;
+
     private PrintWriter out;
     //    private int depth = -2;
     
@@ -24,6 +26,16 @@ public class SymTableVisitor extends DepthFirstAdapter
     /** 
      * Figure out which visitor methods to override...
      */
+
+    public void defaultIn(@SuppressWarnings("unused") Node node)
+    {
+        // Do nothing
+    }
+
+    public void defaultOut(@SuppressWarnings("unused") Node node)
+    {
+        // Do nothing
+    }
     
     
     public SymTableVisitor(PrintWriter out) {
@@ -46,24 +58,20 @@ public class SymTableVisitor extends DepthFirstAdapter
    
    public void caseAMainClassDecl(AMainClassDecl node)
    {
-       table.putMain(node.getId(),'main');
+      table.putMain(node.getId(),'main');
       inAMainClassDecl(node);
-      //out.print("class ");
-      //depth++;
+
       if(node.getId() != null)
       {
     	  table.putMain(node.getId(), 'main');
     	  node.getId().apply(this);
       }
-      //out.println(" {");
-      //indent(); out.println("public static void main(String[] bogus) {");
+
       if(node.getStmt() != null)
       {
 	      node.getStmt().apply(this);
       }
-      //indent(); out.println("}");
-      //depth--;
-      //indent(); out.println("}\n");
+
       outAMainClassDecl(node);
    }
    
@@ -83,11 +91,14 @@ public class SymTableVisitor extends DepthFirstAdapter
       table.put(node.getId(), node.getId(),copy1, copy2);
       //      out.println(" {");
       {
+
+        id = node.getId().toString();
          for(PVarDecl e : copy1)
          {
             e.apply(this);
          }
       }
+      id = node.getId().toString();
       {
          for(PMethod e : copy2)
          {
@@ -102,50 +113,41 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseASubClassDecl(ASubClassDecl node)
    {
       inASubClassDecl(node);
-<<<<<<< HEAD
-      // out.print("class ");
-=======
-      //out.print("class ");
->>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
+
       if(node.getId() != null)
       {
-	  node.getId().apply(this);
+	   node.getId().apply(this);
       }
-<<<<<<< HEAD
-      // out.print(" extends ");
-=======
       //out.print(" extends ");
->>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
       if(node.getExtends() != null)
       {
          node.getExtends().apply(this);
          node.getExtends().apply(this);
       }
-<<<<<<< HEAD
-      // out.println(" {");
-=======
+
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
       table.put(node.getId(), node.getExtends(),copy1, copy2);
       //out.println(" {");
->>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
+
       {
+        id = node.getId().toString();
          for(PVarDecl e : copy1)
          {
             e.apply(this);
          }
       }
+
+      id = node.getId().toString();
       {
          for(PMethod e : copy2)
          {
             e.apply(this);
          }
       }
-<<<<<<< HEAD
-      // out.println("}\n");
-=======
+
       //out.println("}\n");
->>>>>>> 92a52cf137bd6fe04eb242ccfa0aec56cdd62a1c
+
       outASubClassDecl(node);
    }
    
@@ -153,15 +155,11 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseAVarDecl(AVarDecl node)
    {
       inAVarDecl(node);
-      // indent();
-      if(node.getType() != null)
+      if(node.getType() != null && node.getId() != null)
       {
-         node.getType().apply(this);
-      }
-      // out.print(" ");
-      if(node.getId() != null)
-      {
-         out.print(node.getId().getText());
+        VarTable ci = table.get(id).getVarTable();
+        ci.put(node.getId(), node.getType());
+        node.getType().apply(this);
       }
       // out.println(";");
       outAVarDecl(node);
@@ -228,23 +226,6 @@ public class SymTableVisitor extends DepthFirstAdapter
       outAFormal(node);
    }
    
-   
-   public void caseAIntType(AIntType node)
-   {
-      out.print("int");
-   }
-   
-   
-   public void caseABoolType(ABoolType node)
-   {
-      out.print("bool");
-   }
-   
-   
-   public void caseAIntArrayType(AIntArrayType node)
-   {
-      out.print("int[]");
-   }
    
    
    public void caseAUserType(AUserType node)
