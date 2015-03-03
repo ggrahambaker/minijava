@@ -43,7 +43,6 @@ public class ClassTable {
             table.put(name, newClass);
             System.out.println("FUCK"+name);
     	  } catch(Exception e){ //pass along any exceptions that occur when making the class
-          System.out.println("IM ON MEGADRUGS");
           throw e;
       }
   }
@@ -55,7 +54,7 @@ public void putMain(String className, String methodName) throws Exception {
 	   // handle the method list
       LinkedList<PMethod> methodList = new LinkedList<PMethod>();
       AMethod temp = new AMethod();
-      System.out.println("name to string -> "+name.toString());
+      //      System.out.println("name to string -> "+name.toString());
       temp.setId(name);
       methodList.add(temp);
 	   // generate the appropriate class info
@@ -69,7 +68,6 @@ public void putMain(String className, String methodName) throws Exception {
         table.put(name.toString(), main);
     }
        } catch (Exception e){ //throw any exceptions that occur
-        System.out.println("IM ON DRUGS");
         throw e;
     }
 }

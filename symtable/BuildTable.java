@@ -37,7 +37,6 @@ public class BuildTable {
          // our symbol table visitor to it.
          start.getPProgram().apply(visitor);
 	 visitor.getTable().dump();
-	 System.out.println("FUCK");
       } catch (Exception e) {
          e.printStackTrace();
          System.exit(-1);
