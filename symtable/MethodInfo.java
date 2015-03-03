@@ -23,7 +23,7 @@ public class MethodInfo {
    private LinkedList<PFormal> formals;
    private VarTable locals;     // Contains entries for parameters as well
    private ClassInfo enclosing; // The class in which method is actually defined
-            
+   
    /*
     * Stuff we'll add for the IRT phase
     *
@@ -31,7 +31,7 @@ public class MethodInfo {
    public MethodIRTinfo getInfo() { return info; }
    public void setInfo(MethodIRTinfo i) { info = i; }
     */ 
-  
+   
    /** 
     * The constructor stores away references to the return type and formals,
     * and builds a VarTable containing both the local variables and the 
@@ -43,29 +43,29 @@ public class MethodInfo {
     * @param locals   A list of the method's local variables
     */
    public MethodInfo(PType retType, TId name,
-                     LinkedList<PFormal> formals,
-                     LinkedList<PVarDecl> locals) throws VarClashException {
+       LinkedList<PFormal> formals,
+       LinkedList<PVarDecl> locals) throws VarClashException {
       //TODO Fill in the guts of this method.
-      this.retType = retType;
-      this.name = name;
+    this.retType = retType;
+    this.name = name;
       // make formals VarDel, add to 'locals' linked list
-      for(PFormal f: formals){
-        AVarDecl var = new AVarDecl();
-        var.setType(((AFormal)f).getType());
-        var.setId(((AFormal)f).getId());
-        locals.add(var);
-      }
+    for(PFormal f: formals){
+      AVarDecl var = new AVarDecl();
+      var.setType(((AFormal)f).getType());
+      var.setId(((AFormal)f).getId());
+      locals.add(var);
+  }
 
-      this.formals = formals;
-      this.locals = new VarTable(locals);
-   }
+  this.formals = formals;
+  this.locals = new VarTable(locals);
+}
 
-   /* Accessors */   
-   public TId getName() { return name; }
-   public PType getRetType() { return retType; }
-   public LinkedList<PFormal> getFormals() { return formals; }
-   public VarTable getLocals() { return locals; }
-   
+/* Accessors */   
+public TId getName() { return name; }
+public PType getRetType() { return retType; }
+public LinkedList<PFormal> getFormals() { return formals; }
+public VarTable getLocals() { return locals; }
+
    /** Print info about the return type, formals, and local variables.
     * It's OK if the formals appear in the local table as well.  In fact,
     * it's a <i>good</i> thing since this output will help us debug later if 
@@ -76,21 +76,21 @@ public class MethodInfo {
       // build string
       // localFormalClash ( arg:int ) : int
        System.out.print(getName().toString() + " (");
-       AFormal s;
-       ListIterator<PFormal> it = getFormals().listIterator();
-       while(it.hasNext()){
-	   s=(AFormal)it.next();
-	   it.remove();
-	   System.out.println("  "+s.getId().toString()+" : "+s.getType().toString());
-	   if(it.hasNext())
-	       System.out.println(", ");	       
-       }
-       System.out.println(" ) : " + getRetType().toString());
-       locals.dump();
-       System.out.println();
-   }
-   
-   public void dumpIRT(boolean dot) {
+         AFormal s;
+         ListIterator<PFormal> it = getFormals().listIterator();
+         while(it.hasNext()){
+            s=(AFormal)it.next();
+            it.remove();
+            System.out.println("  "+s.getId().toString()+" : "+s.getType().toString());
+            if(it.hasNext())
+              System.out.println(", ");	       
+      }
+      System.out.println(" ) : " + getRetType().toString());
+      locals.dump();
+      System.out.println();
+  }
+  
+  public void dumpIRT(boolean dot) {
       //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
-   }
+  }
 }

@@ -75,8 +75,8 @@ public class MethodTable {
        Iterator<MethodInfo> it = table.values().iterator();
        MethodInfo mi;
        while(it.hasNext()) {
-	   mi = it.next();
-	   it.remove();
+      	   mi = it.next();
+      	   it.remove();
            mi.dump();
        }
    }

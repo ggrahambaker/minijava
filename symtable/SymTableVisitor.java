@@ -39,7 +39,7 @@ public class SymTableVisitor extends DepthFirstAdapter
     
     
     public SymTableVisitor() {
-	this.out = new PrintWriter(System.out);
+	     this.out = new PrintWriter(System.out);
     }
    
    
@@ -63,10 +63,13 @@ public class SymTableVisitor extends DepthFirstAdapter
 
       if(node.getId() != null)
       {
-	  try{
-	      table.putMain(node.getId().toString(), node.getId().toString());}
-	  catch(Exception e){}
-	  node.getId().apply(this);
+        try {
+            table.putMain(node.getId().toString(), node.getId().toString());}
+        catch(Exception e){
+            throw e;
+        }
+        
+        node.getId().apply(this);
       }
 
       if(node.getStmt() != null)
@@ -85,8 +88,8 @@ public class SymTableVisitor extends DepthFirstAdapter
       //indent(); out.print("class ");
       if(node.getId() != null)
       {
-	  node.getId().apply(this);	  
-	  //out.print(node.getId().getText());
+   	  node.getId().apply(this);	  
+   	  //out.print(node.getId().getText());
       }
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
