@@ -65,6 +65,7 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
        vars.dump();
        methods.dump();
+       System.out.println("--------------------smerkweederryday-------");
    } 
    
    public void dumpIRT(boolean dot) {
