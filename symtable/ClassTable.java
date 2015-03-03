@@ -55,8 +55,8 @@ public void putMain(String className, String methodName) throws Exception {
 	   // handle the method list
       LinkedList<PMethod> methodList = new LinkedList<PMethod>();
       AMethod temp = new AMethod();
-      temp.setId(name);
       System.out.println("name to string -> "+name.toString());
+      temp.setId(name);
       methodList.add(temp);
 	   // generate the appropriate class info
       

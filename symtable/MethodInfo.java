@@ -71,26 +71,29 @@ public VarTable getLocals() { return locals; }
     * it's a <i>good</i> thing since this output will help us debug later if 
     * necessary, and we'll want to see exactly what's in the VarTable.
     */
-   public void dump() {
-      //TODO Fill in the guts of this method.
-      // build string
-      // localFormalClash ( arg:int ) : int
-       System.out.print(getName().toString() + " (");
-         AFormal s;
-         ListIterator<PFormal> it = getFormals().listIterator();
-         while(it.hasNext()){
+    public void dump() {
+	//TODO Fill in the guts of this method.
+	// build string
+	// localFormalClash ( arg:int ) : int
+	System.out.print(getName().toString() + " (");
+	AFormal s;
+	ListIterator<PFormal> it = getFormals().listIterator();
+	while(it.hasNext()){
             s=(AFormal)it.next();
             it.remove();
             System.out.println("  "+s.getId().toString()+" : "+s.getType().toString());
             if(it.hasNext())
-              System.out.println(", ");	       
-      }
-      System.out.println(" ) : " + getRetType().toString());
-      locals.dump();
-      System.out.println();
-  }
-  
-  public void dumpIRT(boolean dot) {
-      //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
-  }
+		System.out.println(", ");	       
+	}
+	if (getRetType() != null)
+	    System.out.println(" ) : " + getRetType().toString());
+	else
+	    System.out.println(" ) : void");	    
+	locals.dump();
+	System.out.println();
+    }
+    
+    public void dumpIRT(boolean dot) {
+	//TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
+    }
 }
