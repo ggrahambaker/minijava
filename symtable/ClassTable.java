@@ -28,13 +28,9 @@ public class ClassTable {
     * @param vars       A list of the class's instance variables
     * @param methods    A list of the methods in the class
     */
-    public void put(TId id, 
-		    TId extendsId,
-		    LinkedList<PVarDecl> vars,
-		    LinkedList<PMethod> methods) throws Exception{
+    public void put(TId id, TId extendsId, LinkedList<PVarDecl> vars, LinkedList<PMethod> methods) throws Exception{
 	String name = id.toString();
-	//if name is already in the table, throw exception
-	if(table.containsKey(name)){
+	if(table.containsKey(name)){  //if name is already in the table, throw exception
 	    String msg = name + " redeclared on line " + id.getLine();
 	    throw new ClassClashException(msg); } 
 	else{ //otherwise, try to add the class
@@ -54,17 +50,17 @@ public class ClassTable {
 	    LinkedList<PMethod> methodList = new LinkedList<PMethod>();
 	    AMethod temp = new AMethod();
 	    //      System.out.println("name to string -> "+name.toString());
-	    temp.setId(name);
+	    temp.setId(new TId(methodName));
 	    methodList.add(temp);
 	    // generate the appropriate class info
-      
-	    ClassInfo main = new ClassInfo(name, null, null, methodList);
+	    
+	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
 	    // check for duplicates and add the main class info if it is good
 	    if(table.containsKey(name)){
 		throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
-    } 
+	    } 
 	    else {
-		table.put(name.toString(), main);
+		table.put(className, main);
 	    }
 	} catch (Exception e){ //throw any exceptions that occur
 	    throw e;
