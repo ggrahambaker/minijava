@@ -49,13 +49,22 @@ public class MethodInfo {
     this.retType = retType;
     this.name =name;
       // make formals VarDel, add to 'locals' linked list
-    /*for(PFormal f: formals){
-	//	if (f!=null){
-	AVarDecl var = new AVarDecl();
-	var.setType(((AFormal)f).getType());
-	var.setId(new TId(((AFormal)f).getId().toString().replaceAll("\\s","")));
-	locals.add(var);}}*/
-    this.formals = formals;
+    LinkedList<PFormal> newformals = new LinkedList<PFormal>();
+    for(PFormal f: formals)
+	try {
+	    boolean notfail = true;
+	    String tempname = ((AFormal)f).toString();
+	    for (PFormal j: newformals)
+		if (((AFormal)j).toString().equals(tempname))
+		    notfail=false;
+	    if (notfail)
+		newformals.add(f);
+	    else{
+		String msg = ((AFormal)f).toString() + " redeclared on line " + name.getLine();
+		throw new VarClashException(msg); // There was a clash
+	    }}
+	catch(VarClashException e){} 
+    this.formals = newformals;
     this.locals = new VarTable(locals);
    }
     
@@ -79,7 +88,7 @@ public class MethodInfo {
 	ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
 	while(!it.isEmpty()){
             s=(AFormal)it.remove(0);
-            System.out.print("  "+s.getId().toString()+" : "+Types.toStr(s.getType()));
+            System.out.print(" "+s.getId().toString()+" : "+Types.toStr(s.getType()));
             if(!it.isEmpty())
 		System.out.print(", ");	       
 	}
