@@ -64,7 +64,8 @@ public class SymTableVisitor extends DepthFirstAdapter
       if(node.getId() != null)
       {
         try {
-            table.putMain(node.getId().toString(), node.getId().toString());}
+            table.putMain(node.getId().toString(), node.getId().toString());
+         }
         catch(Exception e){
             throw e;
         }
