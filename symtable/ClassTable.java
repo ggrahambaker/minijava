@@ -41,32 +41,37 @@ public class ClassTable {
     	  try { 
     	     ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
     	     table.put(name, newClass);
+	     System.out.println("FUCK"+name);
     	  } catch(Exception e){ //pass along any exceptions that occur when making the class
+		  System.out.println("IM ON MEGADRUGS");
     		  throw e;
     	  }
       }
    }
    
-   public void putMain(TId className, String methodName) throws Exception {
-	   try {
-		  // handle the method list
-	      LinkedList<PMethod> methodList = new LinkedList<PMethod>();
-	      methodList.add(new AMethod(null, new TId(methodName), null, null, null));
-	      // generate the appropriate class info
-	      TId name = className;
-	      ClassInfo main = new ClassInfo(name, null, null, methodList);
-	      // check for duplicates and add the main class info if it is good
-	      if(table.containsKey(className)){
-        	  throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
-          } else {
-        	  table.put(className.toString(), main);
-	      }
-	   } catch (Exception e){ //throw any exceptions that occur
-	       throw e;
+    public void putMain(String className, String methodName) throws Exception {
+       try {
+	   TId name =new TId(className);
+	   // handle the method list
+	   LinkedList<PMethod> methodList = new LinkedList<PMethod>();
+	   AMethod yolo = new AMethod(null, name, null, null, null);
+	   System.out.println("FUCK"+name.toString());
+	   methodList.add(yolo);
+	   // generate the appropriate class info
+	   ClassInfo main = new ClassInfo(name, null, null, methodList);
+	   // check for duplicates and add the main class info if it is good
+	   if(table.containsKey(name)){
+	       throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
+	   } 
+	   else {
+	       table.put(name.toString(), main);
 	   }
-	   
+       } catch (Exception e){ //throw any exceptions that occur
+	   System.out.println("IM ON DRUGS");
+	   throw e;
+       }
    }
-   
+    
    /** Lookup and return the ClassInfo record for the specified class */
    public ClassInfo get(String id) {
       return table.get(id);
@@ -80,6 +85,7 @@ public class ClassTable {
    /** dump prints info on each of the classes in the table */
    public void dump() {
       for(String name : table.keySet()){
+	  System.out.println(name);
     	  table.get(name).dump();
 	  System.out.println();
       }

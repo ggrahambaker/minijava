@@ -1,6 +1,5 @@
 package symtable;
 
-import symtable;
 import minijava.analysis.DepthFirstAdapter;
 import minijava.node.*;
 import java.io.PrintWriter;
@@ -39,8 +38,8 @@ public class SymTableVisitor extends DepthFirstAdapter
     }
     
     
-    public SymTableVisitor(PrintWriter out) {
-	   this.out = out;
+    public SymTableVisitor() {
+	this.out = new PrintWriter(System.out);
     }
    
    
@@ -64,8 +63,10 @@ public class SymTableVisitor extends DepthFirstAdapter
 
       if(node.getId() != null)
       {
-    	  table.putMain(node.getId(), node.getId().toString());
-    	  node.getId().apply(this);
+	  try{
+	      table.putMain(node.getId().toString(), node.getId().toString());}
+	  catch(Exception e){}
+	  node.getId().apply(this);
       }
 
       if(node.getStmt() != null)
@@ -89,7 +90,9 @@ public class SymTableVisitor extends DepthFirstAdapter
       }
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
-      table.put(node.getId(), null,copy1, copy2);
+      try{
+	  table.put(node.getId(), null,(LinkedList<PVarDecl>)copy1,(LinkedList<PMethod>) copy2);}
+      catch(Exception e){}
       //      out.println(" {");
       {
 
@@ -128,7 +131,9 @@ public class SymTableVisitor extends DepthFirstAdapter
 
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
-      table.put(node.getId(), node.getExtends(),copy1, copy2);
+      try{
+	  table.put(node.getId(), null,(LinkedList<PVarDecl>)copy1,(LinkedList<PMethod>) copy2);}
+      catch(Exception e){}
       //out.println(" {");
 
       {
