@@ -22,19 +22,27 @@ public class VarTable {
     * Constructor populates table from an initial list of VarDecls.
     * @param vars  A list of PVarDecl nodes from our AST.
      */
-   public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
-      //TODO Fill in the guts of this method.
-       
-   }
-   
+    public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
+	System.out.println(vars.size());
+	for(PVarDecl var : vars) { 
+	    try {
+		put(new TId(var.toString()), ((AVarDecl) var).getType());}
+	    catch(VarClashException e){}}
+	System.out.println(size()+"  soomethign");	
+    }
+    
    /** Allow the option of adding individual entries as well. */
    public void put(TId id, PType type) throws VarClashException {
-      String name = id.getText();
+      String name = id.toString().replaceAll("\\s","");
       if (table.containsKey(name)) {
          String msg = name + " redeclared on line " + id.getLine();
+	 System.out.println("Fuckoff "+name+"  "+type.toString());
          throw new VarClashException(msg); // There was a clash
       }
-      table.put(name, new VarInfo(type));    // No clash; add new binding
+      else {
+	  System.out.println("Fuckme "+name+"  "+type.toString());
+	  table.put(name, new VarInfo(type));    // No clash; add new binding
+      }
    }
    
     /** Lookup and return the type of a variable */
@@ -63,10 +71,9 @@ public class VarTable {
    public void dump() {
       //TODO Fill in the guts of this method.
        String s;
-       Iterator<String> it = table.keySet().iterator();
-       while(it.hasNext()){
-	   s=it.next();
-	   it.remove();
+       ArrayList<String> it = new ArrayList<String>(table.keySet());
+       while(!it.isEmpty()){
+	   s=it.remove(0);
 	   System.out.println("  "+s+" : "+table.get(s).toString());
        }
        System.out.println();

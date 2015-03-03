@@ -41,7 +41,6 @@ public class ClassTable {
 	    try { 
 		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
 		table.put(name, newClass);
-		System.out.println("woo ");
 	    } catch(Exception e){ //pass along any exceptions that occur when making the class
 		throw e;
 	    }

@@ -51,7 +51,6 @@ public class ClassInfo {
       this.className = className;
       this.superClass = superClass;
       this.vars = new VarTable(vars);           // Populate table from list
-      System.out.println(this.vars.size());
       this.methods = new MethodTable(methods);  // Ditto.
       System.out.println(this.vars.size());
    }

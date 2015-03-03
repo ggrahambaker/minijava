@@ -29,8 +29,9 @@ public class MethodTable {
    public MethodTable(LinkedList<PMethod> methods) throws Exception {
       //TODO Fill in the guts of this method.
       for(PMethod method : methods){
-        put(new TId(method.toString()), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());
-      }
+	  try{
+	      put(new TId(method.toString()), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
+	  catch(MethodClashException e){} }
    }
    
    /** 
@@ -48,12 +49,13 @@ public class MethodTable {
                    LinkedList<PFormal> formals,
                    LinkedList<PVarDecl> locals) throws Exception {
       //TODO Fill in the guts of this method.
-      String name = id.getText();
+      String name = id.toString().replaceAll("\\s","");
       if (table.containsKey(name)) {
          String msg = name + " redeclared on line " + id.getLine();
          throw new MethodClashException(msg); // There was a clash
       }
-      table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
+      else
+	  table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
    }
    
    /** Lookup and return the MethodInfo for the specified method */
@@ -72,13 +74,9 @@ public class MethodTable {
     */
    public void dump() {
       //TODO Fill in the guts of this method.
-       Iterator<MethodInfo> it = table.values().iterator();
-       MethodInfo mi;
-       while(it.hasNext()) {
-      	   mi = it.next();
-      	   it.remove();
-           mi.dump();
-       }
+       ArrayList<MethodInfo> it = new ArrayList<MethodInfo>(table.values());
+       while(!it.isEmpty()) 
+      	   it.remove(0).dump();
    }
    
    public void dumpIRT(boolean dot) {

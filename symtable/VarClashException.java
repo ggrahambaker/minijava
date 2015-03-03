@@ -9,6 +9,6 @@ package symtable;
 @SuppressWarnings("serial")
 public class VarClashException extends java.lang.Exception {
    public VarClashException(String msg) {
-      super(msg);
+       System.out.println(msg);
    }
 }
