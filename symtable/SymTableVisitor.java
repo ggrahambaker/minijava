@@ -62,12 +62,12 @@ public class SymTableVisitor extends DepthFirstAdapter
       //System.out.println("Now doing main"+node.getId().toString());
 
       if(node.getId() != null)
-      {/*
+      {
         try {
-            table.putMain(node.getId().toString(), node.getId().toString());}
+            table.putMain(node.getId().toString(), "main");}
         catch(Exception e){
             //throw e;
-	    }*/
+	    }
         
         node.getId().apply(this);
       }
@@ -84,7 +84,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseABaseClassDecl(ABaseClassDecl node)
    {
       inABaseClassDecl(node);
-      System.out.println("Now doing"+node.getId().toString());
+      //System.out.println("Now doing"+node.getId().toString());
       
       //indent(); out.print("class ");
       if(node.getId() != null)
@@ -124,7 +124,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    public void caseASubClassDecl(ASubClassDecl node)
    {
       inASubClassDecl(node);
-      System.out.println("Now doing"+node.getId().toString());
+      //System.out.println("Now doing"+node.getId().toString());
 
       if(node.getId() != null)
       {

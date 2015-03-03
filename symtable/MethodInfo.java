@@ -49,27 +49,26 @@ public class MethodInfo {
     this.retType = retType;
     this.name =name;
       // make formals VarDel, add to 'locals' linked list
-    for(PFormal f: formals){
+    /*for(PFormal f: formals){
 	//	if (f!=null){
 	AVarDecl var = new AVarDecl();
 	var.setType(((AFormal)f).getType());
-	System.out.println(var.getType());
 	var.setId(new TId(((AFormal)f).getId().toString().replaceAll("\\s","")));
-	locals.add(var);}//}
+	locals.add(var);}}*/
     this.formals = formals;
     this.locals = new VarTable(locals);
    }
     
 /* Accessors */   
-public TId getName() { return name; }
-public PType getRetType() { return retType; }
-public LinkedList<PFormal> getFormals() { return formals; }
-public VarTable getLocals() { return locals; }
-
-   /** Print info about the return type, formals, and local variables.
-    * It's OK if the formals appear in the local table as well.  In fact,
-    * it's a <i>good</i> thing since this output will help us debug later if 
-    * necessary, and we'll want to see exactly what's in the VarTable.
+    public TId getName() { return name; }
+    public PType getRetType() { return retType; }
+    public LinkedList<PFormal> getFormals() { return formals; }
+    public VarTable getLocals() { return locals; }
+    
+    /** Print info about the return type, formals, and local variables.
+     * It's OK if the formals appear in the local table as well.  In fact,
+     * it's a <i>good</i> thing since this output will help us debug later if 
+     * necessary, and we'll want to see exactly what's in the VarTable.
     */
     public void dump() {
 	//TODO Fill in the guts of this method.
@@ -80,12 +79,12 @@ public VarTable getLocals() { return locals; }
 	ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
 	while(!it.isEmpty()){
             s=(AFormal)it.remove(0);
-            System.out.print("  "+s.getId().toString());//+" : "+s.getType().toString());
+            System.out.print("  "+s.getId().toString()+" : "+Types.toStr(s.getType()));
             if(!it.isEmpty())
 		System.out.print(", ");	       
 	}
 	if (getRetType() != null)
-	    System.out.println(" ) : " + getRetType().toString());
+	    System.out.println(" ) : " + Types.toStr(getRetType()));
 	else
 	    System.out.println(" ) : void");	    
 	locals.dump();

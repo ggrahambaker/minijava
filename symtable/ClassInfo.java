@@ -51,7 +51,6 @@ public class ClassInfo {
       this.className = className;
       this.superClass = superClass;
       this.vars = new VarTable(vars);           // Populate table from list
-      System.out.println(this.vars.size());
       this.methods = new MethodTable(methods);  // Ditto.
       System.out.println(this.vars.size());
    }
@@ -66,9 +65,7 @@ public class ClassInfo {
        System.out.println("Class: " + className.getText());
        System.out.println("-------------------------------------");
        vars.dump();
-       System.out.println("woo ");
        methods.dump();
-       System.out.println("--------------------smerkweederryday-------");
    } 
    
    public void dumpIRT(boolean dot) {
