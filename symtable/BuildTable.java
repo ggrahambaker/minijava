@@ -36,8 +36,7 @@ public class BuildTable {
          // Retrieve the top-level Program node from start, and apply 
          // our symbol table visitor to it.
          start.getPProgram().apply(visitor);
-	 visitor.getTable().dump();
-	 System.out.println("FUCK");
+	 //visitor.getTable().dump();
       } catch (Exception e) {
          e.printStackTrace();
          System.exit(-1);

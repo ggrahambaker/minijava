@@ -60,8 +60,11 @@ public class ClassInfo {
    public MethodTable getMethodTable() { return methods; }
    
    public void dump() {
+       String s = className.getText();
+       if(superClass != null) 
+	   s+="  Extends: "+getSuper().getText();
        System.out.println("-------------------------------------");
-       System.out.println("Class: " + className.getText());
+       System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
        vars.dump();
        methods.dump();

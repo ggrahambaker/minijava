@@ -8,6 +8,6 @@ package symtable;
 @SuppressWarnings("serial")
 public class MethodClashException extends java.lang.Exception {
    public MethodClashException(String msg) {
-      super(msg);
+       System.out.println(msg);
    }
 }

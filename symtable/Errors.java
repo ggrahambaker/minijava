@@ -1,6 +1,6 @@
 class Main {
     public static void main(String[] a){
-	System.out.println(0);
+        System.out.println(0);
     }
 }
 
@@ -28,6 +28,6 @@ class Errors {
 }
 
 // Shouldn't be able to have TWO classes named Errors
-class Errors2 extends Errors {
+class Errors {
     int foo;
 }
