@@ -41,7 +41,6 @@ public class ClassTable {
 	    try { 
 		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
 		table.put(name, newClass);
-		System.out.println("woo ");
 	    } catch(Exception e){ //pass along any exceptions that occur when making the class
 		throw e;
 	    }
@@ -85,9 +84,7 @@ public class ClassTable {
     /** dump prints info on each of the classes in the table */
     public void dump() {
 	for(String name : table.keySet()){
-	    System.out.println(name);
 	    table.get(name).dump();
-	    System.out.println();
 	}
 }
     

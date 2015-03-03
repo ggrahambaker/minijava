@@ -23,12 +23,10 @@ public class VarTable {
     * @param vars  A list of PVarDecl nodes from our AST.
      */
     public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
-	System.out.println(vars.size());
 	for(PVarDecl var : vars) { 
 	    try {
 		put(new TId(var.toString()), ((AVarDecl) var).getType());}
-	    catch(VarClashException e){}}
-	System.out.println(size()+"  soomethign");	
+	    catch(VarClashException e){}}	
     }
     
    /** Allow the option of adding individual entries as well. */
@@ -36,13 +34,10 @@ public class VarTable {
       String name = id.toString().replaceAll("\\s","");
       if (table.containsKey(name)) {
          String msg = name + " redeclared on line " + id.getLine();
-	 System.out.println("Fuckoff "+name+"  "+type.toString());
          throw new VarClashException(msg); // There was a clash
       }
-      else {
-	  System.out.println("Fuckme "+name+"  "+type.toString());
+      else 
 	  table.put(name, new VarInfo(type));    // No clash; add new binding
-      }
    }
    
     /** Lookup and return the type of a variable */

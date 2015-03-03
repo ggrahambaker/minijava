@@ -30,7 +30,7 @@ public class MethodTable {
       //TODO Fill in the guts of this method.
       for(PMethod method : methods){
 	  try{
-	      put(new TId(method.toString()), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
+	      put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
 	  catch(MethodClashException e){} }
    }
    

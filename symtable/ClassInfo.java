@@ -52,7 +52,6 @@ public class ClassInfo {
       this.superClass = superClass;
       this.vars = new VarTable(vars);           // Populate table from list
       this.methods = new MethodTable(methods);  // Ditto.
-      System.out.println(this.vars.size());
    }
    
    public TId getName() { return className; }
