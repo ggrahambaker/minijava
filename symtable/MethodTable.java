@@ -28,10 +28,10 @@ public class MethodTable {
     */
    public MethodTable(LinkedList<PMethod> methods) throws Exception {
       //TODO Fill in the guts of this method.
-      for(PMethod method : methods){
-	  try{
-	      put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
-	  catch(MethodClashException e){} }
+       for(PMethod method : methods)//{
+	  //try{
+	      put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());
+	  //	  catch(MethodClashException e){} }
    }
    
    /** 
