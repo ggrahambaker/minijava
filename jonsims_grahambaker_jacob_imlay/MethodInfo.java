@@ -50,18 +50,20 @@ public class MethodInfo {
     this.name =name;
       // make formals VarDel, add to 'locals' linked list
     LinkedList<PFormal> newformals = new LinkedList<PFormal>();
-    for(PFormal f: formals){
-	boolean notfail = true;
-	String tempname = ((AFormal)f).toString();
-	for (PFormal j: newformals)
-	    if (((AFormal)j).toString().equals(tempname))
-		notfail=false;
-	if (notfail)
-	    newformals.add(f);
-	else{
-	    String msg = ((AFormal)f).toString() + " redeclared on line " + name.getLine();
-	    throw new VarClashException(msg); // There was a clash
-	}}
+    for(PFormal f: formals)
+	try {
+	    boolean notfail = true;
+	    String tempname = ((AFormal)f).toString();
+	    for (PFormal j: newformals)
+		if (((AFormal)j).toString().equals(tempname))
+		    notfail=false;
+	    if (notfail)
+		newformals.add(f);
+	    else{
+		String msg = ((AFormal)f).toString() + " redeclared on line " + name.getLine();
+		throw new VarClashException(msg); // There was a clash
+	    }}
+	catch(VarClashException e){} 
     this.formals = newformals;
     this.locals = new VarTable(locals);
    }
