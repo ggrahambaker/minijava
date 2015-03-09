@@ -25,15 +25,16 @@ public class VarTable {
     public VarTable(LinkedList<PVarDecl> vars) throws VarClashException {
 	for(PVarDecl var : vars) { 
 	    try {
-		put(new TId(var.toString()), ((AVarDecl) var).getType());}
-	    catch(VarClashException e){}}	
+		put(((AVarDecl)var).getId(), ((AVarDecl) var).getType());}
+	    catch(VarClashException e){
+		throw e;}}	
     }
     
    /** Allow the option of adding individual entries as well. */
    public void put(TId id, PType type) throws VarClashException {
       String name = id.toString().replaceAll("\\s","");
       if (table.containsKey(name)) {
-         String msg = name + " redeclared on line " + id.getLine();
+	  String msg = "VarClassException: "+name + " redeclared on line "+id.getLine();
          throw new VarClashException(msg); // There was a clash
       }
       else 
