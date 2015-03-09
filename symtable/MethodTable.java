@@ -28,10 +28,13 @@ public class MethodTable {
     */
    public MethodTable(LinkedList<PMethod> methods) throws Exception {
       //TODO Fill in the guts of this method.
-       for(PMethod method : methods)//{
-	  //try{
-	      put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());
-	  //	  catch(MethodClashException e){} }
+       for(PMethod method : methods)
+	   try{
+	       put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
+	   catch(MethodClashException e){
+	       throw e;}
+	       //  throw new MethodClassError("MethodClashException: "+((AMethod) method).getId().toString()+" redeclaired on line ");}
+   
    }
    
    /** 
@@ -45,13 +48,13 @@ public class MethodTable {
     * @param formals  A list of the method's formal variables (params)
     * @param locals   A list of the method's local variables
     */
-   public void put(TId id, PType retType, 
+    public void put(TId id, PType retType, 
                    LinkedList<PFormal> formals,
                    LinkedList<PVarDecl> locals) throws Exception {
       //TODO Fill in the guts of this method.
       String name = id.toString().replaceAll("\\s","");
       if (table.containsKey(name)) {
-         String msg = name + " redeclared on line " + id.getLine();
+         String msg = "MethodClashException: "+name + " redeclared on line " + id.getLine();
          throw new MethodClashException(msg); // There was a clash
       }
       else

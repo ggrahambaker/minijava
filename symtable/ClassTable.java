@@ -31,8 +31,7 @@ public class ClassTable {
     public void put(TId id, TId extendsId, LinkedList<PVarDecl> vars, LinkedList<PMethod> methods) throws Exception{
 	String name = id.toString();
 	if(table.containsKey(name)){  //if name is already in the table, throw exception
-	    String msg = name + " redeclared on line " + id.getLine();
-	    throw new ClassClashException(msg); } 
+	    throw new ClassClashException("ClassClashException: " + id.getText() + " redeclared at line " + id.getLine()); } 
 	else{ //otherwise, try to add the class
 	    try { 
 		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
@@ -57,7 +56,7 @@ public class ClassTable {
 	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
 	    // check for duplicates and add the main class info if it is good
 	    if(table.containsKey(name)){
-		throw new ClassClashException("The name " + name.getText() + " is already used at line " + name.getPos() + ". Try another name for this class");
+		throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());
 	    } 
 	    else {
 		table.put(className, main);

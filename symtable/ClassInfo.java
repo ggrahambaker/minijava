@@ -50,8 +50,14 @@ public class ClassInfo {
                     LinkedList<PMethod> methods) throws Exception { 
       this.className = className;
       this.superClass = superClass;
-      this.vars = new VarTable(vars);           // Populate table from list
-      this.methods = new MethodTable(methods);  // Ditto.
+      try{
+	  this.vars = new VarTable(vars);}           // Populate table from list
+      catch(VarClashException e){
+	  throw e;}
+      try{
+	  this.methods = new MethodTable(methods);}  // Ditto.
+      catch(Exception e){
+	  throw e;}
    }
    
    public TId getName() { return className; }

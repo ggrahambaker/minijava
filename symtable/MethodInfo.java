@@ -59,7 +59,7 @@ public class MethodInfo {
 	if (notfail)
 	    newformals.add(f);
 	else{
-	    String msg = ((AFormal)f).toString() + " redeclared on line " + name.getLine();
+	    String msg = "VarClashException: " + ((AFormal)f).toString() + " redeclared on line " + name.getLine();
 	    throw new VarClashException(msg); // There was a clash
 	}}
     this.formals = newformals;

@@ -55,7 +55,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    }
    
    
-   public void caseAMainClassDecl(AMainClassDecl node)
+    public void caseAMainClassDecl(AMainClassDecl node)// throws Exception
    {
        //table.putMain(node.getId(),'main');
       inAMainClassDecl(node);
@@ -66,7 +66,7 @@ public class SymTableVisitor extends DepthFirstAdapter
         try {
             table.putMain(node.getId().toString(), "main");}
         catch(Exception e){
-            //throw e;
+	    System.exit(-1);
 	    }
         
         node.getId().apply(this);
@@ -81,7 +81,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    }
    
    
-   public void caseABaseClassDecl(ABaseClassDecl node)
+    public void caseABaseClassDecl(ABaseClassDecl node)// throws Exception
    {
       inABaseClassDecl(node);
       //System.out.println("Now doing"+node.getId().toString());
@@ -98,7 +98,8 @@ public class SymTableVisitor extends DepthFirstAdapter
 	  table.put(node.getId(), null, new LinkedList<PVarDecl>(copy1),new LinkedList<PMethod>(copy2));
       
       }
-      catch(Exception e){}
+      catch(Exception e){
+	  System.exit(-1);}
       //      out.println(" {");
       {
 
@@ -121,7 +122,7 @@ public class SymTableVisitor extends DepthFirstAdapter
    }
    
    
-   public void caseASubClassDecl(ASubClassDecl node)
+    public void caseASubClassDecl(ASubClassDecl node)// throws Exception
    {
       inASubClassDecl(node);
       //System.out.println("Now doing"+node.getId().toString());
@@ -141,7 +142,8 @@ public class SymTableVisitor extends DepthFirstAdapter
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());
       try{
 	  table.put(node.getId(), node.getExtends(), new LinkedList<PVarDecl>(copy1),new LinkedList<PMethod>(copy2));}
-      catch(Exception e){}
+      catch(Exception e){
+	  System.exit(-1);}
       //out.println(" {");
 
       {
