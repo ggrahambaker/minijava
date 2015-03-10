@@ -65,7 +65,6 @@ public class MethodTable {
    public MethodInfo get(String name) {
       return table.get(name);
    }
-      
    /** Return all method names in the table */
    public Set<String> getMethodNames() {
       return table.keySet();

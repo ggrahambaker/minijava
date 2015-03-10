@@ -65,6 +65,19 @@ public class ClassTable {
 	    throw e;
 	}
     }
+
+    public void removeOverloading(){
+	for (ClassInfo c: table.values().toArray()){
+	    if(c.getSuper()!=null)
+		if(table.get(c.getSuper().toString())!=null){
+		    supermethods = table.get(c.getSuper().toString()).getMethodNames();
+		    for(MethodInfo m: c.getMethodTable())
+			if(supermethods.contains(m.getName().toString()))
+			    if (table.get(c.getSuper().toString()).get(m.getName().toString()).getFormals() == table.get(c.toString()).get(m.getName().toString()).getFormals()) // change this to check by value & check len & check ret type
+	}
+    }
+
+
     
     /** Lookup and return the ClassInfo record for the specified class */
     public ClassInfo get(String id) {
