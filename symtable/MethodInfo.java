@@ -63,7 +63,16 @@ public class MethodInfo {
 	    throw new VarClashException(msg); // There was a clash
 	}}
     this.formals = newformals;
-    this.locals = new VarTable(locals);
+    for(PFormal p: formals) {
+	AFormal f = (AFormal)p.clone();
+	AVarDecl temp = new AVarDecl();
+	temp.setType(f.getType());
+	temp.setId(f.getId());
+    	locals.add(temp);}
+    try{
+	this.locals = new VarTable(locals);}
+    catch(VarClashException e){
+	throw e;}
    }
     
 /* Accessors */   
