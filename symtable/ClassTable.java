@@ -72,8 +72,13 @@ public class ClassTable {
 		if(table.get(c.getSuper().toString())!=null){
 		    supermethods = table.get(c.getSuper().toString()).getMethodNames();
 		    for(MethodInfo m: c.getMethodTable())
-			if(supermethods.contains(m.getName().toString()))
-			    if (table.get(c.getSuper().toString()).get(m.getName().toString()).getFormals() == table.get(c.toString()).get(m.getName().toString()).getFormals()) // change this to check by value & check len & check ret type
+			if(supermethods.contains(m.getName().toString())){
+			    LinkedList<PFormal> notsup = table.get(c.toString()).get(m.getName().toString());
+			    LinkedList<PFormal> sup = table.get(c.getSuper().toString()).get(m.getName().toString());
+			    if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getType().toString().equals)(sup.getType().toString()) || (overloadingHelper(notsup.getFormals(),sup.getFormals()))) 
+				throw MethodClassError("MethodClassError: "+sup.getName().toString()+" overloaded in its subclass");
+			}
+		}
 	}
     }
 
