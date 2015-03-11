@@ -34,9 +34,9 @@ class Errors {
 
 class Errors2 extends Errors{
     int foo;
-    public int localFormalClash() {
+//    public int localFormalClash() {
 //        boolean arg;
-        return 7;
-    }    
+    //    return 7;
+  //  }    
 
 }

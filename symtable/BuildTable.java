@@ -43,6 +43,8 @@ public class BuildTable {
          TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
   //       start = parser.parse();
 //         System.out.println(start.toString());
+
+         System.out.println("LETS DO A TYPE VISIT!!");
          start.getPProgram().apply(typeVisit);
       } catch (Exception e) {
          e.printStackTrace();

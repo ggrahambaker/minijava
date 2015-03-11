@@ -13,13 +13,15 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     private ClassTable table;
     // what scope we are in!
     // private String scope;
-    // private ArrayList<VarInfo> vi = new ArrayList(); 
+    private ArrayList<VarInfo> vi;
+    private ArrayList<VarInfo>[] track = new ArrayList<VarInfo>[3];
 
 
 
     public TypeCheckVisitor(ClassTable st) {
 	    table = st;
-	    table.dump();
+	    // table.dump();
+	    vi = new ArrayList(); 
     	System.out.println("Got our class table, ready to continue");
     }
 
@@ -80,7 +82,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	        List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
 	        for(PVarDecl e : copy)
 	        {
-	            e.apply(this);
+	        	// send these down to the caseAVarDecl
+	         	e.apply(this);
 	        }
 	    }
 	    {
@@ -98,11 +101,19 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    inASubClassDecl(node);
 	    if(node.getId() != null)
 	    {
+	        ClassInfo ci = table.get(node.getId().toString());
+	        System.out.println(" ----- ");
+	    	System.out.println(ci.getName().toString() +  " class name!");
+	    	System.out.println(ci.getVarTable().size() + " var table size");
 	        node.getId().apply(this);
 	    }
 	    if(node.getExtends() != null)
 	    {
-	        node.getExtends().apply(this);
+	        ClassInfo ci = table.get(node.getExtends().toString());
+	        System.out.println(" ----- ");
+	    	System.out.println(ci.getName().toString() +  " super class name!");
+	    	System.out.println(ci.getVarTable().size() + " var table size");
+	        node.getId().apply(this);
 	    }
 	    {
 	        List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
@@ -134,7 +145,6 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    }
 	    outAVarDecl(node);
 	}
-
 
 	public void caseAMethod(AMethod node)
 	{

@@ -80,7 +80,7 @@ public class ClassTable {
 				MethodInfo notsup = table.get(c.getName().toString()).getMethodTable().get(m);
 				MethodInfo sup = table.get(c.getSuper().toString()).getMethodTable().get(m);
 				if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getRetType().toString().equals(sup.getRetType().toString() )) || (overloadingHelper(notsup.getFormals(),sup.getFormals())))
-				    throw new MethodClashException("MethodClashException: "+sup.getName().toString()+" overloaded in its subclass");
+				    throw new MethodClashException("MethodClashException: "+sup.getName().toString()+ "overloaded in its subclass");
 			    }
 		    }
 	    }
