@@ -35,15 +35,10 @@ public class ClassTable {
 	if(table.containsKey(name)){  //if name is already in the table, throw exception
 	    throw new ClassClashException("ClassClashException: " + id.getText() + " redeclared at line " + id.getLine()); } 
 	else{ //otherwise, try to add the class
-	    try { 
-<<<<<<< HEAD
-			ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
-			table.put(name, newClass);
-=======
+	    try {
 		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
 		table.put(name, newClass);
 		removeOverloading();
->>>>>>> c221608256031c517201c9f8e8ac63865c1f3907
 	    } catch(Exception e){ //pass along any exceptions that occur when making the class
 			throw e;
 	    }
