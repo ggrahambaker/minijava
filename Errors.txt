@@ -6,7 +6,12 @@ class Main {
 
 class Errors {
     int[] ints;
-    int n;
+    int nooo;
+    
+    // nooo = 1 + 1;
+
+
+
 
 //    int[] ints;  // Local var redeclaration.  Delete and retry
 
@@ -22,7 +27,7 @@ class Errors {
     // }
 
     // Formal clashes with local
-    public int localFormalClash(int arg) {
+    public int localFormalClash() {
 
 //        boolean arg;
         return 7;
@@ -32,11 +37,39 @@ class Errors {
 // Shouldn't be able to have TWO classes named Errors
 
 
-class Errors2 extends Errors{
-    int foo;
-//    public int localFormalClash() {
-//        boolean arg;
-    //    return 7;
-  //  }    
+// class Errors2 extends Errors{
+    //int foo;
+   // public int aaa() {
+      //  n = 10;
+        //return 7;
+    //}   
 
+    class Errors2 extends Errors{
+        int m;
+        int n;
+
+    
+    public int aaa() {
+        boolean m;
+        n = 10;
+        return (7);
+    }    
+
+    public boolean bbb() {
+        int[] n;
+        n = 10;
+        return (false);
+    }
+
+    public boolean ccc() {
+        int n;
+        n = 10;
+        return (7);
+    }
+
+    public int ddd() {
+        int[] ppp;
+        n = 10;
+        return (true);
+    }
 }

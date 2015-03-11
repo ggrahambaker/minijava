@@ -11,19 +11,20 @@ import java.util.*;
 public class TypeCheckVisitor extends DepthFirstAdapter
 {
     private ClassTable table;
-    // what scope we are in!
-    // private String scope;
-    private ArrayList<VarInfo> vi;
-    private ArrayList<VarInfo>[] track = new ArrayList<VarInfo>[3];
-
+    // for evaluating expressions
+    private Token carrier;
+    // for passing ids
+    private Node medium;
 
 
     public TypeCheckVisitor(ClassTable st) {
 	    table = st;
+	    carrier = null;
+	    medium = null;
 	    // table.dump();
-	    vi = new ArrayList(); 
     	System.out.println("Got our class table, ready to continue");
     }
+
 
     public void defaultIn(@SuppressWarnings("unused") Node node)
     {
@@ -54,8 +55,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    if(node.getId() != null)
 	    {
 	    	ClassInfo ci = table.get(node.getId().toString());
-	    	System.out.println(ci.getName().toString() +  " MAIN!");
-	    	System.out.println(ci.getVarTable().size() + " var table size");
+	    	// System.out.println(ci.getName().toString() +  " MAIN!");
+	    	// System.out.println(ci.getVarTable().size() + " var table size");
 	        node.getId().apply(this);
 	    }
 	    if(node.getStmt() != null)
@@ -68,21 +69,26 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	public void caseABaseClassDecl(ABaseClassDecl node)
 	{
 	    inABaseClassDecl(node);
+	    // // System.out.println(" NODE GET PARENT ");
+	    // System.out.println(node.parent().toString());
 	    if(node.getId() != null)
 	    {
 	        ClassInfo ci = table.get(node.getId().toString());
-	        System.out.println(" ----- ");
-	    	System.out.println(ci.getName().toString() +  " class name!");
-	    	System.out.println(ci.getVarTable().size() + " var table size");
+	        // System.out.println(" ----- ");
+	    	// System.out.println(ci.getName().toString() +  " class name!");
+	    	// System.out.println(ci.getVarTable().size() + " var table size");
 	        node.getId().apply(this);
 	    }
 	    {
 
 	    	// we need to store all these as refrence 
 	        List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
+	        medium = node;
 	        for(PVarDecl e : copy)
 	        {
 	        	// send these down to the caseAVarDecl
+	        	// System.out.println("about to go get the instance variables");
+	        	// System.out.println("---");
 	         	e.apply(this);
 	        }
 	    }
@@ -90,6 +96,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	        List<PMethod> copy = new ArrayList<PMethod>(node.getMethod());
 	        for(PMethod e : copy)
 	        {
+	        	// System.out.println("about to go get the methods");
+	        	// System.out.println("---");
 	            e.apply(this);
 	        }
 	    }
@@ -102,23 +110,27 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    if(node.getId() != null)
 	    {
 	        ClassInfo ci = table.get(node.getId().toString());
-	        System.out.println(" ----- ");
-	    	System.out.println(ci.getName().toString() +  " class name!");
-	    	System.out.println(ci.getVarTable().size() + " var table size");
+	        // System.out.println(" ----- ");
+	    	// System.out.println(ci.getName().toString() +  " class name!");
+	    	// System.out.println(ci.getVarTable().size() + " var table size");
 	        node.getId().apply(this);
 	    }
 	    if(node.getExtends() != null)
 	    {
 	        ClassInfo ci = table.get(node.getExtends().toString());
-	        System.out.println(" ----- ");
-	    	System.out.println(ci.getName().toString() +  " super class name!");
-	    	System.out.println(ci.getVarTable().size() + " var table size");
+	        // System.out.println(" ----- ");
+	    	// System.out.println(ci.getName().toString() +  " super class name!");
+	    	// System.out.println(ci.getVarTable().size() + " var table size");
 	        node.getId().apply(this);
 	    }
 	    {
 	        List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
+
+	        medium = node;
 	        for(PVarDecl e : copy)
 	        {
+	        	// System.out.println(" about to go get the instance variables");
+	        	// System.out.println("---");
 	            e.apply(this);
 	        }
 	    }
@@ -126,6 +138,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	        List<PMethod> copy = new ArrayList<PMethod>(node.getMethod());
 	        for(PMethod e : copy)
 	        {
+	        	// System.out.println("about to go get the methods");
+	        	// System.out.println("---");
 	            e.apply(this);
 	        }
 	    }
@@ -135,30 +149,131 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	public void caseAVarDecl(AVarDecl node)
 	{
 	    inAVarDecl(node);
+	    
+
 	    if(node.getType() != null)
 	    {
+	    	// System.out.print("Type - >" + Types.toStr(node.getType()) + " name - > ");
+	        
+
 	        node.getType().apply(this);
 	    }
 	    if(node.getId() != null)
 	    {
+	    	// System.out.println(node.getId().toString());
 	        node.getId().apply(this);
+	        // after we come back from ID, we can go see if we already used it,
+
+	        findAbove(node);
 	    }
 	    outAVarDecl(node);
 	}
 
-	public void caseAMethod(AMethod node)
-	{
+	private boolean findIt(AVarDecl needle, ListIterator<PVarDecl> hay){
+		// ListIterator<PVarDecl> listIterator = hay.listIterator();
+		System.out.println(needle.toString() + "  - node to string");
+		
+		while(hay.hasNext()){
+			AVarDecl temp = (AVarDecl) hay.next();
+			System.out.println(temp.toString() + "  - piece to string");
+			if(needle == temp && needle.getType() == temp.getType()) {
+				System.out.println("WOOO HOO! Found it with the same type!");
+				System.out.println(needle.getType().toString());
+				return true;
+			}
+
+		
+		}
+		return false;
+	}
+	private Node findAbove(AVarDecl node){
+		// System.out.println("A Var Decl is asking about a parent");
+		if(medium == null) return null;
+		
+		// we have to worry about this scope and the one above
+		if(medium instanceof ASubClassDecl){
+			// System.out.println(" ---- ASubClassDecl ---- ");
+			// System.out.println("medium -> " + medium.getClass());
+			// System.out.println( "node -> " + node.getId().toString());
+			// System.out.println("Did we find it? " + findIt(node, ((ASubClassDecl)medium).getVarDecl()));
+			ListIterator<PVarDecl> listIterator = ((ASubClassDecl)medium).getVarDecl().listIterator();
+			if(findIt(node, listIterator)){
+				System.out.println("--------> Var Redeclared in sub class!");
+
+			}
+
+			ClassInfo superId = table.get(((ASubClassDecl)medium).getExtends().toString());
+			VarTable superVar = superId.getVarTable();
+
+			System.out.println("SUPER CLASS ALERT");
+			// System.out.println(superId.getName().toString());
+
+			// if(findIt(node, superVar.getVarNames()))
+				// System.out.println(" --------> Var Redeclared in super class!");
+			// System.out.println(superId.getSuper().toString());
+		}
+
+		// we dont need to look here at all, its just a stm
+		if(medium instanceof AMainClassDecl){
+			System.out.println(" ---- AMainClassDecl ---- ");
+		}
+
+		// we only have to worry about this scope
+		if(medium instanceof ABaseClassDecl){
+			// System.out.println(" ---- ABaseClassDecl ---- ");
+			// System.out.println("medium -> " + medium.getClass());
+			// System.out.println( "node -> " + node.getId().toString());
+			ListIterator<PVarDecl> listIterator = ((ABaseClassDecl)medium).getVarDecl().listIterator();
+			if(findIt(node, listIterator))
+				System.out.println("--------> Var Redeclared in base class!");
+
+
+		}
+
+		// we have to worry about the scope and then our class scope,
+		// then we need to see if that class has a super class and look
+		// there too
+		if(medium instanceof AMethod){
+			System.out.println(" ---- AMethod ---- ");
+			System.out.println("medium -> " + medium.getClass());
+			System.out.println( "node -> " + node.getId().toString());
+		}
+
+	    // if(node.parent() != null){
+	    // 	System.out.println("We are not null, printing parent");
+	    // 	// System.out.println(node.parent().getClass());
+	    // 	Node parent = node.parent();
+	    // 		if(parent.parent() != null){
+	    // 			System.out.println("	Grandpa ??? ");
+	    // 			System.out.println(parent.parent().getClass());
+	    // 			Node g_pa = parent.parent();
+	    // 			if(medium instanceof AMethod){
+	    				
+	    // 				// this means we need to look in the super class
+	    // 				// of this subclass
+	    // 				System.out.println("I am a god");
+	    // 				// System.out.println(g_pa.parent().getClass());
+	    // 			}
+	    // 		}
+	    // }
+	    return null;
+	}
+
+	public void caseAMethod(AMethod node){
 	    inAMethod(node);
+	   // System.out.println("Lets see the method's return type");
+	    System.out.println(Types.toStr(node.getType()));
 	    if(node.getType() != null)
 	    {
+	    	// System.out.println("we are in!");
 	        node.getType().apply(this);
 	    }
-	    if(node.getId() != null)
-	    {
+	    if(node.getId() != null) {
 	        node.getId().apply(this);
 	    }
 	    {
 	        List<PFormal> copy = new ArrayList<PFormal>(node.getFormal());
+	        
 	        for(PFormal e : copy)
 	        {
 	            e.apply(this);
@@ -166,8 +281,10 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    }
 	    {
 	        List<PVarDecl> copy = new ArrayList<PVarDecl>(node.getVarDecl());
+	        // System.out.println("Size of PVarDecl - > " + copy.size());
 	        for(PVarDecl e : copy)
 	        {
+	        	medium = node;
 	            e.apply(this);
 	        }
 	    }
@@ -180,6 +297,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    }
 	    outAMethod(node);
 	}
+
+	// Formals are already in varDecl
 
 	public void caseAFormal(AFormal node)
 	{
@@ -200,13 +319,21 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     // see if it resolves to the correct type 
     public void caseAReturnStmt(AReturnStmt node)
     {
+    	System.out.println("THIS SHOULD BE CALLED!");
         inAReturnStmt(node);
         if(node.getExp() != null)
         {
+        	System.out.println("about to send the carrier");
             node.getExp().apply(this);
+            // when it comes back, 
+            // we need to know what the exp resolves to
+
+            System.out.println("The carrier came back!");
+            System.out.println(carrier.getText());
         }
         outAReturnStmt(node);
     }
+
 
 
 
@@ -276,11 +403,13 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getId() != null)
         {
             node.getId().apply(this);
+            System.out.println();
         }
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
         }
+        
         outAAsmtStmt(node);
     }
 
@@ -330,9 +459,36 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         outALtExp(node);
     }
 
-    
+    public void caseANumExp(ANumExp node)
+    {
+        inANumExp(node);
+        if(node.getNum() != null)
+        {
+        	carrier = node.getNum();
 
+            // node.getNum().apply(this);
+
+        }
+        outANumExp(node);
+    }
+
+    public void caseATrueExp(ATrueExp node)
+    {
+        carrier = new TTrue();
+    }
+    
+    public void caseAFalseExp(AFalseExp node)
+    {
+        carrier = new TFalse();
+    }
    
+   public void caseAIntArrayType(AIntArrayType node)
+   {
+   		System.out.println(node.toString() + " WE JUST WENT DOWN TO AN ARRAY");
+       // carrier = new AIntArrayType();
+   }
+
+
    // public void caseStart(Start node) {
    	
    //    inStart(node);

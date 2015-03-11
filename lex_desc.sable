@@ -77,7 +77,7 @@ Productions
 
     arg_declarationp {-> formal}  = {var_dec} comma type id {-> New formal(type.type,id)};
 
-    method_declaration {-> method} = {method_dec} public type id lparen arg_declaration? rparen lbrace var_declaration* stm* return exp semi rbrace{-> New method(type.type, id, [arg_declaration.formal], [var_declaration.var_decl],[stm.stmt])};  
+    method_declaration {-> method} = {method_dec} public type id lparen arg_declaration? rparen lbrace var_declaration* stm* return exp semi rbrace{-> New method(type.type, id, [arg_declaration.formal], [var_declaration.var_decl],[stm.stmt, New stmt.return(exp.exp)])};  
 
     stm {-> stmt} = {bracket} lbrace stm* rbrace {-> New stmt.block([stm.stmt])}// [stm2]:stm?
         | {if} if lparen exp rparen [stm1]:stm else [stm2]:stm {-> New stmt.if(exp.exp, stm1.stmt, stm2.stmt)} // [stm3]:stm?// stms
@@ -85,7 +85,7 @@ Productions
         | {print} print lparen exp rparen semi {-> New stmt.print(exp.exp)}
         | {assign} id asm exp semi {-> New stmt.asmt(id, exp.exp)}// stm?
         | {assign_array} id lbracket [exp1]:exp rbracket asm [exp2]:exp semi {-> New stmt.array_asmt(id, exp1.exp, exp2.exp)};// stm?
-        // | {var_dec} var_declaration {-> stm}// stm?
+        //  | {return} return exp {-> New stmt.return(exp.exp)};
 
 
     type {-> type} = {bool} boolean {-> New type.bool()}

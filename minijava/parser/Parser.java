@@ -1198,7 +1198,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode4 = new LinkedList<Object>();
         LinkedList<Object> listNode5 = new LinkedList<Object>();
-        LinkedList<Object> listNode6 = new LinkedList<Object>();
+        LinkedList<Object> listNode8 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1209,9 +1209,21 @@ public class Parser
         }
         {
             // Block
+        PStmt pstmtNode6;
+        {
+            // Block
+        PExp pexpNode7;
+        pexpNode7 = (PExp)nodeArrayList8.get(0);
+
+        pstmtNode6 = new AReturnStmt(pexpNode7);
+        }
+	if(pstmtNode6 != null)
+	{
+	  listNode8.add(pstmtNode6);
+	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode5, listNode6);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode5, listNode8);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1242,7 +1254,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode5 = new LinkedList<Object>();
         LinkedList<Object> listNode6 = new LinkedList<Object>();
-        LinkedList<Object> listNode7 = new LinkedList<Object>();
+        LinkedList<Object> listNode9 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1259,9 +1271,21 @@ public class Parser
         }
         {
             // Block
+        PStmt pstmtNode7;
+        {
+            // Block
+        PExp pexpNode8;
+        pexpNode8 = (PExp)nodeArrayList9.get(0);
+
+        pstmtNode7 = new AReturnStmt(pexpNode8);
+        }
+	if(pstmtNode7 != null)
+	{
+	  listNode9.add(pstmtNode7);
+	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode6, listNode7);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode6, listNode9);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1292,7 +1316,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode4 = new LinkedList<Object>();
         LinkedList<Object> listNode6 = new LinkedList<Object>();
-        LinkedList<Object> listNode7 = new LinkedList<Object>();
+        LinkedList<Object> listNode9 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1309,9 +1333,21 @@ public class Parser
         }
         {
             // Block
+        PStmt pstmtNode7;
+        {
+            // Block
+        PExp pexpNode8;
+        pexpNode8 = (PExp)nodeArrayList9.get(0);
+
+        pstmtNode7 = new AReturnStmt(pexpNode8);
+        }
+	if(pstmtNode7 != null)
+	{
+	  listNode9.add(pstmtNode7);
+	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode6, listNode7);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode6, listNode9);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1343,7 +1379,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode5 = new LinkedList<Object>();
         LinkedList<Object> listNode7 = new LinkedList<Object>();
-        LinkedList<Object> listNode8 = new LinkedList<Object>();
+        LinkedList<Object> listNode10 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1366,9 +1402,21 @@ public class Parser
         }
         {
             // Block
+        PStmt pstmtNode8;
+        {
+            // Block
+        PExp pexpNode9;
+        pexpNode9 = (PExp)nodeArrayList10.get(0);
+
+        pstmtNode8 = new AReturnStmt(pexpNode9);
+        }
+	if(pstmtNode8 != null)
+	{
+	  listNode10.add(pstmtNode8);
+	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode7, listNode8);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode7, listNode10);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1399,7 +1447,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode4 = new LinkedList<Object>();
         LinkedList<Object> listNode5 = new LinkedList<Object>();
-        LinkedList<Object> listNode7 = new LinkedList<Object>();
+        LinkedList<Object> listNode9 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1411,14 +1459,26 @@ public class Parser
         {
             // Block
         LinkedList<Object> listNode6 = new LinkedList<Object>();
+        PStmt pstmtNode7;
         listNode6 = (LinkedList)nodeArrayList7.get(0);
+        {
+            // Block
+        PExp pexpNode8;
+        pexpNode8 = (PExp)nodeArrayList9.get(0);
+
+        pstmtNode7 = new AReturnStmt(pexpNode8);
+        }
 	if(listNode6 != null)
 	{
-	  listNode7.addAll(listNode6);
+	  listNode9.addAll(listNode6);
+	}
+	if(pstmtNode7 != null)
+	{
+	  listNode9.add(pstmtNode7);
 	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode5, listNode7);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode5, listNode9);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1450,7 +1510,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode5 = new LinkedList<Object>();
         LinkedList<Object> listNode6 = new LinkedList<Object>();
-        LinkedList<Object> listNode8 = new LinkedList<Object>();
+        LinkedList<Object> listNode10 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1468,14 +1528,26 @@ public class Parser
         {
             // Block
         LinkedList<Object> listNode7 = new LinkedList<Object>();
+        PStmt pstmtNode8;
         listNode7 = (LinkedList)nodeArrayList8.get(0);
+        {
+            // Block
+        PExp pexpNode9;
+        pexpNode9 = (PExp)nodeArrayList10.get(0);
+
+        pstmtNode8 = new AReturnStmt(pexpNode9);
+        }
 	if(listNode7 != null)
 	{
-	  listNode8.addAll(listNode7);
+	  listNode10.addAll(listNode7);
+	}
+	if(pstmtNode8 != null)
+	{
+	  listNode10.add(pstmtNode8);
 	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode6, listNode8);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode6, listNode10);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1507,7 +1579,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode4 = new LinkedList<Object>();
         LinkedList<Object> listNode6 = new LinkedList<Object>();
-        LinkedList<Object> listNode8 = new LinkedList<Object>();
+        LinkedList<Object> listNode10 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1525,14 +1597,26 @@ public class Parser
         {
             // Block
         LinkedList<Object> listNode7 = new LinkedList<Object>();
+        PStmt pstmtNode8;
         listNode7 = (LinkedList)nodeArrayList8.get(0);
+        {
+            // Block
+        PExp pexpNode9;
+        pexpNode9 = (PExp)nodeArrayList10.get(0);
+
+        pstmtNode8 = new AReturnStmt(pexpNode9);
+        }
 	if(listNode7 != null)
 	{
-	  listNode8.addAll(listNode7);
+	  listNode10.addAll(listNode7);
+	}
+	if(pstmtNode8 != null)
+	{
+	  listNode10.add(pstmtNode8);
 	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode6, listNode8);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode4, listNode6, listNode10);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
@@ -1565,7 +1649,7 @@ public class Parser
         TId tidNode3;
         LinkedList<Object> listNode5 = new LinkedList<Object>();
         LinkedList<Object> listNode7 = new LinkedList<Object>();
-        LinkedList<Object> listNode9 = new LinkedList<Object>();
+        LinkedList<Object> listNode11 = new LinkedList<Object>();
         ptypeNode2 = (PType)nodeArrayList2.get(0);
         tidNode3 = (TId)nodeArrayList3.get(0);
         {
@@ -1589,14 +1673,26 @@ public class Parser
         {
             // Block
         LinkedList<Object> listNode8 = new LinkedList<Object>();
+        PStmt pstmtNode9;
         listNode8 = (LinkedList)nodeArrayList9.get(0);
+        {
+            // Block
+        PExp pexpNode10;
+        pexpNode10 = (PExp)nodeArrayList11.get(0);
+
+        pstmtNode9 = new AReturnStmt(pexpNode10);
+        }
 	if(listNode8 != null)
 	{
-	  listNode9.addAll(listNode8);
+	  listNode11.addAll(listNode8);
+	}
+	if(pstmtNode9 != null)
+	{
+	  listNode11.add(pstmtNode9);
 	}
         }
 
-        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode7, listNode9);
+        pmethodNode1 = new AMethod(ptypeNode2, tidNode3, listNode5, listNode7, listNode11);
         }
 	nodeList.add(pmethodNode1);
         return nodeList;
