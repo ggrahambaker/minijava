@@ -69,44 +69,42 @@ public class ClassTable {
 	}
     }
 
-    public void removeOverloading() throws MethodClashException{
-	for (ClassInfo c: table.values()){
-	    if(c.getSuper()!=null)
-		if(table.get(c.getSuper().toString())!=null){
-		    Set<String> supermethods = table.get(c.getSuper().toString()).getMethodTable().getMethodNames();
-		    for(String m: c.getMethodTable().getMethodNames())
-			if(supermethods.contains(m)){
-			    MethodInfo notsup = table.get(c.toString()).getMethodTable().get(m);
-			    MethodInfo sup = table.get(c.getSuper().toString()).getMethodTable().get(m);
-			    if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getRetType().toString().equals(sup.getRetType().toString())) || (overloadingHelper(notsup.getFormals(),sup.getFormals())))
-				throw new MethodClashException("MethodClashException: "+sup.getName().toString()+" overloaded in its subclass");
-			}
-		}
+    public void removeOverloading() throws Exception{
+	try {
+	    for (ClassInfo c: table.values()){
+		if(c.getSuper()!=null)
+		    if(table.get(c.getSuper().toString())!=null){
+			Set<String> supermethods = table.get(c.getSuper().toString()).getMethodTable().getMethodNames();
+			for(String m: c.getMethodTable().getMethodNames())
+			    if(supermethods.contains(m)){
+				MethodInfo notsup = table.get(c.getName().toString()).getMethodTable().get(m);
+				MethodInfo sup = table.get(c.getSuper().toString()).getMethodTable().get(m);
+				if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getRetType().toString().equals(sup.getRetType().toString() )) || (overloadingHelper(notsup.getFormals(),sup.getFormals())))
+				    throw new MethodClashException("MethodClashException: "+sup.getName().toString()+" overloaded in its subclass");
+			    }
+		    }
+	    }
 	}
-    }
-    
+	catch(Exception e){
+	    throw e;}}
     public boolean overloadingHelper(LinkedList <PFormal> l1,LinkedList <PFormal> l2) {
 	int[] types = {0,0,0};
 	for(PFormal p: l1){
-	    AFormal f = (AFormal)p;
-	    if(f.getType().toString().equals("boolean"))
+	    AFormal f = (AFormal)p.clone();
+	    if(Types.toStr(f.getType()).equals("boolean"))
 		types[0]++;
-	    else if(f.getType().toString().equals("int"))
+	    else if(Types.toStr(f.getType()).equals("int"))
 		types[1]++;
-	    else if(f.getType().toString().equals("int[]"))
-		types[2]++;
-	    else
-		System.out.println("FAIL! ABAONDON SHIP");}
+	    else if(Types.toStr(f.getType()).equals("int[]"))
+		types[2]++;}
 	for(PFormal p: l2){
-	    AFormal f = (AFormal)p;
-	    if(f.getType().toString().equals("boolean"))
+	    AFormal f = (AFormal)p.clone();
+	    if(Types.toStr(f.getType()).equals("boolean"))
 		types[0]--;
-	    else if(f.getType().toString().equals("int"))
+	    else if(Types.toStr(f.getType()).equals("int"))
 		types[1]--;
-	    else if(f.getType().toString().equals("int[]"))
-		types[2]--;
-	    else
-		System.out.println("FAIL! ABAONDON SHIP");}
+	    else if(Types.toStr(f.getType()).equals("int[]"))
+		types[2]--;}
 	if(types[0]==0&&types[1]==0&&types[2]==0)
 	    return false;
 	return true;

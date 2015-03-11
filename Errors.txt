@@ -30,7 +30,7 @@ class Errors {
 // Shouldn't be able to have TWO classes named Errors
 class Errors2 extends Errors{
     int foo;
-    public int localFormalClash(int arg) {
+    public int localFormalClash() {
 //        boolean arg;
         return 7;
     }    
