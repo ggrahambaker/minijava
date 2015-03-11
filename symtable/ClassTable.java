@@ -34,10 +34,10 @@ public class ClassTable {
 	    throw new ClassClashException("ClassClashException: " + id.getText() + " redeclared at line " + id.getLine()); } 
 	else{ //otherwise, try to add the class
 	    try { 
-		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
-		table.put(name, newClass);
+			ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
+			table.put(name, newClass);
 	    } catch(Exception e){ //pass along any exceptions that occur when making the class
-		throw e;
+			throw e;
 	    }
 	}
     }
@@ -66,40 +66,44 @@ public class ClassTable {
 	}
     }
 
-    public void removeOverloading(){
-	for (ClassInfo c: table.values().toArray()){
-	    if(c.getSuper()!=null)
-		if(table.get(c.getSuper().toString())!=null){
-		    supermethods = table.get(c.getSuper().toString()).getMethodNames();
-		    for(MethodInfo m: c.getMethodTable())
-			if(supermethods.contains(m.getName().toString())){
-			    LinkedList<PFormal> notsup = table.get(c.toString()).get(m.getName().toString());
-			    LinkedList<PFormal> sup = table.get(c.getSuper().toString()).get(m.getName().toString());
-			    if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getType().toString().equals)(sup.getType().toString()) || (overloadingHelper(notsup.getFormals(),sup.getFormals()))) 
-				throw MethodClassError("MethodClassError: "+sup.getName().toString()+" overloaded in its subclass");
-			}
-		}
-	}
-    }
+  //   public void removeOverloading(){
+		// for (ClassInfo c: table.values().toArray()){
+		//     if(c.getSuper()!=null){
+		// 		if(table.get(c.getSuper().toString())!=null){
+		// 		    supermethods = table.get(c.getSuper().toString()).getMethodNames();
+		// 		    for(MethodInfo m: c.getMethodTable())
+		// 				if(supermethods.contains(m.getName().toString())){
+		// 				    LinkedList<PFormal> notsup = table.get(c.toString()).get(m.getName().toString());
+		// 				    LinkedList<PFormal> sup = table.get(c.getSuper().toString()).get(m.getName().toString());
+		// 				    boolean isOver = (notsup.getFormals().size() != sup.getFormals().size()) || (! notsup.getType().toString().equals)(sup.getType().toString()) || (overloadingHelper(notsup.getFormals(),sup.getFormals()));
+		// 				    if (isOver){
+		// 				    	throw MethodClassError("MethodClassError: "+sup.getName().toString()+" overloaded in its subclass");
+		// 				    } 
+								
+		// 				}
+		// 		}		    	
+		//     }
+		// }
+  //   }
 
 
     
     /** Lookup and return the ClassInfo record for the specified class */
     public ClassInfo get(String id) {
-	return table.get(id);
+		return table.get(id);
     }
     
     /** Return all method names in the table */
     public Set<String> getClassNames() {
-	return table.keySet();
+		return table.keySet();
     }
     
     /** dump prints info on each of the classes in the table */
     public void dump() {
-	for(String name : table.keySet()){
-	    table.get(name).dump();
+		for(String name : table.keySet()){
+		    table.get(name).dump();
+		}
 	}
-}
     
     
    /** dump prints info on each of the classes in the table and 

@@ -14,6 +14,8 @@ public class SymTableVisitor extends DepthFirstAdapter
     private ClassTable table = new ClassTable();
     private String id;
 
+
+
     private PrintWriter out;
     //    private int depth = -2;
     
@@ -64,13 +66,12 @@ public class SymTableVisitor extends DepthFirstAdapter
       if(node.getId() != null)
       {
         try {
+            table.putMain(node.getId().toString(), "main");
+          }
 
-            table.putMain(node.getId().toString(), "main");}
-
-        catch(Exception e){
-	    System.exit(-1);
-	    }
-        
+        catch (Exception e){
+	         System.exit(-1);
+	       }
         node.getId().apply(this);
       }
 

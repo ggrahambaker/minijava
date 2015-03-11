@@ -2,6 +2,7 @@ import java.io.InputStreamReader;
 import java.io.PushbackReader;
 
 import symtable.SymTableVisitor;
+import symtable.TypeCheckVisitor;
 import minijava.lexer.Lexer;
 import minijava.node.Start;
 import minijava.parser.Parser;
@@ -29,6 +30,7 @@ public class BuildTable {
                                   new InputStreamReader(System.in), 1024)));
       SymTableVisitor visitor = new SymTableVisitor();
       
+      
       try {
          // Ask our parser object to do its thing.  Store the AST in start.
          Start start = parser.parse();
@@ -36,6 +38,12 @@ public class BuildTable {
          // Retrieve the top-level Program node from start, and apply 
          // our symbol table visitor to it.
          start.getPProgram().apply(visitor);
+
+
+         TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
+  //       start = parser.parse();
+//         System.out.println(start.toString());
+         start.getPProgram().apply(typeVisit);
       } catch (Exception e) {
          e.printStackTrace();
          System.exit(-1);
@@ -43,6 +51,19 @@ public class BuildTable {
       
       // The visitor created a symbol table for us, and that table has a
       // dump() method to display its contents.  Time to see what we got...
-      visitor.getTable().dump();
+      // visitor.getTable().dump();
+
+
+      
+
+      // try {
+      //   // System.out.println("about to do the first apply!!");
+      //   // Start s = parser.parse();
+      //   // System.out.println(s.toString());
+      //   s.getPProgram().apply(typeVisit);
+      // } catch(Exception e){
+      //   e.printStackTrace();
+      //   System.exit(-1);
+      // }
    }
 }
