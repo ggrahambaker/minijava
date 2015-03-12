@@ -217,9 +217,11 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAMethod(AMethod node)
     {
         inAMethod(node);
+        // we can assume this method is properly being overridden if it is at all.
         if(node.getType() != null)
         {
             node.getType().apply(this);
+            System.out.println(medium.getClass());
         }
         if(node.getId() != null)
         {
@@ -263,10 +265,14 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAFormal(AFormal node)
     {
         inAFormal(node);
+        
+        // need to check if the type is legal from the symbol table
+        // ill wait on this until later
         if(node.getType() != null)
         {
             node.getType().apply(this);
         }
+
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -362,21 +368,34 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         
         if(retType instanceof ABoolType){      
           // means we are looking for a true or false
-          if(!(medium instanceof ATrueExp) || !(medium instanceof AFalseExp)){
-            System.out.println("Error: Expecting a boolean, not a "+medium.getClass());
-            System.exit(1);
-          } 
+          boolean a = medium instanceof ATrueExp;
+          // System.out.println(a);
+          boolean b = medium instanceof AFalseExp;
+          // System.out.println(b);
 
+          // BUG!!! if a number is getting parsed like 
+          // (10)
+          // we evaluate it as a boolean!!
+
+
+          boolean isBool = false;
+          if(!a) {isBool = true;}
+          if(!b) {isBool = true;}
+          System.out.println(isBool);
+          if(!isBool){
+            System.out.println("Error: boolean expected");
+            System.exit(1);
+          }
+           
         } else if (retType instanceof AIntType){
           // other stuff
-          System.out.println("INT");
+          // System.out.println("INT");
           // means we are looking for a number
           if(!(medium instanceof ANumExp)){
             System.out.println("Error: Expecting a int, not a "+medium.getClass());
             System.exit(1);
           } 
         } // more options later
-
 
         outAReturnStmt(node);
     }
