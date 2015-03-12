@@ -1,0 +1,46 @@
+class Main {
+    public static void main(String[] a){
+        System.out.println(0);
+    }
+}
+
+class Errors {
+    int[] ints;
+    int nooo;
+}
+
+// Shouldn't be able to have TWO classes named Errors
+
+
+
+
+class Errors2 extends Errors{
+        int m;
+        int n;
+
+    
+    public aaa() {
+        boolean m;
+        n = 10;
+        return (7);
+    }    
+
+    public boolean bbb() {
+        int[] n;
+        n = 10;
+        // return ( 9 );
+        return false;
+    }
+
+    public int ccc() {
+        int n;
+        n = 10;
+        return (7);
+    }
+
+    public int ddd() {
+        int[] ppp;
+        n = 10;
+        return (100 * 1);
+    }
+}

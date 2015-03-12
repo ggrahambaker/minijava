@@ -354,10 +354,30 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
-            
         }
 
-        System.out.println(node.parent().toString());
+        System.out.println(" -- method info -- ");
+        AMethod am = (AMethod) node.parent();
+        PType retType = am.getType();
+        
+        if(retType instanceof ABoolType){      
+          // means we are looking for a true or false
+          if(!(medium instanceof ATrueExp) || !(medium instanceof AFalseExp)){
+            System.out.println("Error: Expecting a boolean, not a "+medium.getClass());
+            System.exit(1);
+          } 
+
+        } else if (retType instanceof AIntType){
+          // other stuff
+          System.out.println("INT");
+          // means we are looking for a number
+          if(!(medium instanceof ANumExp)){
+            System.out.println("Error: Expecting a int, not a "+medium.getClass());
+            System.exit(1);
+          } 
+        } // more options later
+
+
         outAReturnStmt(node);
     }
 
@@ -440,11 +460,11 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         // so we want to see if we are in a base, or sub method
         // we know parent is method, we dont know about its parent
 
-        if(node.parent().parent() instanceof ABaseClassDecl){
-          System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
-        } else {
-          System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
-        }
+        // if(node.parent().parent() instanceof ABaseClassDecl){
+        //   System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
+        // } else {
+        //   System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
+        // }
         inAAsmtStmt(node);
         if(node.getId() != null)
         {
