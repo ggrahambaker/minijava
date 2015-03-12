@@ -7,8 +7,7 @@ class Main {
 class Errors {
     int[] ints;
     int nooo;
-    
-    // nooo = 1 + 1;
+
 
 
 
@@ -16,9 +15,10 @@ class Errors {
 //    int[] ints;  // Local var redeclaration.  Delete and retry
 
     // Formal param redeclaration (delete one to continue tests)
-//    public int pointless(int arg, int arg) {
-//        return 7;
-//    }
+    public int pointless(int arg){//, int arg) {
+        nooo = 7+1;
+	return nooo;
+    }
 
     // Method redeclaration (no overloading in MiniJava)
     // Delete this method to continue tests

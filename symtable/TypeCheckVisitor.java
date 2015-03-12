@@ -403,10 +403,10 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getId() != null)
         {
             node.getId().apply(this);
-            System.out.println();
         }
         if(node.getExp() != null)
         {
+            System.out.println("    id="+node.getId()+"  ");
             node.getExp().apply(this);
         }
         
@@ -459,18 +459,78 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         outALtExp(node);
     }
 
+
+public void caseAPlusExp(APlusExp node)
+   {
+      inAPlusExp(node);
+      if(node.getLeft() != null)
+      {
+         node.getLeft().apply(this);
+	 System.out.println(node.getLeft() instanceof ANumExp);
+      }
+      if(node.getRight() != null)
+      {
+         node.getRight().apply(this);
+      }
+      outAPlusExp(node);
+   }
+   
+   
+   public void caseAMinusExp(AMinusExp node)
+   {
+      inAMinusExp(node);
+      if(node.getLeft() != null)
+      {
+         node.getLeft().apply(this);
+      }
+      if(node.getRight() != null)
+      {
+         node.getRight().apply(this);
+      }
+      outAMinusExp(node);
+   }
+   
+   
+   public void caseATimesExp(ATimesExp node)
+   {
+      inATimesExp(node);
+      if(node.getLeft() != null)
+      {
+         node.getLeft().apply(this);
+      }
+      if(node.getRight() != null)
+      {
+         node.getRight().apply(this);
+      }
+      outATimesExp(node);
+   }
+
+
+
     public void caseANumExp(ANumExp node)
     {
         inANumExp(node);
         if(node.getNum() != null)
         {
         	carrier = node.getNum();
-
+		System.out.println(" YO "+node);
             // node.getNum().apply(this);
 
         }
         outANumExp(node);
     }
+
+public void caseAIntType(AIntType node)
+    {
+	System.out.println(node);
+   }
+   
+   
+   public void caseABoolType(ABoolType node)
+   {
+   }
+   
+   
 
     public void caseATrueExp(ATrueExp node)
     {
