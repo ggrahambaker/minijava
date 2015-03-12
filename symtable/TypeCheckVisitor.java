@@ -595,9 +595,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 		System.exit(1);
 	    }
 	}
-	boolean result = Integer.parseInt(((ANumExp)left).getNum().getText()) +Integer.parseInt(((ANumExp)left).getNum().getText());
-	TNum con = new TNum(Integer.toString(result));
-	medium = new ANumExp(con);
+	// boolean result = Integer.parseInt(((ANumExp)left).getNum().getText()) +Integer.parseInt(((ANumExp)left).getNum().getText());
+	// TNum con = new TNum(Integer.toString(result));
+	// medium = new ANumExp(con);
         outALtExp(node);
     }
 
@@ -615,26 +615,29 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAPlusExp(APlusExp node)
     {
         inAPlusExp(node);
-	Node left = null;
-	Node right = null;
+        System.out.println("IN PLUS!!");
+      	Node left = null;
+      	Node right = null;
         if(node.getLeft() != null){
-	    node.getLeft().apply(this);
-	    left = medium;
-	    if(!(left instanceof ANumExp)){
-		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
-		System.exit(1);}}
-	if(node.getRight() != null){
-	    node.getRight().apply(this);
-	    right = medium;
-	    if(!(right instanceof ANumExp)){
-          	System.out.println("Error: "+node.getRight().toString()+" is not of type int");
-		System.exit(1);
-	    }
-	}
-	int result = Integer.parseInt(((ANumExp)left).getNum().getText()) +Integer.parseInt(((ANumExp)right).getNum().getText());
-	TNum con = new TNum(Integer.toString(result));
-	medium = new ANumExp(con);
-	outAPlusExp(node);
+    	    node.getLeft().apply(this);
+    	    left = medium;
+    	    if(!(left instanceof ANumExp)){
+    		    System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+    		    System.exit(1);}
+          }
+      	if(node.getRight() != null){
+      	    node.getRight().apply(this);
+      	    right = medium;
+      	    if(!(right instanceof ANumExp)){
+                System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+      		      System.exit(1);
+      	    }
+      	}
+      	int result = Integer.parseInt(((ANumExp)left).getNum().getText()) +Integer.parseInt(((ANumExp)right).getNum().getText());
+        System.out.println(result + " : the result!!");
+      	TNum con = new TNum(Integer.toString(result));
+      	medium = new ANumExp(con);
+      	outAPlusExp(node);
     }
 
     public void inAMinusExp(AMinusExp node)
@@ -650,31 +653,29 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     @Override
     public void caseAMinusExp(AMinusExp node)
     {
-         inAPlusExp(node);
-        
+        inAMinusExp(node);
         Node left = null;
-        if(node.getLeft() != null)
-         if(node.getLeft() instanceof ANumExp){
+        Node right = null;
+        if(node.getLeft() != null){
           node.getLeft().apply(this);
           left = medium;
-         }
-         else {
-          System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
-          System.exit(1);}    
-        if(node.getRight() != null)
-          if(node.getRight() instanceof ANumExp){
-            node.getRight().apply(this);
-            int result = Integer.parseInt(((ANumExp)medium).getNum().getText())  - Integer.parseInt(((ANumExp)left).getNum().getText());
-            System.out.println(result + " -> the result!"); 
-            TNum con = new TNum(Integer.toString(result));
-            medium = new ANumExp(con);
-            System.out.println(medium.toString());
-            System.out.println(medium.getClass());
-          } else {
-            System.out.println("Error: "+node.getRight().toString()+" is not of type int");
-            System.exit(1);
+          if(!(left instanceof ANumExp)){
+            System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+            System.exit(1);}
           }
-        outAPlusExp(node);
+        if(node.getRight() != null){
+            node.getRight().apply(this);
+            right = medium;
+            if(!(right instanceof ANumExp)){
+                System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+                System.exit(1);
+            }
+        }
+        int result = Integer.parseInt(((ANumExp)left).getNum().getText()) - Integer.parseInt(((ANumExp)right).getNum().getText());
+        System.out.println(result + " : the result!!");
+        TNum con = new TNum(Integer.toString(result));
+        medium = new ANumExp(con);
+        outAMinusExp(node);
     }
 
     public void inATimesExp(ATimesExp node)
@@ -691,20 +692,27 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseATimesExp(ATimesExp node)
     {
         inATimesExp(node);
-        if(node.getLeft() != null)
-
-	    if(node.getLeft() instanceof ANumExp)
-		node.getLeft().apply(this);
-	    else {
-		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
-		System.exit(1);}		
-	if(node.getRight() != null)
-	    if(node.getRight() instanceof ANumExp)
-		node.getRight().apply(this);
-	    else {
-		System.out.println("Error: "+node.getRight().toString()+" is not of type int");
-		System.exit(1);}
-    	outATimesExp(node);
+                Node left = null;
+        Node right = null;
+        if(node.getLeft() != null){
+          node.getLeft().apply(this);
+          left = medium;
+          if(!(left instanceof ANumExp)){
+            System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+            System.exit(1);}
+          }
+        if(node.getRight() != null){
+            node.getRight().apply(this);
+            right = medium;
+            if(!(right instanceof ANumExp)){
+                System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+                System.exit(1);
+            }
+        }
+        int result = Integer.parseInt(((ANumExp)left).getNum().getText()) * Integer.parseInt(((ANumExp)right).getNum().getText());
+        System.out.println(result + " : the result!!");
+        TNum con = new TNum(Integer.toString(result));
+        medium = new ANumExp(con);
     }
 
     public void inANotExp(ANotExp node)
