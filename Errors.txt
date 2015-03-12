@@ -16,6 +16,7 @@ class Errors {
 
     // Formal param redeclaration (delete one to continue tests)
     public int pointless(int arg){//, int arg) {
+        n = 1 + 1;
         n= true;
 	ints = new int[1];
 	if( true)
