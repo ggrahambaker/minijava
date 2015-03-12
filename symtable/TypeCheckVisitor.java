@@ -650,20 +650,31 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     @Override
     public void caseAMinusExp(AMinusExp node)
     {
-        inAMinusExp(node);
+         inAPlusExp(node);
+        
+        Node left = null;
         if(node.getLeft() != null)
-	    if(node.getLeft() instanceof ANumExp)
-		node.getLeft().apply(this);
-	    else {
-		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
-		System.exit(1);}		
-	if(node.getRight() != null)
-	    if(node.getRight() instanceof ANumExp)
-		node.getRight().apply(this);
-	    else {
-		System.out.println("Error: "+node.getRight().toString()+" is not of type int");
-		System.exit(1);}
-        outAMinusExp(node);
+         if(node.getLeft() instanceof ANumExp){
+          node.getLeft().apply(this);
+          left = medium;
+         }
+         else {
+          System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+          System.exit(1);}    
+        if(node.getRight() != null)
+          if(node.getRight() instanceof ANumExp){
+            node.getRight().apply(this);
+            int result = Integer.parseInt(((ANumExp)medium).getNum().getText())  - Integer.parseInt(((ANumExp)left).getNum().getText());
+            System.out.println(result + " -> the result!"); 
+            TNum con = new TNum(Integer.toString(result));
+            medium = new ANumExp(con);
+            System.out.println(medium.toString());
+            System.out.println(medium.getClass());
+          } else {
+            System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+            System.exit(1);
+          }
+        outAPlusExp(node);
     }
 
     public void inATimesExp(ATimesExp node)
