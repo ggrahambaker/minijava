@@ -346,15 +346,6 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         outAUserType(node);
     }
 
-    public void inAReturnStmt(AReturnStmt node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAReturnStmt(AReturnStmt node)
-    {
-        defaultOut(node);
-    }
 
     @Override
     public void caseAReturnStmt(AReturnStmt node)
@@ -365,32 +356,11 @@ public class TypeCheckVisitor extends DepthFirstAdapter
             node.getExp().apply(this);
             
         }
+
+        System.out.println(node.parent().toString());
         outAReturnStmt(node);
     }
 
-    public void inABlockStmt(ABlockStmt node)
-    {
-        defaultIn(node);
-    }
-
-    public void outABlockStmt(ABlockStmt node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseABlockStmt(ABlockStmt node)
-    {
-        inABlockStmt(node);
-        {
-            List<PStmt> copy = new ArrayList<PStmt>(node.getStmt());
-            for(PStmt e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        outABlockStmt(node);
-    }
 
     public void inAIfStmt(AIfStmt node)
     {
@@ -446,26 +416,6 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         outAWhileStmt(node);
     }
 
-    public void inAPrintStmt(APrintStmt node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAPrintStmt(APrintStmt node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAPrintStmt(APrintStmt node)
-    {
-        inAPrintStmt(node);
-        if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
-        outAPrintStmt(node);
-    }
 
     public void inAAsmtStmt(AAsmtStmt node)
     {
@@ -692,7 +642,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseATimesExp(ATimesExp node)
     {
         inATimesExp(node);
-                Node left = null;
+        Node left = null;
         Node right = null;
         if(node.getLeft() != null){
           node.getLeft().apply(this);
