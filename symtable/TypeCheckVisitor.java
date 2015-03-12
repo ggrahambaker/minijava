@@ -583,13 +583,17 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     {
         inALtExp(node);
         if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
+	    if(node.getLeft() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)	    
+		node.getLeft().apply(this);
+	    else {
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type boolean");
+		System.exit(1);}	
+	if(node.getRight() != null)
+	    if(node.getRight() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)
+		node.getRight().apply(this);
+	    else {
+		System.out.println("Error: "+node.getRight().toString()+" is not of type boolean");
+		System.exit(1);	    }	
         outALtExp(node);
     }
 
@@ -608,13 +612,17 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     {
         inAPlusExp(node);
         if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
+	    if(node.getLeft() instanceof ANumExp)
+		node.getLeft().apply(this);
+	    else {
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+		System.exit(1);}		
+	if(node.getRight() != null)
+	    if(node.getRight() instanceof ANumExp)
+		node.getRight().apply(this);
+	    else {
+		System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+		System.exit(1);}
         outAPlusExp(node);
     }
 
@@ -633,13 +641,17 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     {
         inAMinusExp(node);
         if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
+	    if(node.getLeft() instanceof ANumExp)
+		node.getLeft().apply(this);
+	    else {
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+		System.exit(1);}		
+	if(node.getRight() != null)
+	    if(node.getRight() instanceof ANumExp)
+		node.getRight().apply(this);
+	    else {
+		System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+		System.exit(1);}
         outAMinusExp(node);
     }
 
