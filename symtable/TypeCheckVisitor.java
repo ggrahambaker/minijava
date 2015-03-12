@@ -409,6 +409,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
+	    if(!(medium instanceof ATrueExp ||medium instanceof AFalseExp)){
+		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+		System.exit(1);}		
         }
         if(node.getYes() != null)
         {
@@ -438,6 +441,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
+	    if(!(medium instanceof ATrueExp ||medium instanceof AFalseExp)){
+		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+		System.exit(1);}	
         }
         if(node.getStmt() != null)
         {
