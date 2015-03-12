@@ -379,6 +379,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
+	    if(!(medium instanceof ATrueExp ||medium instanceof AFalseExp)){
+		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+		System.exit(1);}		
         }
         if(node.getYes() != null)
         {
@@ -408,6 +411,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getExp() != null)
         {
             node.getExp().apply(this);
+	    if(!(medium instanceof ATrueExp ||medium instanceof AFalseExp)){
+		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+		System.exit(1);}	
         }
         if(node.getStmt() != null)
         {
@@ -499,19 +505,37 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAAndExp(AAndExp node)
     {
         inAAndExp(node);
-        if(node.getLeft() != null)
-	    if(node.getLeft() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)	    
-		node.getLeft().apply(this);
-	    else {
+	Node left = null;
+	Node right = null;
+        if(node.getLeft() != null){
+	    node.getLeft().apply(this);
+	    left = medium;
+	    if(!(left instanceof ATrueExp || left instanceof AFalseExp)){
 		System.out.println("Error: "+node.getLeft().toString()+" is not of type boolean");
-		System.exit(1);}	
-	if(node.getRight() != null)
-	    if(node.getRight() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)
-		node.getRight().apply(this);
-	    else {
-		System.out.println("Error: "+node.getRight().toString()+" is not of type boolean");
+		System.exit(1);}}
+	if(node.getRight() != null){
+	    node.getRight().apply(this);
+	    right = medium;
+	    if(!(right instanceof ATrueExp || right instanceof AFalseExp)){
+          	System.out.println("Error: "+node.getRight().toString()+" is not of type boolean");
 		System.exit(1);
-	    }	
+	    }
+	}
+	boolean l; boolean r;
+	if (left instanceof ATrueExp )
+	    l=true;
+	else
+	    l=false;
+	if (right instanceof ATrueExp )
+	    r=true;
+	else
+	    r=false;
+	boolean result = l&&r;
+	if (result)
+	    medium = new ATrueExp();
+	else
+	    medium = new AFalseExp();
+	System.out.println("   and->"+node.toString()+"  "+(Boolean.toString(result)));
 	outAAndExp(node);
     }
 
@@ -534,20 +558,24 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         if(node.getLeft() != null){
 	    node.getLeft().apply(this);
 	    left = medium;
-	    if(!(left instanceof ATrueExp || left instanceof AFalseExp)){
-		System.out.println("Error: "+node.getLeft().toString()+" is not of type boolean");
+	    if(!(left instanceof ANumExp)){
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
 		System.exit(1);}}
 	if(node.getRight() != null){
 	    node.getRight().apply(this);
 	    right = medium;
-	    if(!(right instanceof ATrueExp || right instanceof AFalseExp)){
-          	System.out.println("Error: "+node.getRight().toString()+" is not of type boolean");
+	    if(!(right instanceof ANumExp)){
+          	System.out.println("Error: "+node.getRight().toString()+" is not of type int");
 		System.exit(1);
 	    }
 	}
-	// boolean result = Integer.parseInt(((ANumExp)left).getNum().getText()) +Integer.parseInt(((ANumExp)left).getNum().getText());
-	// TNum con = new TNum(Integer.toString(result));
-	// medium = new ANumExp(con);
+
+	boolean result = Integer.parseInt(((ANumExp)left).getNum().getText()) < Integer.parseInt(((ANumExp)right).getNum().getText());
+	if (result)
+	    medium = new ATrueExp();
+	else
+	    medium = new AFalseExp();
+	System.out.println("   lt->"+node.toString()+"  "+(Boolean.toString(result)));
         outALtExp(node);
     }
 
@@ -604,6 +632,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAMinusExp(AMinusExp node)
     {
         inAMinusExp(node);
+
         Node left = null;
         Node right = null;
         if(node.getLeft() != null){
@@ -613,6 +642,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
             System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
             System.exit(1);}
           }
+
         if(node.getRight() != null){
             node.getRight().apply(this);
             right = medium;
@@ -625,6 +655,8 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         System.out.println(result + " : the result!!");
         TNum con = new TNum(Integer.toString(result));
         medium = new ANumExp(con);
+
+
         outAMinusExp(node);
     }
 
