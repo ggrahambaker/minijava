@@ -2,6 +2,8 @@ package symtable;
 
 import minijava.analysis.DepthFirstAdapter;
 import minijava.node.*;
+import java.io.PrintWriter;
+
 import java.util.*;
 
 public class TypeCheckVisitor extends DepthFirstAdapter
@@ -551,14 +553,19 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     {
         inAAndExp(node);
         if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
-        outAAndExp(node);
+	    if(node.getLeft() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)	    
+		node.getLeft().apply(this);
+	    else {
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type boolean");
+		System.exit(1);}	
+	if(node.getRight() != null)
+	    if(node.getRight() instanceof ATrueExp || node.getLeft() instanceof AFalseExp)
+		node.getRight().apply(this);
+	    else {
+		System.out.println("Error: "+node.getRight().toString()+" is not of type boolean");
+		System.exit(1);
+	    }	
+	outAAndExp(node);
     }
 
     public void inALtExp(ALtExp node)
@@ -651,18 +658,19 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     {
         inATimesExp(node);
         if(node.getLeft() != null)
-	         if(node.getLeft() instanceof ANumExp){
-              node.getLeft().apply(this);
-           }
-	         else {
-		        // e.printStackTrace();
-		        System.out.println("Not a num exp");
-          }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
-        outATimesExp(node);
+
+	    if(node.getLeft() instanceof ANumExp)
+		node.getLeft().apply(this);
+	    else {
+		System.out.println("Error: "+node.getLeft().toString()+" is not of type int");
+		System.exit(1);}		
+	if(node.getRight() != null)
+	    if(node.getRight() instanceof ANumExp)
+		node.getRight().apply(this);
+	    else {
+		System.out.println("Error: "+node.getRight().toString()+" is not of type int");
+		System.exit(1);}
+    	outATimesExp(node);
     }
 
     public void inANotExp(ANotExp node)
@@ -681,7 +689,11 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         inANotExp(node);
         if(node.getExp() != null)
         {
-            node.getExp().apply(this);
+	    if(node.getExp() instanceof ATrueExp || node.getExp() instanceof AFalseExp)
+		node.getExp().apply(this);
+	    else {
+		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+		System.exit(1);}
         }
         outANotExp(node);
     }
