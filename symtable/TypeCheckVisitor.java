@@ -650,7 +650,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     @Override
     public void caseAMinusExp(AMinusExp node)
     {
-         inAPlusExp(node);
+         inAMinusExp(node);
         
         Node left = null;
         if(node.getLeft() != null)
@@ -674,7 +674,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
             System.out.println("Error: "+node.getRight().toString()+" is not of type int");
             System.exit(1);
           }
-        outAPlusExp(node);
+        outAMinusExp(node);
     }
 
     public void inATimesExp(ATimesExp node)
