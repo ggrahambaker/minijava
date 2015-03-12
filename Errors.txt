@@ -1,0 +1,84 @@
+class Main {
+    public static void main(String[] a){
+        System.out.println(0);
+    }
+}
+
+class Errors {
+    int[] ints;
+    int nooo;
+
+
+
+    boolean n;
+
+//    int[] ints;  // Local var redeclaration.  Delete and retry
+
+    // Formal param redeclaration (delete one to continue tests)
+    public int pointless(int arg){//, int arg) {
+        //n = 1 + 1;
+        n=  true && false;
+        n=  true && true;
+	n = 1 < 3;
+	n = 3 < 2;
+	ints = new int[1];
+	if( 1<2)
+		nooo = 3 + 4 + 2;
+	else
+		nooo = 4;
+	return nooo;
+    }
+
+    // Method redeclaration (no overloading in MiniJava)
+    // Delete this method to continue tests
+    // public int pointless(int i, int j, int k) {
+    //     return 7;
+    // }
+
+    // Formal clashes with local
+    public int localFormalClash() {
+
+//        boolean arg;
+        return 7;
+    }
+}
+
+// Shouldn't be able to have TWO classes named Errors
+
+
+// class Errors2 extends Errors{
+    //int foo;
+   // public int aaa() {
+      //  n = 10;
+        //return 7;
+    //}   
+
+    class Errors2 extends Errors{
+        int m;
+        int n;
+
+    
+    public int aaa() {
+        boolean m;
+        n = 10;
+        return (7);
+    }    
+
+    public boolean bbb() {
+        int[] n;
+        n = 10;
+        return (false);
+    }
+
+    public boolean ccc() {
+        int n;
+        n = 10;
+        return (7);
+    }
+
+    public int ddd() {
+        int[] ppp;
+        n = 10;
+        return (true);
+    }
+}
