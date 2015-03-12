@@ -8,7 +8,7 @@ import java.util.*;
  * This visitor class goes through the .
  * @author Graham Baker
  */
-public class TypeCheckVisitor extends DepthFirstAdapter
+public class TypeCheckVisitor2 extends DepthFirstAdapter
 {
     private ClassTable table;
     // for evaluating expressions
@@ -17,7 +17,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     private Node medium;
 
 
-    public TypeCheckVisitor(ClassTable st) {
+    public TypeCheckVisitor2(ClassTable st) {
 	    table = st;
 	    carrier = null;
 	    medium = null;
