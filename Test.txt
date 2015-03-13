@@ -7,6 +7,11 @@ class Main {
 class Errors {
     int[] ints;
     int nooo;
+
+    public int aaa() {
+        nooo = 10;
+        return nooo;
+    }
 }
 
 // Shouldn't be able to have TWO classes named Errors
@@ -27,8 +32,7 @@ class Errors2 extends Errors{
     public boolean bbb() {
         int[] n;
         n = 10;
-        // return ( 9 );
-        return 10;
+        return (100);
     }
 
     public int ccc() {
