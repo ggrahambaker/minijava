@@ -481,51 +481,55 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         // we know parent is method, we dont know about its parent
 
         if(node.parent().parent() instanceof ABaseClassDecl){
-          System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
-          ABaseClassDecl b = (ABaseClassDecl) node.parent().parent();
-          // System.out.println(b.getId().getText() +  "   : some text");
-          // Set<String> cl = table.getClassNames();
-          // System.out.println(cl.size());
-
-          ClassInfo ci = null;
-          String id = b.getId().getText();
-          System.out.println(id + " -> ze ID");
-          
-          // table get is always returning null, 
-          // i dont know why??
-          ci = table.get("Errors");
-          if(ci == null)
-            System.out.println("??");
+	    System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
+	    ABaseClassDecl b = (ABaseClassDecl) node.parent().parent();
+	    System.out.println(b.getId().getText() +  "   : classic text");
+	    // Set<String> cl = table.getClassNames();
+	    // System.out.println(cl.size());
+	    
+	    ClassInfo ci = null;
+	    String id = b.getId().getText();
+	    System.out.println(id + " -> ze ID");
+	    
+	    // table get is always returning null, 
+	    // i dont know why??
+	    ci = table.get("Errors");
+	    if(ci == null)
+		System.out.println("??");
           // TId ti = (TId) ci.getName().clone();
-
-          
-          AMethod am = (AMethod) node.parent();
-          LinkedList<PVarDecl> varz = am.getVarDecl();
-          System.out.println("size of our thing??");
-          System.out.println(varz.size());
-
-
-        } else if(node.parent().parent() instanceof ASubClassDecl) {
-          System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
+	    
+	    
+	    AMethod am = (AMethod) node.parent();
+	    LinkedList<PVarDecl> varz = am.getVarDecl();
+	    System.out.println("size of our thing??");
+	    System.out.println(varz.size());
+	    
+	    
+        }
+	else if(node.parent().parent() instanceof ASubClassDecl) {
+	    System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
           AMethod am = (AMethod) node.parent();
           LinkedList<PVarDecl> varz = am.getVarDecl();
           System.out.println("size of our thing??");
           System.out.println(varz.size());
         }
         // is our parent a base class or sub class? 
-
-        AMethod am = (AMethod) node.parent();
+	
+	Node parent = node.parent();
+	while (! (parent instanceof AMethod))
+	    parent = parent.parent();	    
+        AMethod am = (AMethod) parent;
         PType retType = am.getType();
 
         inAAsmtStmt(node);
         if(node.getId() != null)
-        {
-            node.getId().apply(this);
-        }
+	    {
+		node.getId().apply(this);
+	    }
         if(node.getExp() != null)
-        {
-            node.getExp().apply(this);
-        }
+	    {
+		node.getExp().apply(this);
+	    }
         // first get class info
 
 
