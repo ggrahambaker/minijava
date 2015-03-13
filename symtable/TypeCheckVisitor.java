@@ -490,7 +490,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
           ClassInfo ci = null;
           String id = b.getId().getText();
           System.out.println(id + " -> ze ID");
-          // table.dump();
+          
+          // table get is always returning null, 
+          // i dont know why??
           ci = table.get("Errors");
           if(ci == null)
             System.out.println("??");
