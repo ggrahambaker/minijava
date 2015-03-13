@@ -480,9 +480,15 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         // so we want to see if we are in a base, or sub method
         // we know parent is method, we dont know about its parent
 
-        if(node.parent().parent() instanceof ABaseClassDecl){
+	Node parent = node.parent();
+	while (! ((parent instanceof ABaseClassDecl) || (parent instanceof ASubClassDecl) || (parent instanceof AMainClassDecl) ))
+	    parent = parent.parent();	    
+	Node parentmeth = node.parent();
+	while (! (parent instanceof AMethod))
+	    parentmeth = parentmeth.parent();
+        if(parent instanceof ABaseClassDecl){
 	    System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
-	    ABaseClassDecl b = (ABaseClassDecl) node.parent().parent();
+	    ABaseClassDecl b = (ABaseClassDecl) parent;
 	    System.out.println(b.getId().getText() +  "   : classic text");
 	    // Set<String> cl = table.getClassNames();
 	    // System.out.println(cl.size());
@@ -506,19 +512,16 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 	    
 	    
         }
-	else if(node.parent().parent() instanceof ASubClassDecl) {
-	    System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
-          AMethod am = (AMethod) node.parent();
+	else if(parent instanceof ASubClassDecl) {
+	    System.out.println(parent.getClass() +  "   : ASubClassDecl");
+          AMethod am = (AMethod) parentmeth;
           LinkedList<PVarDecl> varz = am.getVarDecl();
           System.out.println("size of our thing??");
           System.out.println(varz.size());
         }
         // is our parent a base class or sub class? 
-	
-	Node parent = node.parent();
-	while (! (parent instanceof AMethod))
-	    parent = parent.parent();	    
-        AMethod am = (AMethod) parent;
+	   
+        AMethod am = (AMethod) parentmeth;
         PType retType = am.getType();
 
         inAAsmtStmt(node);
