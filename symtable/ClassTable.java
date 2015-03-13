@@ -37,6 +37,7 @@ public class ClassTable {
 	else{ //otherwise, try to add the class
 	    try {
 		ClassInfo newClass = new ClassInfo(id, extendsId, vars, methods);
+			// System.out.println(newClass.getName().getText() + " in our symtable visitor");
 		table.put(name, newClass);
 		removeOverloading();
 	    } catch(Exception e){ //pass along any exceptions that occur when making the class

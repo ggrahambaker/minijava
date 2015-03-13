@@ -482,13 +482,33 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 
         if(node.parent().parent() instanceof ABaseClassDecl){
           System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
+          ABaseClassDecl b = (ABaseClassDecl) node.parent().parent();
+          // System.out.println(b.getId().getText() +  "   : some text");
+          // Set<String> cl = table.getClassNames();
+          // System.out.println(cl.size());
+
+          ClassInfo ci = null;
+          String id = b.getId().getText();
+          System.out.println(id + " -> ze ID");
+          // table.dump();
+          ci = table.get("Errors");
+          if(ci == null)
+            System.out.println("??");
+          // TId ti = (TId) ci.getName().clone();
+
           
           AMethod am = (AMethod) node.parent();
-          PType retType = am.getType();
+          LinkedList<PVarDecl> varz = am.getVarDecl();
+          System.out.println("size of our thing??");
+          System.out.println(varz.size());
 
 
         } else if(node.parent().parent() instanceof ASubClassDecl) {
           System.out.println(node.parent().parent().getClass() +  "   : ASubClassDecl");
+          AMethod am = (AMethod) node.parent();
+          LinkedList<PVarDecl> varz = am.getVarDecl();
+          System.out.println("size of our thing??");
+          System.out.println(varz.size());
         }
         // is our parent a base class or sub class? 
 

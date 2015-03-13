@@ -9,6 +9,8 @@ class Errors {
     int nooo;
 
     public int aaa() {
+        int a;
+        int[] b;
         nooo = 10;
         return nooo;
     }
@@ -32,7 +34,7 @@ class Errors2 extends Errors{
     public boolean bbb() {
         int[] n;
         n = 10;
-        return (100);
+        return (false);
     }
 
     public int ccc() {
