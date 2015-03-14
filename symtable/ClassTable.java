@@ -31,7 +31,8 @@ public class ClassTable {
     * @param methods    A list of the methods in the class
     */
     public void put(TId id, TId extendsId, LinkedList<PVarDecl> vars, LinkedList<PMethod> methods) throws Exception{
-	String name = id.toString();
+	// String name = id.toString();
+	 String name = id.toString().replaceAll("\\s","");
 	if(table.containsKey(name)){  //if name is already in the table, throw exception
 	    throw new ClassClashException("ClassClashException: " + id.getText() + " redeclared at line " + id.getLine()); } 
 	else{ //otherwise, try to add the class

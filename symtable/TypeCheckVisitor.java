@@ -10,14 +10,16 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 {
     private ClassTable table;
     // for evaluating expressions
-    private Token carrier;
+    private Node classInfo;
+    private AMethod methodInfo;
     // for passing ids
     private Node medium;
 
 
     public TypeCheckVisitor(ClassTable st) {
 	    table = st;
-	    carrier = null;
+	    classInfo = null;
+      methodInfo = null;
 	    medium = null;
 	    // table.dump();
     	System.out.println("Got our class table, ready to continue");
@@ -90,6 +92,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAMainClassDecl(AMainClassDecl node)
     {
         inAMainClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -115,6 +118,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseABaseClassDecl(ABaseClassDecl node)
     {
         inABaseClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -150,6 +154,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseASubClassDecl(ASubClassDecl node)
     {
         inASubClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -217,6 +222,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     public void caseAMethod(AMethod node)
     {
         inAMethod(node);
+        methodInfo = node;
         // we can assume this method is properly being overridden if it is at all.
         if(node.getType() != null)
         {
@@ -365,8 +371,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         // System.out.println(" -- method info -- ");
         AMethod am = (AMethod) node.parent();
         PType retType = am.getType();
-        //System.out.println("class of ret type");
-        // System.out.println(retType.getClass());
+
         
         if(retType instanceof ABoolType){      
           // means we are looking for a true or false
@@ -479,61 +484,132 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         // if we are in here, we have to be in a method. 
         // so we want to see if we are in a base, or sub method
         // we know parent is method, we dont know about its parent
-
-	Node parent = node.parent();
-	while (! ((parent instanceof ABaseClassDecl) || (parent instanceof ASubClassDecl) || (parent instanceof AMainClassDecl) ))
-	    parent = parent.parent();	    
-	Node parentmeth = node.parent();
-	while (! (parent instanceof AMethod))
-	    parentmeth = parentmeth.parent();
-        if(parent instanceof ABaseClassDecl){
-	    System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
-	    ABaseClassDecl b = (ABaseClassDecl) parent;
-	    System.out.println(b.getId().getText() +  "   : classic text");
-	    // Set<String> cl = table.getClassNames();
-	    // System.out.println(cl.size());
-	    
-	    ClassInfo ci = null;
-	    String id = b.getId().getText();
-	    System.out.println(id + " -> ze ID");
-	    
-	    // table get is always returning null, 
-	    // i dont know why??
-	    ci = table.get("Errors");
-	    if(ci == null)
-		System.out.println("??");
-          // TId ti = (TId) ci.getName().clone();
-	    
-	    
-	    AMethod am = (AMethod) node.parent();
-	    LinkedList<PVarDecl> varz = am.getVarDecl();
-	    System.out.println("size of our thing??");
-	    System.out.println(varz.size());
-	    
-	    
-        }
-	else if(parent instanceof ASubClassDecl) {
-	    System.out.println(parent.getClass() +  "   : ASubClassDecl");
-          AMethod am = (AMethod) parentmeth;
-          LinkedList<PVarDecl> varz = am.getVarDecl();
-          System.out.println("size of our thing??");
-          System.out.println(varz.size());
-        }
-        // is our parent a base class or sub class? 
-	   
-        AMethod am = (AMethod) parentmeth;
-        PType retType = am.getType();
-
+        
         inAAsmtStmt(node);
-        if(node.getId() != null)
-	    {
-		node.getId().apply(this);
-	    }
-        if(node.getExp() != null)
-	    {
-		node.getExp().apply(this);
-	    }
-        // first get class info
+        // save our id
+        Node visitedID = null;
+        Node type = null;
+        if(node.getId() != null){
+         node.getId().apply(this);
+         visitedID = medium;
+         // System.out.println(node.getId().getText() + " -> the visited id to string");
+        }
+        if(node.getExp() != null){
+        node.getExp().apply(this);
+          type = medium;
+        }
+         
+
+        // use classInfo to get class information! a little easier
+        // System.out.println("Let us see about our classinfo");
+        // System.out.println(classInfo.getClass());
+        
+        String id = "";
+        if(classInfo instanceof ABaseClassDecl){
+          // System.out.println(((ABaseClassDecl)classInfo).getId().getText());
+          id = ((ABaseClassDecl)classInfo).getId().getText();
+          ClassInfo ci = table.get(id);
+          // lets first see if the var is our method 
+          System.out.println(methodInfo.getId().getText());
+          // LinkedList<PVarDecl> methodVars = methodInfo.getVarDecl();
+          MethodTable mt = ci.getMethodTable();
+          MethodInfo mi = mt.get(methodInfo.getId().getText());
+          // System.out.println(mi.getName().getText() + " the table query");
+          VarTable vt = mi.getLocals();
+          Set<String> ee = vt.getVarNames();
+          
+          for(String a : ee){
+            System.out.println(a + "  the var");
+          }
+          
+          String a = node.getId().toString();
+          a = a.replaceAll("\\s","");
+
+          VarInfo oo = vt.getInfo(node.getId().toString()); 
+          // System.out.println(a + "--> id string");
+          // System.out.println(visitedID.toString() + " -> the visited id to string");
+      
+
+
+          System.out.println(type.getClass() + " - > type of our assignment");
+          String temp = node.getId().getText();
+          PType ty = vt.get(temp);
+          System.out.println(Types.toStr(ty));
+
+          // ci.dump();
+
+          // var table from class
+          VarTable v = ci.getVarTable();
+          Set<String> varSet = v.getVarNames();
+          if(varSet.contains(node.getId().getText())){
+             System.out.println(" eyyyy we feound it!");
+             // check types now
+          }
+
+
+          for(String var : varSet){
+            System.out.println(var + " - the varz");
+            if(var.equals(node.getId().getText()))
+              System.out.println(" eyyyy we feound it!");
+            
+          }
+
+        }
+
+
+    
+  
+       
+
+
+
+
+
+	// Node parent = node.parent();
+	// while (! ((parent instanceof ABaseClassDecl) || (parent instanceof ASubClassDecl) || (parent instanceof AMainClassDecl) ))
+	//     parent = parent.parent();	    
+	// Node parentmeth = node.parent();
+	// while (! (parent instanceof AMethod))
+	//     parentmeth = parentmeth.parent();
+ //        if(parent instanceof ABaseClassDecl){
+	//     System.out.println(node.parent().parent().getClass() +  "   : ABaseClassDecl");
+	//     ABaseClassDecl b = (ABaseClassDecl) parent;
+	//     System.out.println(b.getId().getText() +  "   : classic text");
+	//     // Set<String> cl = table.getClassNames();
+	//     // System.out.println(cl.size());
+	    
+	//     ClassInfo ci = null;
+	//     String id = b.getId().getText();
+	//     System.out.println(id + " -> ze ID");
+	    
+	//     // table get is always returning null, 
+	//     // i dont know why??
+	//     // ci = table.get("Errors");
+	//     // if(ci == null)
+	// 	   //  System.out.println("??");
+ //          // TId ti = (TId) ci.getName().clone();
+	    
+	    
+	//     AMethod am = (AMethod) node.parent();
+	//     LinkedList<PVarDecl> varz = am.getVarDecl();
+	//     System.out.println("size of our thing??");
+	//     System.out.println(varz.size());
+	    
+	    
+ //        }
+	// else if(parent instanceof ASubClassDecl) {
+	//     System.out.println(parent.getClass() +  "   : ASubClassDecl");
+ //          AMethod am = (AMethod) parentmeth;
+ //          LinkedList<PVarDecl> varz = am.getVarDecl();
+ //          System.out.println("size of our thing??");
+ //          System.out.println(varz.size());
+ //        }
+ //        // is our parent a base class or sub class? 
+	   
+ //        AMethod am = (AMethod) parentmeth;
+ //        PType retType = am.getType();
+
+ 
 
 
 
@@ -794,11 +870,12 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         inANotExp(node);
         if(node.getExp() != null)
         {
-	    if(node.getExp() instanceof ATrueExp || node.getExp() instanceof AFalseExp)
-		node.getExp().apply(this);
-	    else {
-		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
-		System.exit(1);}
+    	   if(node.getExp() instanceof ATrueExp || node.getExp() instanceof AFalseExp)
+    		    node.getExp().apply(this);
+    	   else {
+        		System.out.println("Error: "+node.getExp().toString()+" is not of type boolean");
+        		System.exit(1);
+          }
         }
         outANotExp(node);
     }
@@ -921,6 +998,7 @@ public class TypeCheckVisitor extends DepthFirstAdapter
         {
             node.getId().apply(this);
         }
+        // medium = node;
         outAIdExp(node);
     }
 
