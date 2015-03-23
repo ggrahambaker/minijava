@@ -67,15 +67,15 @@ class Errors {
     }    
 
     public boolean bbb() {
-        int[] n;
+        //int[] n;
         n = 10;
-        return ( 9 );
+        return false;
     }
 
     public boolean ccc() {
         int n;
         n = 10;
-        return (7);
+        return false;
     }
 
     public int ddd() {
@@ -83,4 +83,24 @@ class Errors {
         n = 10;
         return (100 * 1);
     }
+
+    public int controlFlow(int a) {
+            int b;
+            int c;         
+            int d;
+            int unused;
+            while (a < 3) {  // All uses of a are ok
+                b = a;       // Uses of b *inside* loop are ok now
+                if (b < 2) {
+                    c = b; 
+                    d = a;   // d only initialized along this 
+           } else
+                c = b;  
+               a = c;       // No error -- c definitely initialized
+              System.out.println(d); // Error: d is a "maybe"
+           }
+           System.out.println(b);     // Error: b is a "maybe" here
+           System.out.println(d);     // Error: d is still "maybe" 
+           return a;
+       }
 }

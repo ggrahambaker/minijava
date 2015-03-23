@@ -47,7 +47,7 @@ public class MethodInfo {
        LinkedList<PVarDecl> locals) throws VarClashException {
       //TODO Fill in the guts of this method.
     this.retType = retType;
-    this.name =name;
+    this.name = name;
       // make formals VarDel, add to 'locals' linked list
     LinkedList<PFormal> newformals = new LinkedList<PFormal>();
     for(PFormal f: formals){

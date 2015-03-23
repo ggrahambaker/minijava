@@ -50,14 +50,15 @@ class BS{
 
 	aux01 = 0 ;
 	bs01 = false ;
-	right = number.length ;
+
+	right = 10 ;
 	right = right - 1 ;
 	left = 0 ;
 	var_cont = true ;
 	while (var_cont){
 	    medium = left + right ;
 	    medium = this.Div(medium);
-	    aux01 = number[medium] ;
+	    aux01 = 10;//number[medium] ;
 	    if (num < aux01) right = medium - 1 ;
 	    else left = medium + 1 ;
 	    if (this.Compare(aux01,num)) var_cont = false ;

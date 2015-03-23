@@ -140,6 +140,7 @@ public class SymTableVisitor extends DepthFirstAdapter
          node.getExtends().apply(this);
          node.getExtends().apply(this);
       }
+      
 
       List<PVarDecl> copy1 = new ArrayList<PVarDecl>(node.getVarDecl());
       List<PMethod> copy2 = new ArrayList<PMethod>(node.getMethod());

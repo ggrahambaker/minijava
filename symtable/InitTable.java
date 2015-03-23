@@ -1,3 +1,5 @@
+package symtable;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Set;
@@ -81,11 +83,31 @@ public class InitTable
    }
       
    /** 
-    * Merge info from the branches of a conditional.  I'll let you do this one.
+    * Merge info from the branches of a conditional.  
+    * consolidate vars that might be initialized in either branch 
     */
-   public void mergeIf(InitTable t, InitTable f) {
 
-      // Your code goes here...
+   public void mergeIf(InitTable t, InitTable f) {
+      Set<String> tVars = t.getVarNames();
+      Set<String> fVars = f.getVarNames();
+
+      for(String remaining : tVars){
+        if((t.get(remaining) == Status.Yes) && (f.get(remaining) == Status.Yes)){
+          // System.out.println("Woo we should add this as yes back to table");
+            put(remaining, Status.Yes);
+        } else {
+            put(remaining, Status.Maybe);
+        }
+              
+      }
+
+   }
+
+   public void print(){
+    Set<String> a = getVarNames();
+    for(String b : a){
+      System.out.println("var -> "+  b + " status : " + get(b) );
       
+    }
    }
 }

@@ -17,6 +17,7 @@ class QS{
     // Methods
     public int Start(int sz){
 	int aux01 ;
+	size = 10;
 	aux01 = this.Init(sz);
 	aux01 = this.Print();
 	System.out.println(9999);

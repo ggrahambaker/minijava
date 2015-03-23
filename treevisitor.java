@@ -15,6 +15,7 @@ class TV {
 	boolean ntb ;
 	int nti ;
 	MyVisitor v ;
+	int[] test ;
 
 	root = new Tree();
 	ntb = root.Init(16);
@@ -26,23 +27,24 @@ class TV {
 	ntb = root.Insert(12) ;
 	ntb = root.Insert(20) ;
 	ntb = root.Insert(28) ;
-	ntb = root.Insert(14) ;
+	ntb = root.Insert(19) ;
 	ntb = root.Print();
 	System.out.println(100000000);
 	v = new MyVisitor();
 	System.out.println(50000000);
 	nti = root.accept(v);
 	System.out.println(100000000);
-	System.out.println(root.Search(24));
+	System.out.println(root.Search(false));
 	System.out.println(root.Search(12));
 	System.out.println(root.Search(16));
 	System.out.println(root.Search(50));
-	System.out.println(root.Search(12));
+	System.out.println(root.Search(false));
 	ntb = root.Delete(12);
 	ntb = root.Print();
 	System.out.println(root.Search(12));
-
-	return 0 ;
+	test = new int[10];
+	test[1] = ntb;
+	return ntb.length;
     }
 
 }
@@ -90,15 +92,15 @@ class Tree{
     }
 
     public Tree GetRight(){
-	return right ;
+	return new Tree();
     }
 
     public Tree GetLeft(){
-	return left;
+	return new Tree();
     }
 
     public int GetKey(){
-	return key ;
+	return 0 ;
     }
 
     public boolean SetKey(int v_key){
@@ -107,11 +109,11 @@ class Tree{
     }
 
     public boolean GetHas_Right(){
-	return has_right ;
+	return false ;
     }
 
     public boolean GetHas_Left(){
-	return has_left ;
+	return false ;
     }
 
     public boolean SetHas_Left(boolean val){
@@ -130,8 +132,8 @@ class Tree{
 
 	ntb = false ;
 	nti = num2 + 1 ;
-	if (num1 < num2) ntb = false ;
-	else if (!(num1 < nti)) ntb = false ;
+	if (num1 < num2){ntb = false ;
+	} 
 	else ntb = true ;
 	return ntb ;
     }
@@ -230,11 +232,11 @@ class Tree{
 		auxkey1 = c_node.GetKey();
 		auxkey2 = (p_node.GetLeft()).GetKey() ;
 		if (this.Compare(auxkey1,auxkey2)) {
-		    ntb = p_node.SetLeft(my_null);
+		    //ntb = p_node.SetLeft(my_null);
 		    ntb = p_node.SetHas_Left(false);
 		}
 		else {
-		    ntb = p_node.SetRight(my_null);
+		    //ntb = p_node.SetRight(my_null);
 		    ntb = p_node.SetHas_Right(false);
 		}
 	    }
@@ -248,7 +250,7 @@ class Tree{
 	    p_node = c_node ;
 	    c_node = c_node.GetRight() ;
 	}
-	ntb = p_node.SetRight(my_null);
+	//ntb = p_node.SetRight(my_null);
 	ntb = p_node.SetHas_Right(false);
 	return true ;
     }
@@ -260,7 +262,7 @@ class Tree{
 	    p_node = c_node ;
 	    c_node = c_node.GetLeft() ;
 	}
-	ntb = p_node.SetLeft(my_null);
+	// ntb = p_node.SetLeft(my_null);
 	ntb = p_node.SetHas_Left(false);
 	return true ;
     }
