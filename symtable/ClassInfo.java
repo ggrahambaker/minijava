@@ -7,7 +7,7 @@ import minijava.node.PMethod;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
 
-//import Mips.MipsArch;  // These two are needed for the IRT phase
+import Mips.MipsArch;  // These two are needed for the IRT phase
 import Arch.Access;
 
 /** 
@@ -20,17 +20,17 @@ import Arch.Access;
  */
  
 public class ClassInfo {
-   TId className;         // TId holding our name, line number, etc.
-   TId superClass;        // Our superclass, if we have one
-   VarTable vars;         // A VarTable holding info on all instance vars
-   MethodTable methods;   // Table of info on methods
+   private TId className;         // TId holding our name, line number, etc.
+   private TId superClass;        // Our superclass, if we have one
+   private VarTable vars;         // A VarTable holding info on all instance vars
+   private MethodTable methods;   // Table of info on methods
 
     /*
    We'll add these once we get to the IRT phase.  The IRTinfo object records
    the total number of words required for the instance variables in a class
    (including those we inherit).  
     */
-   Access info;
+   private Access info;
    public Access getIRTinfo() { return info; }
    public void setIRTinfo(ClassIRTinfo i) { info = i; }
 
@@ -59,6 +59,12 @@ public class ClassInfo {
 	  this.methods = new MethodTable(methods);}  // Ditto.
       catch(Exception e){
 	  throw e;}
+      info = new InFrame(frame.FP());
+      tempKeys = VarTable.getVarNames();
+      for(int i=0; i<vars.size(); i++){
+	  VarTable.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
+	  //clear mem here
+      }
    }
    
    public TId getName() { return className; }

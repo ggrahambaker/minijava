@@ -29,7 +29,7 @@ public class MethodInfo {
    /*
     * Stuff we'll add for the IRT phase
     */
-   Access info;
+   private Access info;
    public Access getInfo() { return info; }
    public void setInfo(MethodIRTinfo i) { info = i; }
     
@@ -110,9 +110,6 @@ public class MethodInfo {
     }
 
 
-    private Access acc;
-    public Access getAccess() { return access; }
-    public void setAccess(Access a) { acc = a; }
     
     public void dumpIRT(boolean dot) {
 	//TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
