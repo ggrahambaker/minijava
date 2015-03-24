@@ -25,6 +25,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
     private Node medium;
 
 
+    private int lineNumber;
+
+
     public TypeCheckVisitor(ClassTable st) {
 	    table = st;
 	    classInfo = null;
