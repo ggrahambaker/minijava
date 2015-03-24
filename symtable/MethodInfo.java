@@ -108,6 +108,11 @@ public class MethodInfo {
 	locals.dump();
 	System.out.println();
     }
+
+
+    private Access acc;
+    public Access getAccess() { return access; }
+    public void setAccess(Access a) { acc = a; }
     
     public void dumpIRT(boolean dot) {
 	//TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
