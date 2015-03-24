@@ -1,4 +1,4 @@
-package symtable;
+package types;
 
 //import symtable;
 import minijava.node.*;

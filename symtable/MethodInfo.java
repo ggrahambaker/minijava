@@ -8,6 +8,7 @@ import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.AVarDecl;
 import minijava.node.TId;
+import types.Types;
 
 
 /** 

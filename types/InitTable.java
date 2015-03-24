@@ -1,4 +1,4 @@
-package symtable;
+package types;
 
 import java.util.HashMap;
 import java.util.LinkedList;

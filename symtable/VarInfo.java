@@ -1,7 +1,8 @@
 package symtable;
 
 import minijava.node.PType;
-//import Arch.Access;
+import types.Types;
+import Arch.Access;
 
 /** 
  * VarInfo records information about a single local variable.  We need
