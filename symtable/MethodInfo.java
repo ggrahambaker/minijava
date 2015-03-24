@@ -10,7 +10,7 @@ import minijava.node.AVarDecl;
 import minijava.node.TId;
 import types.Types;
 import Arch.Access;
-
+import Mips.MipsArch; 
 
 /** 
  * A MethodInfo instance records information about a single MiniJava method.
