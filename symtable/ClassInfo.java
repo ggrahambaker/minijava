@@ -59,7 +59,7 @@ public class ClassInfo {
 	  this.methods = new MethodTable(methods);}  // Ditto.
       catch(Exception e){
 	  throw e;}
-      info = new InFrame(frame.FP());
+      this.info = new InFrame(frame.FP());
       Set<String> tempKeys = this.VarTable.getVarNames();
       for(int i=0; i<vars.size(); i++){
 	  this.VarTable.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
