@@ -60,9 +60,9 @@ public class ClassInfo {
       catch(Exception e){
 	  throw e;}
       info = new InFrame(frame.FP());
-      tempKeys = VarTable.getVarNames();
+      Set<String> tempKeys = this.VarTable.getVarNames();
       for(int i=0; i<vars.size(); i++){
-	  VarTable.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
+	  this.VarTable.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
 	  //clear mem here
       }
    }

@@ -75,6 +75,15 @@ public class MethodInfo {
 	this.locals = new VarTable(locals);}
     catch(VarClashException e){
 	throw e;}
+    info = new InFrame(frame.SP());
+    //return address here at 0
+    //static link here at 4
+    Set<String> tempKeys = this.locals.getVarNames();
+    for(int i=0; i<tempKeys.size(); i++){
+	this.locals.get(tempKeys.get(i)).setAccess(frame.SP()+8+(i*4));
+	  //clear mem here
+      };
+    
    }
     
 /* Accessors */   
