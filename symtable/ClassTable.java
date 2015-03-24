@@ -10,6 +10,7 @@ import minijava.node.PVarDecl;
 import minijava.node.PFormal;
 import minijava.node.AFormal;
 import minijava.node.TId;
+import types.Types;
 
 /** 
  * A ClassTable records information about a COLLECTION of class definitions.

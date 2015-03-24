@@ -34,17 +34,17 @@ class TV {
 	System.out.println(50000000);
 	nti = root.accept(v);
 	System.out.println(100000000);
-	System.out.println(root.Search(false));
+	// System.out.println(root.Search(false));
 	System.out.println(root.Search(12));
 	System.out.println(root.Search(16));
 	System.out.println(root.Search(50));
-	System.out.println(root.Search(false));
+	//System.out.println(root.Search(false));
 	ntb = root.Delete(12);
 	ntb = root.Print();
 	System.out.println(root.Search(12));
 	test = new int[10];
-	test[1] = ntb;
-	return ntb.length;
+	// test[1] = ntb;
+	return 10;
     }
 
 }

@@ -2,7 +2,7 @@ import java.io.InputStreamReader;
 import java.io.PushbackReader;
 
 import symtable.SymTableVisitor;
-import symtable.TypeCheckVisitor;
+import types.TypeCheckVisitor;
 import minijava.lexer.Lexer;
 import minijava.node.Start;
 import minijava.parser.Parser;

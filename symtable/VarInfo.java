@@ -1,6 +1,7 @@
 package symtable;
 
 import minijava.node.PType;
+import types.Types;
 import Arch.Access;
 
 

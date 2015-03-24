@@ -1,8 +1,9 @@
-package symtable;
+package types;
 
 import minijava.analysis.DepthFirstAdapter;
 import minijava.node.*;
 import java.io.PrintWriter;
+import symtable.*;
 
 import java.util.*;
 

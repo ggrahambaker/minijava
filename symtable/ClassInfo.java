@@ -2,6 +2,7 @@ package symtable;
 
 import java.util.LinkedList;
 
+import types.Types;
 import minijava.node.PMethod;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
