@@ -8,6 +8,7 @@ import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.AVarDecl;
 import minijava.node.TId;
+import Arch.Access;
 
 
 /** 
@@ -26,11 +27,11 @@ public class MethodInfo {
    
    /*
     * Stuff we'll add for the IRT phase
-    *
-   MethodIRTinfo info;
-   public MethodIRTinfo getInfo() { return info; }
+    */
+   Access info;
+   public Access getInfo() { return info; }
    public void setInfo(MethodIRTinfo i) { info = i; }
-    */ 
+    
    
    /** 
     * The constructor stores away references to the return type and formals,
