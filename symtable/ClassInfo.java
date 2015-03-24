@@ -8,7 +8,7 @@ import minijava.node.PVarDecl;
 import minijava.node.TId;
 
 //import Mips.MipsArch;  // These two are needed for the IRT phase
-//import Arch.*;
+import Arch.Access;
 
 /** 
  * A ClassInfo instance records infofmation about a single class.  It stores 
@@ -25,15 +25,15 @@ public class ClassInfo {
    VarTable vars;         // A VarTable holding info on all instance vars
    MethodTable methods;   // Table of info on methods
 
-/*
+    /*
    We'll add these once we get to the IRT phase.  The IRTinfo object records
    the total number of words required for the instance variables in a class
    (including those we inherit).  
-   
-   ClassIRTinfo info;
-   public ClassIRTinfo getIRTinfo() { return info; }
+    */
+   Access info;
+   public Access getIRTinfo() { return info; }
    public void setIRTinfo(ClassIRTinfo i) { info = i; }
-*/
+
   
   
    /** 
