@@ -9,8 +9,9 @@ import minijava.node.PVarDecl;
 import minijava.node.AVarDecl;
 import minijava.node.TId;
 import types.Types;
-import Arch.Access;
-import Mips.MipsArch; 
+import Mips.*;  // These two are needed for the IRT phase
+import Arch.*;
+
 
 /** 
  * A MethodInfo instance records information about a single MiniJava method.
@@ -31,7 +32,7 @@ public class MethodInfo {
     */
    private Access info;
    public Access getInfo() { return info; }
-   public void setInfo(MethodIRTinfo i) { info = i; }
+   public void setInfo(Access i) { info = i; }
     
    
    /** 
@@ -74,14 +75,19 @@ public class MethodInfo {
     try{
 	this.locals = new VarTable(locals);}
     catch(VarClashException e){
-	throw e;}
-    info = new InFrame(frame.SP());
+	throw e;
+}
+    // info = new InFrame(frame.SP());
     //return address here at 0
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();
     for(int i=0; i<tempKeys.size(); i++){
-	this.locals.get(tempKeys.get(i)).setAccess(frame.SP()+8+(i*4));
-	  //clear mem here
+	     // this.locals.get(tempKeys.get(i)).setAccess(frame.SP()+8+(i*4));
+	     //clear mem here
+
+       
+
+
       };
     
    }

@@ -12,6 +12,7 @@ import Tree.MEM;
  * a base address to compute a new memory address.
  */
 
+
 public class InFrame extends Arch.Access
 {
    private int offset;
