@@ -59,10 +59,10 @@ public class ClassInfo {
 	  this.methods = new MethodTable(methods);}  // Ditto.
       catch(Exception e){
 	  throw e;}
-      this.info = new InFrame(frame.FP());
+      this.info = new InFrame(0);
       Set<String> tempKeys = this.VarTable.getVarNames();
       for(int i=0; i<vars.size(); i++){
-	  this.VarTable.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
+	  this.VarTable.get(tempKeys.get(i)).setAccess(i*4);
 	  //clear mem here
       }
    }
