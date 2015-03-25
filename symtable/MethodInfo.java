@@ -75,9 +75,11 @@ public class MethodInfo {
     try{
 	this.locals = new VarTable(locals);}
     catch(VarClashException e){
+
 	throw e;
 }
     // info = new InFrame(frame.SP());
+
     //return address here at 0
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();

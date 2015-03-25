@@ -16,7 +16,10 @@ public class VarInfo {
     private PType type;
     //  private InFrame acc   ;
    
-   public VarInfo(PType t) { type = t; }
+   public VarInfo(PType t) { 
+       this.type = t; 
+       //this.acc = new InFrame(frame.SP());
+   }
    public PType getType() { return type; }
    public String toString() { return Types.toStr(type); }
    /* 
