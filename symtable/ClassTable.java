@@ -57,39 +57,47 @@ public class ClassTable {
 	    //      System.out.println("name to string -> "+name.toString());
 	    temp.setId(new TId(methodName));
 	    methodList.add(temp);
+	    System.out.println("are we going? ??");
 	    // generate the appropriate class info
 	    
 	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
 	    // check for duplicates and add the main class info if it is good
+	    	    System.out.println("created class? ??");
 	    if(table.containsKey(name)){
-		throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());
+	    	System.out.println("didnt WORKDED??");
+			throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());
 	    } 
 	    else {
-		table.put(className, main);
+	    	System.out.println("WORKDED??");
+			table.put(className, main);
 	    }
 	} catch (Exception e){ //throw any exceptions that occur
 	    throw e;
-	}
+		}
     }
 
     public void removeOverloading() throws Exception{
-	try {
-	    for (ClassInfo c: table.values()){
-		if(c.getSuper()!=null)
-		    if(table.get(c.getSuper().toString())!=null){
-			Set<String> supermethods = table.get(c.getSuper().toString()).getMethodTable().getMethodNames();
-			for(String m: c.getMethodTable().getMethodNames())
-			    if(supermethods.contains(m)){
-				MethodInfo notsup = table.get(c.getName().toString()).getMethodTable().get(m);
-				MethodInfo sup = table.get(c.getSuper().toString()).getMethodTable().get(m);
-				if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getRetType().toString().equals(sup.getRetType().toString() )) || (overloadingHelper(notsup.getFormals(),sup.getFormals())))
-				    throw new MethodClashException("MethodClashException: "+sup.getName().toString()+ "overloaded in its subclass");
+		try {
+		    for (ClassInfo c: table.values()){
+			if(c.getSuper()!=null)
+			    if(table.get(c.getSuper().toString())!=null){
+				Set<String> supermethods = table.get(c.getSuper().toString()).getMethodTable().getMethodNames();
+				for(String m: c.getMethodTable().getMethodNames())
+				    if(supermethods.contains(m)){
+					MethodInfo notsup = table.get(c.getName().toString()).getMethodTable().get(m);
+					MethodInfo sup = table.get(c.getSuper().toString()).getMethodTable().get(m);
+					if ((notsup.getFormals().size() != sup.getFormals().size() )|| (! notsup.getRetType().toString().equals(sup.getRetType().toString() )) || (overloadingHelper(notsup.getFormals(),sup.getFormals())))
+					    throw new MethodClashException("MethodClashException: "+sup.getName().toString()+ "overloaded in its subclass");
+				    }
 			    }
 		    }
-	    }
+		}
+		catch(Exception e){
+		    throw e;
+		}
 	}
-	catch(Exception e){
-	    throw e;}}
+
+
     public boolean overloadingHelper(LinkedList <PFormal> l1,LinkedList <PFormal> l2) {
 	int[] types = {0,0,0};
 	for(PFormal p: l1){
@@ -138,5 +146,9 @@ public class ClassTable {
     */
     public void dumpIRT(boolean dot) {
 	//TODO Fill in the guts of this method -- but not until the IRT checkpoint.
+    	for(String name : table.keySet()){
+    	    table.get(name).dump();
+    	}
+
     }
 }

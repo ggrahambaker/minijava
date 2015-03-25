@@ -122,7 +122,10 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 
       {      
         List<PFormal> copy = new ArrayList<PFormal>(node.getFormal());
-
+        if(copy.size() > 5){
+          System.out.println("Method " + node.getId().getText() +" has exceeded param limit of 4 on line " + node.getId().getLine());
+          System.exit(1);
+        }
           for(PFormal e : copy) {
               // System.out.println(((AFormal) e).getId().getText() + " - formal");
               currentTable.put(((AFormal) e).getId().getText(), Status.Yes);
@@ -130,7 +133,9 @@ public class TypeCheckVisitor extends DepthFirstAdapter
               e.apply(this);
           }
         }
+
         List<PVarDecl> methodVars = new ArrayList<PVarDecl>(node.getVarDecl());
+        
         {
             
             for(PVarDecl e : methodVars)

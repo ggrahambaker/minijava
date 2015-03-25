@@ -81,17 +81,20 @@ public class MethodInfo {
 	try{
 	    this.locals = new VarTable(locals);}
 	catch(VarClashException e){
-	    throw e;}
+	  System.out.println("we are about to die now");
+      throw e;
+    }
 	info = new InFrame(0);
 	static_link = new InFrame(4);
 	//return address here at 0
 	//static link here at 4
-	String[] tempKeys = (String[])this.locals.getVarNames().toArray();
-	for(int i=0; i<tempKeys.length; i++){
-	    
-	    this.locals.getInfo(tempKeys[i]).setAccess(new InFrame(8+(i*4)));
-	    //clear mem here
-	}
+	// String[] tempKeys = (String[])this.locals.getVarNames().toArray();
+ //  System.out.println(tempKeys.length + " -- lets get tiz");
+	// for(int i=0; i<tempKeys.length; i++){
+	//     System.out.println("adding stuff");
+	//     this.locals.getInfo(tempKeys[i]).setAccess(new InFrame(8+(i*4)));
+	//     //clear mem here
+	// }
 	
     }
     
@@ -131,7 +134,7 @@ public class MethodInfo {
 
 
     
-    public void dumpIRT(boolean dot) {
+    public void dumpIRT(){
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
       System.out.println(getName().toString() + " (");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
@@ -155,10 +158,11 @@ public class MethodInfo {
         varKeys = tempKeys.toArray(varKeys);
         for(int i=0; i<varKeys.length; i++){
 
-           VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
-           InFrame iframe = (InFrame)a.getAccess(); 
-           Print.prExp(iframe.getTree());
-           //clear mem here
+            // this.locals.getInfo(varKeys[i]).dumpIRT();
+           // VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
+           // InFrame iframe = (InFrame)a.getAccess(); 
+           // Print.prExp(iframe.getTree());
+           
 
           
           };

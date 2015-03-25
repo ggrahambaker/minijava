@@ -53,12 +53,16 @@ public class MethodTable {
                    LinkedList<PVarDecl> locals) throws Exception {
       //TODO Fill in the guts of this method.
       String name = id.toString().replaceAll("\\s","");
+      System.out.println("we are here now");
       if (table.containsKey(name)) {
          String msg = "MethodClashException: "+name + " redeclared on line " + id.getLine();
+         System.out.println("we are ablout the throw metho clash");
          throw new MethodClashException(msg); // There was a clash
       }
-      else
-	  table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
+      else{
+        // System.out.println("added info");
+	     table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
+      }
    }
    
    /** Lookup and return the MethodInfo for the specified method */
@@ -81,7 +85,10 @@ public class MethodTable {
       	   it.remove(0).dump();
    }
    
-   public void dumpIRT(boolean dot) {
+   public void dumpIRT() {
       //TODO Fill in the guts of this method -- but not until IRT checkpoint
+     ArrayList<MethodInfo> it = new ArrayList<MethodInfo>(table.values());
+     while(!it.isEmpty()) 
+         it.remove(0).dumpIRT();
    }
 }

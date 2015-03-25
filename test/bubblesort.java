@@ -27,7 +27,7 @@ class BBS{
 
  
     // Sort array of integers using Bublesort method
-    public int Sort(){
+    public int Sort(int aa, int aaa, int aplue, int talking, int blud){
 	int nt ;
 	int i ;
 	int aux02 ;

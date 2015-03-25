@@ -49,16 +49,23 @@ public class ClassInfo {
    public ClassInfo(TId className, TId superClass,
                     LinkedList<PVarDecl> vars,
                     LinkedList<PMethod> methods) throws Exception { 
+
+    System.out.println("class info");
       this.className = className;
       this.superClass = superClass;
       try{
 	  this.vars = new VarTable(vars);}           // Populate table from list
       catch(VarClashException e){
-	  throw e;}
+	        System.out.println("throwing e");
+       throw e;
+     }
       try{
 	  this.methods = new MethodTable(methods);}  // Ditto.
       catch(Exception e){
-	  throw e;}
+	  System.out.println("throwing methods");
+    throw e;
+
+  }
       this.info = new InFrame(0);
 
       String[] tempKeys = (String[])this.vars.getVarNames().toArray();
@@ -88,7 +95,7 @@ public class ClassInfo {
        methods.dump();
    } 
    
-   public void dumpIRT(boolean dot) {
+   public void dumpIRT() {
 		// TODO:  You'll complete this one on the next checkpoint
    } 
 }
