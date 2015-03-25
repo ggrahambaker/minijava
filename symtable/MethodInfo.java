@@ -155,18 +155,23 @@ public class MethodInfo {
         System.out.println("Accessors for parameters and locals:");
 
         Set<String> tempKeys = this.locals.getVarNames();
-        String[] varKeys = new String[tempKeys.size()]; 
-        varKeys = tempKeys.toArray(varKeys);
-        for(int i=0; i<varKeys.length; i++){
+        this.locals.dumpIRT();
+ //        String[] varKeys = new String[tempKeys.size()]; 
+ //        varKeys = tempKeys.toArray(varKeys);
 
-            this.locals.getInfo(varKeys[i]).dumpIRT();
-            VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
-            InFrame iframe = (InFrame)a.getAccess(); 
-            Print.prExp(iframe.getTree());
+
+
+ //        for(int i=0; i<varKeys.length; i++){
+
+ //            //this.locals.getInfo(varKeys[i]).dumpIRT();
+
+ //            VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
+ //            InFrame iframe = (InFrame)a.getAccess(); 
+ //            Print.prExp(iframe.getTree());
            
 
           
-	}
+	// }
         
 	
     }

@@ -9,6 +9,8 @@ import minijava.node.PType;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
 
+import Tree.*;
+
 import java.util.*;
 /** 
  * A VarTable records name and type information about a <i>collection</i> 
@@ -75,7 +77,7 @@ public class VarTable {
        System.out.println();
    }
    
-   public void dumpIRT(boolean dot) {
+   public void dumpIRT() {
       //TODO Fill in the guts of this method -- but not until the IRT checkpoint
        String s;
        System.out.println("Instance var accessors:");
