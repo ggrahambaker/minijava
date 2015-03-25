@@ -137,7 +137,7 @@ public class MethodInfo {
     
     public void dumpIRT(){
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
-      System.out.println(getName().toString() + " (");
+      System.out.print(getName().toString() + " (");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
       AFormal s;
       while(!it.isEmpty()){
@@ -156,22 +156,7 @@ public class MethodInfo {
 
         Set<String> tempKeys = this.locals.getVarNames();
         this.locals.dumpIRT();
- //        String[] varKeys = new String[tempKeys.size()]; 
- //        varKeys = tempKeys.toArray(varKeys);
 
-
-
- //        for(int i=0; i<varKeys.length; i++){
-
- //            //this.locals.getInfo(varKeys[i]).dumpIRT();
-
- //            VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
- //            InFrame iframe = (InFrame)a.getAccess(); 
- //            Print.prExp(iframe.getTree());
-           
-
-          
-	// }
         
 	
     }

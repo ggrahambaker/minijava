@@ -97,15 +97,16 @@ public class ClassInfo {
    } 
    
    public void dumpIRT() {
+    System.out.println("vomit");
 		// TODO:  You'll complete this one on the next checkpoint
        String s = className.getText();
        if(superClass != null) 
-	       s+="  Extends: "+getSuper().getText();
+	       s += "  Extends: "+getSuper().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
-       Print.prExp(((InFrame)info.getAccess()).getTree(new InReg(new Reg("dest"))));
+       Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
        System.out.println("-------------------------------------");
        System.out.println("Instance var accessors:");
        vars.dumpIRT();

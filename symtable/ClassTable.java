@@ -147,7 +147,7 @@ public class ClassTable {
     public void dumpIRT() {
 	//TODO Fill in the guts of this method -- but not until the IRT checkpoint.
     	for(String name : table.keySet()){
-    	    table.get(name).dump();
+    	    table.get(name).dumpIRT();
     	}
 
     }

@@ -10,6 +10,7 @@ import minijava.node.PVarDecl;
 import minijava.node.TId;
 
 import Tree.*;
+import Arch.*;
 
 import java.util.*;
 /** 
@@ -84,9 +85,12 @@ public class VarTable {
        while(!it.isEmpty()){
 	   s=it.remove(0);
 	   System.out.println("  "+s+" : "+table.get(s).toString()); 
-	   Print.prExp(table.get(s).getAccess().getTree());
+
+	   Print.prExp(new MEM(new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree())), 4);
+        System.out.println();
+        System.out.println();
        }
-       System.out.println();
+       
 
    }
 }
