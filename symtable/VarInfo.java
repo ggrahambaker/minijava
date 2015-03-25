@@ -15,7 +15,7 @@ import Tree.*;
  */
 public class VarInfo {
     private PType type;
-    //  private InFrame acc   ;
+    // private InFrame acc;
    
    public VarInfo(PType t) { 
        this.type = t; 

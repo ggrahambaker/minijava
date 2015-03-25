@@ -62,8 +62,13 @@ public class ClassInfo {
       this.info = new InFrame(0);
       String[] tempKeys = (String[])this.vars.getVarNames().toArray();
       for(int i=0; i<vars.size(); i++){
+<<<<<<< HEAD
 
 	     this.vars.getInfo(tempKeys[i]).setAccess((i*4));
+=======
+              Access temp = new InFrame((i*4));
+	     this.vars.get(tempKeys.get(i)).setAccess(temp);
+>>>>>>> 40878fbdc95cac37f2bc439cd30afbe26b5ad9a2
 	  //clear mem here
 
       }
