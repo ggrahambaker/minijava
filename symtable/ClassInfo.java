@@ -1,14 +1,15 @@
 package symtable;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import types.Types;
 import minijava.node.PMethod;
 import minijava.node.PVarDecl;
 import minijava.node.TId;
 
-import Mips.MipsArch;  // These two are needed for the IRT phase
-import Arch.Access;
+import Mips.*;  // These two are needed for the IRT phase
+import Arch.*;
+
 
 /** 
  * A ClassInfo instance records infofmation about a single class.  It stores 
@@ -32,10 +33,9 @@ public class ClassInfo {
     */
    private Access info;
    public Access getIRTinfo() { return info; }
-   public void setIRTinfo(ClassIRTinfo i) { info = i; }
+   public void setIRTinfo(Access i) { info = i; }
 
-  
-  
+
    /** 
     * The constructor takes all info associated with a subclass definition,
     * but can be passed null for unused fields in the case of a base or main
@@ -63,7 +63,6 @@ public class ClassInfo {
       Set<String> tempKeys = this.VarTable.getVarNames();
       for(int i=0; i<vars.size(); i++){
 	  this.VarTable.get(tempKeys.get(i)).setAccess(i*4);
-	  //clear mem here
       }
    }
    

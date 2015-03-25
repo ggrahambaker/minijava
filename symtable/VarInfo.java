@@ -1,8 +1,9 @@
 package symtable;
 
 import minijava.node.PType;
-import types.Types;
-import Arch.Access;
+import Mips.*;  // These two are needed for the IRT phase
+import Arch.*;
+
 
 
 /** 
@@ -29,3 +30,5 @@ public class VarInfo {
    public void setAccess(Access a) { acc = a; }
       
 }
+
+
