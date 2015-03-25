@@ -105,6 +105,7 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
+       System.out.println("Instance var accessors:");
        vars.dumpIRT();
        methods.dumpIRT();
 
