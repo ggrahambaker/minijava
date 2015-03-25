@@ -91,8 +91,8 @@ public class MethodInfo {
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();
     for(int i=0; i<tempKeys.size(); i++){
-
-	     this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
+      Access temp = new InFrame(8+(i*4));
+	     this.locals.get(tempKeys.get(i)).setAccess(temp);
 	     //clear mem here
 
       
@@ -136,7 +136,34 @@ public class MethodInfo {
     
     public void dumpIRT(boolean dot) {
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
-          
+      System.out.println(getName().toString() + " (");
+      ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
+      while(!it.isEmpty()){
+        s=(AFormal)it.remove(0);
+        System.out.print(" "+s.getId().toString()+" : "+Types.toStr(s.getType()));
+        
+        if(!it.isEmpty())
+          System.out.print(", "); 
+        }
+        if (getRetType() != null)
+            System.out.println(" ) : " + Types.toStr(getRetType()));
+        else
+            System.out.println(" ) : void");         
 
-    }
+        System.out.println("Accessors for parameters and locals:");
+
+        Set<String> tempKeys = this.locals.getVarNames();
+        for(int i=0; i<tempKeys.size(); i++){
+
+           this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
+           //clear mem here
+
+          
+          };
+        
+
+      }
+
+
+    
 }

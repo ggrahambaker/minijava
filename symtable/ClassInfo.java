@@ -62,8 +62,8 @@ public class ClassInfo {
       this.info = new InFrame(0);
       Set<String> tempKeys = this.VarTable.getVarNames();
       for(int i=0; i<vars.size(); i++){
-
-	     this.vars.get(tempKeys.get(i)).setAccess((i*4));
+              Access temp = new InFrame((i*4));
+	     this.vars.get(tempKeys.get(i)).setAccess(temp);
 	  //clear mem here
 
       }
