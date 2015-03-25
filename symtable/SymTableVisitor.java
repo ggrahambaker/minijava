@@ -70,7 +70,7 @@ public class SymTableVisitor extends DepthFirstAdapter
           }
 
         catch (Exception e){
-          System.out.println("leaving main");
+          // System.out.println("leaving main");
 	         System.exit(-1);
 	       }
         node.getId().apply(this);

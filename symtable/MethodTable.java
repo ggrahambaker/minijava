@@ -53,7 +53,7 @@ public class MethodTable {
                    LinkedList<PVarDecl> locals) throws Exception {
       //TODO Fill in the guts of this method.
       String name = id.toString().replaceAll("\\s","");
-      System.out.println("we are here now");
+    
       if (table.containsKey(name)) {
          String msg = "MethodClashException: "+name + " redeclared on line " + id.getLine();
          System.out.println("we are ablout the throw metho clash");

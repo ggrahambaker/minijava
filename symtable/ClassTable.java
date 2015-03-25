@@ -62,7 +62,7 @@ public class ClassTable {
 	    
 	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
 	    // check for duplicates and add the main class info if it is good
-	    	    System.out.println("created class? ??");
+	    	    // System.out.println("created class? ??");
 	    if(table.containsKey(name)){
 	    	System.out.println("didnt WORKDED??");
 			throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());

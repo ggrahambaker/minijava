@@ -50,7 +50,7 @@ public class ClassInfo {
                     LinkedList<PVarDecl> vars,
                     LinkedList<PMethod> methods) throws Exception { 
 
-    System.out.println("class info");
+    
       this.className = className;
       this.superClass = superClass;
       try{

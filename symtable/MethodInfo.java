@@ -90,9 +90,9 @@ public class MethodInfo {
 	//static link here at 4
 	String[] tempKeys = new String[this.locals.getVarNames().size()];
 	this.locals.getVarNames().toArray(tempKeys);
-	System.out.println(tempKeys.length + " -- lets get tiz");
+	// System.out.println(tempKeys.length + " -- lets get tiz");
 	for(int i=0; i<tempKeys.length; i++){
-	    System.out.println("adding stuff");
+	    // System.out.println("adding stuff");
 	    this.locals.getInfo(tempKeys[i]).setAccess(new InFrame(8+(i*4)));
 	//     //clear mem here
 	}

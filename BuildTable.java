@@ -37,11 +37,11 @@ public class BuildTable {
          
          // Retrieve the top-level Program node from start, and apply 
          // our symbol table visitor to it.
-          System.out.println("Alive??");
+
          start.getPProgram().apply(visitor);
 
          TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
-         System.out.println("Alive??");
+         
          start.getPProgram().apply(typeVisit);
          
       } catch (Exception e) {

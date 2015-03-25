@@ -122,8 +122,10 @@ public class TypeCheckVisitor extends DepthFirstAdapter
 
       {      
         List<PFormal> copy = new ArrayList<PFormal>(node.getFormal());
-        if(copy.size() > 5){
-          System.out.println("Method " + node.getId().getText() +" has exceeded param limit of 4 on line " + node.getId().getLine());
+       
+        // System.out.println(copy.size());
+        if(copy.size() > 4){
+          System.out.println("Method " + node.getId().getText() +" has exceeded parameter limit of 4 on line " + node.getId().getLine());
           System.exit(1);
         }
           for(PFormal e : copy) {
