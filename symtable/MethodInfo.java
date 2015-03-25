@@ -34,6 +34,10 @@ public class MethodInfo {
    private Access info;
    public Access getInfo() { return info; }
    public void setInfo(Access i) { info = i; }
+
+   private Access static_link;
+   public Access getLink() { return static_link; }
+   public void setLink(Access i) { static_link = i; }
     
    
    /** 
@@ -76,21 +80,22 @@ public class MethodInfo {
     try{
 	this.locals = new VarTable(locals);}
     catch(VarClashException e){
-
-	throw e;
-}
-    // info = new InFrame(frame.SP());
-
+	throw e;}
+    this.info = new InFrame(0);
+    
+    throw e;
+   }
+    info = new InFrame(0);
+    static_link = new InFrame(4);
     //return address here at 0
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();
     for(int i=0; i<tempKeys.size(); i++){
+
 	     this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
 	     //clear mem here
 
-       
-
-
+      
       };
     
    }
