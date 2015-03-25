@@ -97,5 +97,17 @@ public class ClassInfo {
    
    public void dumpIRT() {
 		// TODO:  You'll complete this one on the next checkpoint
+       String s = className.getText();
+       if(superClass != null) 
+	       s+="  Extends: "+getSuper().getText();
+       
+       System.out.println("-------------------------------------");
+       System.out.println("Class: " +s);
+       System.out.println("-------------------------------------");
+       vars.dumpIRT();
+       methods.dumpIRT();
+
+       
+
    } 
 }

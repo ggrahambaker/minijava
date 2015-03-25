@@ -77,5 +77,15 @@ public class VarTable {
    
    public void dumpIRT(boolean dot) {
       //TODO Fill in the guts of this method -- but not until the IRT checkpoint
+       String s;
+       System.out.println("Instance var accessors:");
+       ArrayList<String> it = new ArrayList<String>(table.keySet());
+       while(!it.isEmpty()){
+	   s=it.remove(0);
+	   System.out.println("  "+s+" : "+table.get(s).toString()); 
+	   Print.prExp(table.get(s).getAccess().getTree());
+       }
+       System.out.println();
+
    }
 }

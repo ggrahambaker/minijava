@@ -87,8 +87,11 @@ public class MethodTable {
    
    public void dumpIRT() {
       //TODO Fill in the guts of this method -- but not until IRT checkpoint
-     ArrayList<MethodInfo> it = new ArrayList<MethodInfo>(table.values());
-     while(!it.isEmpty()) 
-         it.remove(0).dumpIRT();
+
+       ArrayList<MethodInfo> it = new ArrayList<MethodInfo>(table.values());
+       while(!it.isEmpty()) 
+      	   it.remove(0).dumpIRT();
+
+
    }
 }
