@@ -1,5 +1,7 @@
 // irt visitor
 
+
+import minijava.analysis.DepthFirstAdapter;
 import java.util.*;
 import minijava.node.*;
 import symtable.*;

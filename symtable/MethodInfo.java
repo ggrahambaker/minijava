@@ -80,25 +80,24 @@ public class MethodInfo {
     try{
 	this.locals = new VarTable(locals);}
     catch(VarClashException e){
-	throw e;}
-    this.info = new InFrame(0);
-    
-    throw e;
-   }
+	     throw e;}
+
     info = new InFrame(0);
     static_link = new InFrame(4);
     //return address here at 0
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();
-    for(int i=0; i<tempKeys.size(); i++){
+    String[] varKeys = new String[tempKeys.size()]; 
+    varKeys = tempKeys.toArray(varKeys);
+    for(int i=0; i<varKeys.length; i++){
       Access temp = new InFrame(8+(i*4));
-	     this.locals.get(tempKeys.get(i)).setAccess(temp);
+	     this.locals.get(varKeys[i]).setAccess(temp);
 	     //clear mem here
 
       
       };
-    
-   }
+    }
+   
     
 /* Accessors */   
     public TId getName() { return name; }
@@ -153,9 +152,12 @@ public class MethodInfo {
         System.out.println("Accessors for parameters and locals:");
 
         Set<String> tempKeys = this.locals.getVarNames();
-        for(int i=0; i<tempKeys.size(); i++){
+        String[] varKeys = new String[tempKeys.size()]; 
+        varKeys = tempKeys.toArray(varKeys);
+        for(int i=0; i<varKeys.length; i++){
 
-           this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
+           Access a = this.locals.get(varKeys[i]).getAccess();
+           Print.prExp(a);
            //clear mem here
 
           

@@ -4,6 +4,7 @@ import minijava.node.PType;
 import Mips.*;  // These two are needed for the IRT phase
 import Arch.*;
 import Tree.*;
+import types.Types;
 
 
 
@@ -27,7 +28,7 @@ public class VarInfo {
     * Stuff to add once we got the the IRT phase
     */
    private Access acc;
-   public Access getAccess() { return access; }
+   public Access getAccess() { return acc; }
    public void setAccess(Access a) { acc = a; }
       
 }
