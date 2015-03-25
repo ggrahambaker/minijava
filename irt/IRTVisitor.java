@@ -1,6 +1,5 @@
 // irt visitor
 
-
 import java.util.*;
 import minijava.node.*;
 import symtable.*;
@@ -8,6 +7,11 @@ import symtable.*;
 
 public class IRTVisitor extends DepthFirstAdapter {
 
+    ClassTable table;
+
+    public IRTVisitor(ClassTable table){
+        table = table;
+    }
 
 	public void caseAMainClassDecl(AMainClassDecl node) {
         inAMainClassDecl(node);
@@ -89,7 +93,7 @@ public class IRTVisitor extends DepthFirstAdapter {
 
     public void caseAMethod(AMethod node)
     {
-        inAMethod(node);
+       
         if(node.getType() != null)
         {
             node.getType().apply(this);
@@ -119,7 +123,6 @@ public class IRTVisitor extends DepthFirstAdapter {
                 e.apply(this);
             }
         }
-        outAMethod(node);
     }
 
     public void caseAFormal(AFormal node)
