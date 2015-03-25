@@ -1,5 +1,5 @@
 // irt visitor
-
+package irt;
 
 import minijava.analysis.DepthFirstAdapter;
 import java.util.*;
@@ -9,16 +9,19 @@ import symtable.*;
 
 public class IRTVisitor extends DepthFirstAdapter {
 
-    ClassTable table;
+    private ClassTable table;
+    private Node classInfo;
 
 
     public IRTVisitor(ClassTable t){
+        System.out.println("irt has been created!");
         table = t;
     }
 
 
 	public void caseAMainClassDecl(AMainClassDecl node) {
         inAMainClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -32,6 +35,7 @@ public class IRTVisitor extends DepthFirstAdapter {
 
     public void caseABaseClassDecl(ABaseClassDecl node) {
         inABaseClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -56,6 +60,7 @@ public class IRTVisitor extends DepthFirstAdapter {
     public void caseASubClassDecl(ASubClassDecl node)
     {
         inASubClassDecl(node);
+        classInfo = node;
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -97,7 +102,10 @@ public class IRTVisitor extends DepthFirstAdapter {
 
     public void caseAMethod(AMethod node)
     {
-       
+     
+       //  ClassInfo ci = table.get(classInfo.getId().getText());
+
+
         if(node.getType() != null)
         {
             node.getType().apply(this);

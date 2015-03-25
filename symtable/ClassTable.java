@@ -144,7 +144,7 @@ public class ClassTable {
     * displays IRT info as well. 
     * @param dot	Are we generating output for dot?
     */
-    public void dumpIRT(boolean dot) {
+    public void dumpIRT() {
 	//TODO Fill in the guts of this method -- but not until the IRT checkpoint.
     	for(String name : table.keySet()){
     	    table.get(name).dump();

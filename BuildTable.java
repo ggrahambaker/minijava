@@ -6,7 +6,7 @@ import types.TypeCheckVisitor;
 import minijava.lexer.Lexer;
 import minijava.node.Start;
 import minijava.parser.Parser;
-
+import irt.IRTVisitor;
 /**
  * This driver code will instantiate a lexer and parser from the SableCC-
  * generated classes, feed them some sample input, then apply a
@@ -39,10 +39,15 @@ public class BuildTable {
          // our symbol table visitor to it.
 
          start.getPProgram().apply(visitor);
-
-         TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
+          visitor.getTable().dumpIRT();
+         // TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
          
-         start.getPProgram().apply(typeVisit);
+
+         
+         // start.getPProgram().apply(typeVisit);
+        //  IRTVisitor irt = new TypeCheckVisitor(visitor.getTable());
+
+
          
       } catch (Exception e) {
          e.printStackTrace();
