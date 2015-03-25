@@ -9,9 +9,11 @@ public class IRTVisitor extends DepthFirstAdapter {
 
     ClassTable table;
 
-    public IRTVisitor(ClassTable table){
-        table = table;
+
+    public IRTVisitor(ClassTable t){
+        table = t;
     }
+
 
 	public void caseAMainClassDecl(AMainClassDecl node) {
         inAMainClassDecl(node);

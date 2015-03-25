@@ -11,6 +11,7 @@ import minijava.node.TId;
 import types.Types;
 import Mips.*;  // These two are needed for the IRT phase
 import Arch.*;
+import Tree.*;
 
 
 /** 
@@ -84,7 +85,7 @@ public class MethodInfo {
     //static link here at 4
     Set<String> tempKeys = this.locals.getVarNames();
     for(int i=0; i<tempKeys.size(); i++){
-	     // this.locals.get(tempKeys.get(i)).setAccess(frame.SP()+8+(i*4));
+	     this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
 	     //clear mem here
 
        
@@ -129,6 +130,8 @@ public class MethodInfo {
 
     
     public void dumpIRT(boolean dot) {
-	//TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
+	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
+          
+
     }
 }

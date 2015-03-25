@@ -63,7 +63,7 @@ public class ClassInfo {
       // info = new InFrame(frame.FP());
       Set<String> tempKeys = this.vars.getVarNames();
       for(int i=0; i<vars.size(); i++){
-	  // this.vars.get(tempKeys.get(i)).setAccess(frame.FP()+(i*4));
+	     this.vars.get(tempKeys.get(i)).setAccess((i*4));
 	  //clear mem here
       }
    }

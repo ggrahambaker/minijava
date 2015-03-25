@@ -3,6 +3,7 @@ package symtable;
 import minijava.node.PType;
 import Mips.*;  // These two are needed for the IRT phase
 import Arch.*;
+import Tree.*;
 
 
 
