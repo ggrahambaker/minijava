@@ -60,13 +60,13 @@ public class ClassInfo {
       catch(Exception e){
 	  throw e;}
       this.info = new InFrame(0);
-      Set<String> tempKeys = this.vars.getVarNames();
-      String[] varKeys = new String[tempKeys.size()]; 
-      varKeys = tempKeys.toArray(varKeys);
-      for(int i=0; i<varKeys.length; i++){
-        Access temp = new InFrame((i*4));
-	     this.vars.get(varKeys[i]).setAccess(temp);
-	       //clear mem here
+
+      String[] tempKeys = (String[])this.vars.getVarNames().toArray();
+      for(int i=0; i<vars.size(); i++){
+
+              Access temp = new InFrame((i*4));
+	     this.vars.get(tempKeys.get(i)).setAccess(temp);
+
 
       }
    }
