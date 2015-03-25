@@ -9,7 +9,7 @@ import minijava.node.TId;
 
 import Mips.*;  // These two are needed for the IRT phase
 import Arch.*;
-
+import Tree.*;
 
 /** 
  * A ClassInfo instance records infofmation about a single class.  It stores 
@@ -104,6 +104,8 @@ public class ClassInfo {
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
+       System.out.println("-------------------------------------");
+       Print.prExp(((InFrame)info.getAccess()).getTree(new InReg(new Reg("dest"))));
        System.out.println("-------------------------------------");
        System.out.println("Instance var accessors:");
        vars.dumpIRT();
