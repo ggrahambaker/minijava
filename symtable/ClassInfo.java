@@ -105,7 +105,7 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
-       Print.prExp(((InFrame)info.getAccess()).getTree(new InReg(new Reg("dest")).getTree()));
+       Print.prExp(((InFrame)info.getAccess()).getTree(new REG(new Reg("dest"))));
        System.out.println("-------------------------------------");
        System.out.println("Instance var accessors:");
        vars.dumpIRT();
