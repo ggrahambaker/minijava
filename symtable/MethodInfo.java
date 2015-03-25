@@ -50,56 +50,52 @@ public class MethodInfo {
     * @param formals  A list of the method's formal variables (params)
     * @param locals   A list of the method's local variables
     */
-   public MethodInfo(PType retType, TId name,
-       LinkedList<PFormal> formals,
-       LinkedList<PVarDecl> locals) throws VarClashException {
-      //TODO Fill in the guts of this method.
-    this.retType = retType;
-    this.name = name;
-      // make formals VarDel, add to 'locals' linked list
-    LinkedList<PFormal> newformals = new LinkedList<PFormal>();
-    for(PFormal f: formals){
-	boolean notfail = true;
-	String tempname = ((AFormal)f).toString();
-	for (PFormal j: newformals)
-	    if (((AFormal)j).toString().equals(tempname))
-		notfail=false;
-	if (notfail)
-	    newformals.add(f);
-	else{
-	    String msg = "VarClashException: " + ((AFormal)f).toString() + " redeclared on line " + name.getLine();
-	    throw new VarClashException(msg); // There was a clash
-	}}
-    this.formals = newformals;
-    for(PFormal p: formals) {
-	AFormal f = (AFormal)p.clone();
-	AVarDecl temp = new AVarDecl();
-	temp.setType(f.getType());
-	temp.setId(f.getId());
-    	locals.add(temp);}
-    try{
-	this.locals = new VarTable(locals);}
-    catch(VarClashException e){
-	throw e;}
-    this.info = new InFrame(0);
+    public MethodInfo(PType retType, TId name,
+		      LinkedList<PFormal> formals,
+		      LinkedList<PVarDecl> locals) throws VarClashException {
+	//TODO Fill in the guts of this method.
+	this.retType = retType;
+	this.name = name;
+	// make formals VarDel, add to 'locals' linked list
+	LinkedList<PFormal> newformals = new LinkedList<PFormal>();
+	for(PFormal f: formals){
+	    boolean notfail = true;
+	    String tempname = ((AFormal)f).toString();
+	    for (PFormal j: newformals)
+		if (((AFormal)j).toString().equals(tempname))
+		    notfail=false;
+	    if (notfail)
+		newformals.add(f);
+	    else{
+		String msg = "VarClashException: " + ((AFormal)f).toString() + " redeclared on line " + name.getLine();
+		throw new VarClashException(msg); // There was a clash
+	    }}
+	this.formals = newformals;
+	for(PFormal p: formals) {
+	    AFormal f = (AFormal)p.clone();
+	    AVarDecl temp = new AVarDecl();
+	    temp.setType(f.getType());
+	    temp.setId(f.getId());
+	    locals.add(temp);}
+	try{
+	    this.locals = new VarTable(locals);}
+	catch(VarClashException e){
+	    throw e;}
+	info = new InFrame(0);
+	static_link = new InFrame(4);
+	//return address here at 0
+	//static link here at 4
+	Set<String> tempKeys = this.locals.getVarNames();
+	for(int i=0; i<tempKeys.size(); i++){
+	    
+	    this.locals.get(tempKeys.get(i)).setAccess(new InFrame(8+(i*4)));
+	    //clear mem here
+	}
+	
+    }
     
-    throw e;
-   }
-    info = new InFrame(0);
-    static_link = new InFrame(4);
-    //return address here at 0
-    //static link here at 4
-    Set<String> tempKeys = this.locals.getVarNames();
-    for(int i=0; i<tempKeys.size(); i++){
+    
 
-	     this.locals.get(tempKeys.get(i)).setAccess(8+(i*4));
-	     //clear mem here
-
-      
-      };
-    
-   }
-    
 /* Accessors */   
     public TId getName() { return name; }
     public PType getRetType() { return retType; }

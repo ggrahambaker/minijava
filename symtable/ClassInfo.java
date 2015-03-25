@@ -60,10 +60,10 @@ public class ClassInfo {
       catch(Exception e){
 	  throw e;}
       this.info = new InFrame(0);
-      Set<String> tempKeys = this.VarTable.getVarNames();
+      String[] tempKeys = (String[])this.vars.getVarNames().toArray();
       for(int i=0; i<vars.size(); i++){
 
-	     this.vars.get(tempKeys.get(i)).setAccess((i*4));
+	     this.vars.getInfo(tempKeys[i]).setAccess((i*4));
 	  //clear mem here
 
       }
