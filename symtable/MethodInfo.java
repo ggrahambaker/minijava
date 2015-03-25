@@ -87,7 +87,7 @@ public class MethodInfo {
 	//return address here at 0
 	//static link here at 4
 	String[] tempKeys = (String[])this.locals.getVarNames().toArray();
-	for(int i=0; i<tempKeys.size(); i++){
+	for(int i=0; i<tempKeys.length; i++){
 	    
 	    this.locals.getInfo(tempKeys[i]).setAccess(new InFrame(8+(i*4)));
 	    //clear mem here
@@ -135,6 +135,7 @@ public class MethodInfo {
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
       System.out.println(getName().toString() + " (");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
+      AFormal s;
       while(!it.isEmpty()){
         s=(AFormal)it.remove(0);
         System.out.print(" "+s.getId().toString()+" : "+Types.toStr(s.getType()));
@@ -154,8 +155,9 @@ public class MethodInfo {
         varKeys = tempKeys.toArray(varKeys);
         for(int i=0; i<varKeys.length; i++){
 
-           Access a = this.locals.get(varKeys[i]).getAccess();
-           Print.prExp(a);
+           VarInfo a = this.locals.getInfo(varKeys[i]);//.getAccess();
+           InFrame iframe = (InFrame)a.getAccess(); 
+           Print.prExp(iframe.getTree());
            //clear mem here
 
           
