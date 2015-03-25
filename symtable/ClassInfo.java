@@ -68,7 +68,8 @@ public class ClassInfo {
   }
       this.info = new InFrame(0);
 
-      String[] tempKeys = (String[])this.vars.getVarNames().toArray();
+      String[] tempKeys = new String[this.vars.getVarNames().size()];
+      this.vars.getVarNames().toArray(tempKeys);
       for(int i=0; i<vars.size(); i++){
 
             Access temp = new InFrame((i*4));
