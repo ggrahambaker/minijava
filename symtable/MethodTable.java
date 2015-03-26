@@ -28,7 +28,7 @@ public class MethodTable {
     */
    public MethodTable(LinkedList<PMethod> methods) throws Exception {
       //TODO Fill in the guts of this method.
-    System.out.println("started");
+
        for(PMethod method : methods){
              try{
                  put(((AMethod) method).getId(), ((AMethod) method).getType(), ((AMethod) method).getFormal(), ((AMethod) method).getVarDecl());}
@@ -37,7 +37,7 @@ public class MethodTable {
                  throw e;
                }   
        }
-       System.out.println("ended");
+       
 	   
 	       //  throw new MethodClassError("MethodClashException: "+((AMethod) method).getId().toString()+" redeclaired on line ");}
    
@@ -66,7 +66,7 @@ public class MethodTable {
          throw new MethodClashException(msg); // There was a clash
       }
       else {
-        System.out.println("added info");
+        
 	     table.put(name, new MethodInfo(retType, id, formals, locals));    // No clash; add new binding
       }
    }

@@ -38,7 +38,7 @@ public class IRTVisitor extends DepthFirstAdapter {
         classInfo = node;
 
 
-        System.out.println("in a base clasee!");
+
 
         if(classInfo instanceof AMainClassDecl){
             // do nothing
@@ -82,7 +82,7 @@ public class IRTVisitor extends DepthFirstAdapter {
         inASubClassDecl(node);
         classInfo = node;
 
-        System.out.println("in a sub clasee!");
+        
 
         if(classInfo instanceof AMainClassDecl){
             // do nothing
@@ -143,14 +143,14 @@ public class IRTVisitor extends DepthFirstAdapter {
         if(classInfo instanceof AMainClassDecl){
             // do nothing
         } else if (classInfo instanceof ABaseClassDecl){
-            System.out.println("base class?? ");
+           
             ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
             MethodTable mt = ci.getMethodTable();
             MethodInfo mi = mt.get(node.getId().getText());
             mi.allocateMem();
 
         } else if(classInfo instanceof ASubClassDecl){
-            System.out.println("sub class?? ");
+
             ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
             MethodTable mt = ci.getMethodTable();
             MethodInfo mi = mt.get(node.getId().getText());
