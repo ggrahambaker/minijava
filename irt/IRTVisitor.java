@@ -22,6 +22,16 @@ public class IRTVisitor extends DepthFirstAdapter {
 	public void caseAMainClassDecl(AMainClassDecl node) {
         inAMainClassDecl(node);
         classInfo = node;
+        System.out.println(((AMainClassDecl)classInfo).getId().getText() + "-- main method!");
+        //table.dump();
+
+        ClassInfo ci = table.get(((AMainClassDecl)classInfo).getId().getText() + " ");
+        if(ci == null){
+
+        }
+        //System.out.println(ci.getName().getText() + " eee");
+        // /ci.allocateMem();
+        
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -36,24 +46,22 @@ public class IRTVisitor extends DepthFirstAdapter {
     public void caseABaseClassDecl(ABaseClassDecl node) {
         inABaseClassDecl(node);
         classInfo = node;
+        ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
+        ci.allocateMem();
 
 
 
-
-        if(classInfo instanceof AMainClassDecl){
-            // do nothing
-        } else if (classInfo instanceof ABaseClassDecl){
+        // if(classInfo instanceof AMainClassDecl){
+        //     // do nothing
+        // } else if (classInfo instanceof ABaseClassDecl){
         
-            ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
-            ci.allocateMem();
+           
 
-        } else if(classInfo instanceof ASubClassDecl){
+        // } else if(classInfo instanceof ASubClassDecl){
 
-            ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
-        
-            ci.allocateMem();
+     
             
-        }
+        // }
 
 
         if(node.getId() != null)
@@ -81,23 +89,26 @@ public class IRTVisitor extends DepthFirstAdapter {
     {
         inASubClassDecl(node);
         classInfo = node;
-
-        
-
-        if(classInfo instanceof AMainClassDecl){
-            // do nothing
-        } else if (classInfo instanceof ABaseClassDecl){
-        
-            ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
-            ci.allocateMem();
-
-        } else if(classInfo instanceof ASubClassDecl){
-
             ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
         
             ci.allocateMem();
+
+        
+
+        // if(classInfo instanceof AMainClassDecl){
+        //     // do nothing
+        // } else if (classInfo instanceof ABaseClassDecl){
+        
+        //     ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
+        //     ci.allocateMem();
+
+        // } else if(classInfo instanceof ASubClassDecl){
+
+        //     ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
+        
+        //     ci.allocateMem();
             
-        }
+        // }
         if(node.getId() != null)
         {
             node.getId().apply(this);

@@ -135,6 +135,7 @@ public class ClassTable {
     /** dump prints info on each of the classes in the table */
     public void dump() {
 		for(String name : table.keySet()){
+			System.out.println("NAME IS '"+name+"'");
 		    table.get(name).dump();
 		}
 	}

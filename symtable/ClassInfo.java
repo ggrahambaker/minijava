@@ -100,7 +100,6 @@ public class ClassInfo {
    
    public void dumpIRT() {
 
-		// TODO:  You'll complete this one on the next checkpoint
        String s = className.getText();
        if(superClass != null) 
 	       s += "  Extends: "+getSuper().getText();
@@ -110,8 +109,11 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
 
        if (this.vars.getVarNames().size()==0){
-	     MOVE static_link = new MOVE(new REG(new Reg("$dest")), ((InFrame)info).getTree());
-	     Print.prExp(new ESEQ(static_link, new REG(new Reg("$dest"))));
+
+	   // REG dest = new REG(new Reg("$dest"));
+	   // MOVE static_link = new MOVE(dest, ((InFrame)info).getTree());
+	   // ESEQ eseq = new ESEQ(static_link,dest);
+	   // Print.prExp(eseq);
        }
        else {
 	   //Stm temp = (Stm)static_link;
