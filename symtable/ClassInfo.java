@@ -118,7 +118,7 @@ public class ClassInfo {
 	   String[] tempKeys = new String[this.vars.getVarNames().size()];
 	   this.vars.getVarNames().toArray(tempKeys);
 	   MOVE malloc = new MOVE(dest, new CALL(new NAME(new Label("malloc")),new CONST(tempKeys.length*4) ));
-	   Exp temp = malloc
+	   Exp temp = malloc;
 	   for(String s :tempKeys )
 	       temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.vars.get(s).getAccess().getTree())),new CONST(0)) );
 	   
