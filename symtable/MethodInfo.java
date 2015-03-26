@@ -71,31 +71,7 @@ public class MethodInfo {
 		String msg = "VarClashException: " + ((AFormal)f).toString() + " redeclared on line " + name.getLine();
 		throw new VarClashException(msg); // There was a clash
 	    }}
-	
 
-	
-
-	// info = new InFrame(0);
-	// static_link = new InFrame(4);
-	// //return address here at 0
-	// // //static link here at 4
-	// //String[] tempKeys = new String[this.locals.getVarNames().size()];
-	// //this.locals.getVarNames().toArray(tempKeys);
-	// // System.out.println(tempKeys.length + " -- lets get tiz");
-	// //for(int i = 0; i < tempKeys.length; i++)
-	// //  System.out.println(tempKeys[i] + " are we dumb ? " + i);
-	
-	//  for(int i=0; i<newLoc.size(); i++){
-	
-	//      // System.out.println("adding stuff");
-	//      //     //System.out.println("inspectinggg " + ((AVarDecl)newLoc.get(i)).getId().toString()+"  "+this.locals.getVarNames().contains(((AVarDecl)newLoc.get(i)).getId().toString()));
-	
-
-	//      this.locals.getInfo(((AVarDecl)newLoc.get(i)).getId().toString()).setAccess(new InFrame(8+(i*4)));
-	// // //     //clear mem here
-	//  }
-
-	
     }
 
 
@@ -134,7 +110,7 @@ public class MethodInfo {
         //static link here at 4
         String[] tempKeys = new String[this.locals.getVarNames().size()];
         this.locals.getVarNames().toArray(tempKeys);
-        System.out.println(tempKeys.length + " -- lets get tiz");
+
         for(int i = 0; i < tempKeys.length; i++)
             System.out.println(tempKeys[i] + " are we dumb ? " + i);
 

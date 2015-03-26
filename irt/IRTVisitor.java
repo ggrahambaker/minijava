@@ -19,19 +19,19 @@ public class IRTVisitor extends DepthFirstAdapter {
     }
 
 
-	public void caseAMainClassDecl(AMainClassDecl node) {
-        inAMainClassDecl(node);
-        classInfo = node;
-        if(node.getId() != null)
-        {
-            node.getId().apply(this);
-        }
-        if(node.getStmt() != null)
-        {
-            node.getStmt().apply(this);
-        }
-        outAMainClassDecl(node);
-    }
+	// public void caseAMainClassDecl(AMainClassDecl node) {
+ //        inAMainClassDecl(node);
+ //        classInfo = node;
+ //        if(node.getId() != null)
+ //        {
+ //            node.getId().apply(this);
+ //        }
+ //        if(node.getStmt() != null)
+ //        {
+ //            node.getStmt().apply(this);
+ //        }
+ //        outAMainClassDecl(node);
+ //    }
 
     public void caseABaseClassDecl(ABaseClassDecl node) {
         inABaseClassDecl(node);
@@ -104,16 +104,18 @@ public class IRTVisitor extends DepthFirstAdapter {
 
     public void caseAMethod(AMethod node)
     {
-     
-        if(classInfo instanceof ABaseClassDecl){
+
+        if(classInfo instanceof AMainClassDecl){
+            // do nothing
+        } else if (classInfo instanceof ABaseClassDecl){
+            System.out.println("ARe you main? ");
             ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
             MethodTable mt = ci.getMethodTable();
             MethodInfo mi = mt.get(node.getId().getText());
             mi.allocateMem();
 
-        }
-
-        if(classInfo instanceof ASubClassDecl){
+        } else if(classInfo instanceof ASubClassDecl){
+            System.out.println("ARe you main? ");
             ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
             MethodTable mt = ci.getMethodTable();
             MethodInfo mi = mt.get(node.getId().getText());

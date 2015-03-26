@@ -54,15 +54,15 @@ public class ClassTable {
 	    // handle the method list
 	    LinkedList<PMethod> methodList = new LinkedList<PMethod>();
 	    AMethod temp = new AMethod();
-	    //      System.out.println("name to string -> "+name.toString());
+	    // System.out.println("name to string -> "+name.toString());
 	    temp.setId(new TId(methodName));
 	    methodList.add(temp);
 	    
 	    // generate the appropriate class info
 	    
 	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
-	    // check for duplicates and add the main class info if it is good
-	    	    // System.out.println("created class? ??");
+
+
 	    if(table.containsKey(name)){
 	    	System.out.println("didnt WORKDED??");
 			throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());
