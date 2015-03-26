@@ -66,20 +66,20 @@ public class ClassInfo {
 	  System.out.println("throwing methods");
     throw e;
 
-  }
-      this.info = new InFrame(0);
-
-      String[] tempKeys = new String[this.vars.getVarNames().size()];
-      this.vars.getVarNames().toArray(tempKeys);
-      for(int i=0; i<vars.size(); i++){
-
-            Access temp = new InFrame((i*4));
-	           this.vars.getInfo(tempKeys[i]).setAccess(temp);
-
-
       }
    }
-   
+    
+    public void allocMemory(){
+	this.info = new InFrame(0);
+	String[] tempKeys = new String[this.vars.getVarNames().size()];
+	this.vars.getVarNames().toArray(tempKeys);
+	for(int i=0; i<vars.size(); i++){
+	    Access temp = new InFrame((i*4));
+	    this.vars.getInfo(tempKeys[i]).setAccess(temp);
+	}
+    }
+    
+    
    public TId getName() { return className; }
    public TId getSuper() { return superClass; }
    public VarTable getVarTable() { return vars; }
