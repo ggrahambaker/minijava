@@ -180,6 +180,9 @@ public class MethodInfo {
     
     public void dumpIRT(){
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
+	if(getName().toString().equals("main"))
+	    return;
+
       System.out.print(getName().toString() + " (");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
       AFormal s;
