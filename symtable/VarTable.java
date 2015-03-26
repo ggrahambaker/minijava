@@ -41,7 +41,7 @@ public class VarTable {
          throw new VarClashException(msg); // There was a clash
       }
       else 
-	  table.put(name, new VarInfo(type));    // No clash; add new binding
+        table.put(name, new VarInfo(type));    // No clash; add new binding
    }
    
     /** Lookup and return the type of a variable */
