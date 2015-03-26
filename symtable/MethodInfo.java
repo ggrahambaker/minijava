@@ -73,50 +73,50 @@ public class MethodInfo {
 	    }}
 	
 
-  this.formals = newformals;
-
-  LinkedList<PVarDecl> newLoc = new LinkedList<PVarDecl>();
-
+	this.formals = newformals;
 	
-  for(PFormal p: formals) {
+	LinkedList<PVarDecl> newLoc = new LinkedList<PVarDecl>();
+	
+	
+	for(PFormal p: formals) {
 	    AFormal f = (AFormal)p.clone();
 	    AVarDecl temp = new AVarDecl();
 	    temp.setType(f.getType());
 	    temp.setId(f.getId());
 	    newLoc.add(temp);
-    }
-    for(PVarDecl a : locals){
-      
-      ((AVarDecl)a).setId(new TId(((AVarDecl)a).getId().toString().replaceAll("\\s","")));
-      newLoc.add(a);
-    }
-    // for(PVarDecl a : newLoc)
-    //   System.out.println(a.toString());
+	}
+	for(PVarDecl a : locals){
+	    
+	    ((AVarDecl)a).setId(new TId(((AVarDecl)a).getId().toString().replaceAll("\\s","")));
+	    newLoc.add(a);
+	}
+	// for(PVarDecl a : newLoc)
+	//   System.out.println(a.toString());
 	try {
 	    this.locals = new VarTable(newLoc);}
 	catch(VarClashException e){
-	  System.out.println("we are about to die now");
-      throw e;
+	    System.out.println("we are about to die now");
+	    throw e;
 	}
-	// info = new InFrame(0);
-	// static_link = new InFrame(4);
-	// //return address here at 0
+	info = new InFrame(0);
+	static_link = new InFrame(4);
+	//return address here at 0
 	// //static link here at 4
-	// String[] tempKeys = new String[this.locals.getVarNames().size()];
-	// this.locals.getVarNames().toArray(tempKeys);
+	//String[] tempKeys = new String[this.locals.getVarNames().size()];
+	//this.locals.getVarNames().toArray(tempKeys);
 	// System.out.println(tempKeys.length + " -- lets get tiz");
-  // for(int i = 0; i < tempKeys.length; i++)
-  //     System.out.println(tempKeys[i] + " are we dumb ? " + i);
+	//for(int i = 0; i < tempKeys.length; i++)
+	//  System.out.println(tempKeys[i] + " are we dumb ? " + i);
+	
+	 for(int i=0; i<newLoc.size(); i++){
+	
+	     // System.out.println("adding stuff");
+	     //     //System.out.println("inspectinggg " + ((AVarDecl)newLoc.get(i)).getId().toString()+"  "+this.locals.getVarNames().contains(((AVarDecl)newLoc.get(i)).getId().toString()));
+	
 
-	// for(int i=0; i<newLoc.size(); i++){
-
-	//     // System.out.println("adding stuff");
- //     //System.out.println("inspectinggg " + ((AVarDecl)newLoc.get(i)).getId().toString()+"  "+this.locals.getVarNames().contains(((AVarDecl)newLoc.get(i)).getId().toString()));
-	    
-
- //      this.locals.getInfo(((AVarDecl)newLoc.get(i)).getId().toString()).setAccess(new InFrame(8+(i*4)));
+	     this.locals.getInfo(((AVarDecl)newLoc.get(i)).getId().toString()).setAccess(new InFrame(8+(i*4)));
 	// //     //clear mem here
-	// }
+	 }
 	
     }
 
