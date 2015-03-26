@@ -108,21 +108,21 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
+       REG dest = new REG(new Reg("$dest"));
        if (this.vars.getVarNames().size()==0){
-	   REG dest = new REG(new Reg("$dest"));
 	   MOVE static_link = new MOVE(dest, ((InFrame)info).getTree());
 	   ESEQ eseq = new ESEQ(static_link,dest);
 	   Print.prStm(eseq);
        }
        else {
-	   //Stm temp = (Stm)static_link;
-       String[] tempKeys = new String[this.vars.getVarNames().size()];
-       /*this.vars.getVarNames().toArray(tempKeys);
-       for(String s :tempKeys ){
-	   temp = new SEQ(new MOVE(new REG(new Reg("$dest")),new CALL(vars.get(s).)), temp);
+	   String[] tempKeys = new String[this.vars.getVarNames().size()];
+	   this.vars.getVarNames().toArray(tempKeys);
+	   MOVE malloc = new MOVE(dest, new CALL(new NAME(new Label("malloc")),new CONST(tempKeys.length*4) ));
+	   Exp temp = malloc
+	   for(String s :tempKeys )
+	       temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.vars.get(s).getAccess().getTree())),new CONST(0)) );
 	   
-       }
-       Print.prExp(new ESEQ(           , new REG(new Reg("$dest"))));*/
+	   Print.prExp(new ESEQ(temp, new REG(new Reg("$dest"))));
        }
 		   //new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree()))
        // Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
