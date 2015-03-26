@@ -109,7 +109,7 @@ public class ClassInfo {
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
        if (this.vars.getVarNames().size()==0){
-	   MOVE static_link = new MOVE(new REG(new Reg("$dest")), info.getTree());
+	   MOVE static_link = new MOVE(new REG(new Reg("$dest")), ((InFrame)info).getTree());
 	   Print.prExp(new ESEQ(static_link, new REG(new Reg("$dest"))));
        }
        else {
