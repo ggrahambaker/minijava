@@ -36,6 +36,8 @@ public class IRTVisitor extends DepthFirstAdapter {
     public void caseABaseClassDecl(ABaseClassDecl node) {
         inABaseClassDecl(node);
         classInfo = node;
+
+
         if(node.getId() != null)
         {
             node.getId().apply(this);
@@ -103,7 +105,22 @@ public class IRTVisitor extends DepthFirstAdapter {
     public void caseAMethod(AMethod node)
     {
      
-       //  ClassInfo ci = table.get(classInfo.getId().getText());
+        if(classInfo instanceof ABaseClassDecl){
+            ClassInfo ci = table.get(((ABaseClassDecl)classInfo).getId().getText());
+            MethodTable mt = ci.getMethodTable();
+            MethodInfo mi = mt.get(node.getId().getText());
+            mi.allocateMem();
+
+        }
+
+        if(classInfo instanceof ASubClassDecl){
+            ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
+            MethodTable mt = ci.getMethodTable();
+            MethodInfo mi = mt.get(node.getId().getText());
+            mi.allocateMem();
+            
+        }
+
 
 
         if(node.getType() != null)
