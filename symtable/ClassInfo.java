@@ -108,15 +108,20 @@ public class ClassInfo {
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
-       MOVE static_link = new MOVE(new REG(new Reg("$dest")), info.getTree());
-       Stm temp = (Stm)static_link;
+       if (this.vars.getVarNames().size()==0){
+	   MOVE static_link = new MOVE(new REG(new Reg("$dest")), info.getTree());
+	   Print.prExp(new ESEQ(static_link, new REG(new Reg("$dest"))));
+       }
+       else {
+	   //Stm temp = (Stm)static_link;
        String[] tempKeys = new String[this.vars.getVarNames().size()];
-       this.vars.getVarNames().toArray(tempKeys);
+       /*this.vars.getVarNames().toArray(tempKeys);
        for(String s :tempKeys ){
 	   temp = new SEQ(new MOVE(new REG(new Reg("$dest")),new CALL(vars.get(s).)), temp);
-
+	   
        }
-       Print.prExp(new ESEQ(  , new REG(new Reg("$dest"))));
+       Print.prExp(new ESEQ(           , new REG(new Reg("$dest"))));*/
+       }
 		   //new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree()))
        // Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
 
