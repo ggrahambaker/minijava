@@ -39,13 +39,15 @@ public class BuildTable {
          // our symbol table visitor to it.
 
          start.getPProgram().apply(visitor);
-          // visitor.getTable().dumpIRT();
+        // visitor.getTable().dumpIRT();
          // TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
          
 
          
          // start.getPProgram().apply(typeVisit);
-        //  IRTVisitor irt = new TypeCheckVisitor(visitor.getTable());
+        IRTVisitor irt = new IRTVisitor(visitor.getTable());
+        //System.out.println("--------- irt dump ----------");
+        visitor.getTable().dumpIRT();
 
 
          
