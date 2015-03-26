@@ -39,7 +39,7 @@ public class BuildTable {
          // our symbol table visitor to it.
 
          start.getPProgram().apply(visitor);
-          visitor.getTable().dumpIRT();
+          // visitor.getTable().dumpIRT();
          // TypeCheckVisitor typeVisit = new TypeCheckVisitor(visitor.getTable());
          
 

@@ -53,14 +53,15 @@ public class ClassInfo {
     
       this.className = className;
       this.superClass = superClass;
-      try{
+      try {
 	  this.vars = new VarTable(vars);}           // Populate table from list
       catch(VarClashException e){
 	        System.out.println("throwing e");
        throw e;
      }
-      try{
-	  this.methods = new MethodTable(methods);}  // Ditto.
+      try {
+	  this.methods = new MethodTable(methods);
+    }  // Ditto.
       catch(Exception e){
 	  System.out.println("throwing methods");
     throw e;
@@ -97,7 +98,7 @@ public class ClassInfo {
    } 
    
    public void dumpIRT() {
-    System.out.println("vomit");
+
 		// TODO:  You'll complete this one on the next checkpoint
        String s = className.getText();
        if(superClass != null) 

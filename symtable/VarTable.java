@@ -11,8 +11,8 @@ import minijava.node.TId;
 
 import Tree.*;
 import Arch.*;
-
 import java.util.*;
+
 /** 
  * A VarTable records name and type information about a <i>collection</i> 
  * of variables.  An exception is thrown if we try to add a duplicate name.

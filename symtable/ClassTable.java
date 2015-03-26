@@ -57,7 +57,7 @@ public class ClassTable {
 	    //      System.out.println("name to string -> "+name.toString());
 	    temp.setId(new TId(methodName));
 	    methodList.add(temp);
-	    System.out.println("are we going? ??");
+	    
 	    // generate the appropriate class info
 	    
 	    ClassInfo main = new ClassInfo(name, null, new LinkedList<PVarDecl>(), methodList);
@@ -68,7 +68,7 @@ public class ClassTable {
 			throw new ClassClashException("ClassClashException: " + name.getText() + " redeclared at line " + name.getPos());
 	    } 
 	    else {
-	    	System.out.println("WORKDED??");
+	    	
 			table.put(className, main);
 	    }
 	} catch (Exception e){ //throw any exceptions that occur
