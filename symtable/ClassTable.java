@@ -53,10 +53,10 @@ public class ClassTable {
 	    TId name =new TId(className);
 	    // handle the method list
 	    LinkedList<PMethod> methodList = new LinkedList<PMethod>();
-	    AMethod temp = new AMethod();
-	    // System.out.println("name to string -> "+name.toString());
-	    temp.setId(new TId(methodName));
-	    methodList.add(temp);
+	    // AMethod temp = new AMethod();
+	    // // System.out.println("name to string -> "+name.toString());
+	    // temp.setId(new TId(methodName));
+	    // methodList.add(temp);
 	    
 	    // generate the appropriate class info
 	    

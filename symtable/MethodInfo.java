@@ -56,7 +56,9 @@ public class MethodInfo {
 		      LinkedList<PVarDecl> locals) throws VarClashException {
 	//TODO Fill in the guts of this method.
 	this.retType = retType;
-	this.name = name;
+  String a = name.toString().replaceAll("\\s","");
+	this.name = new TId(a);
+
 	// make formals VarDel, add to 'locals' linked list
 	LinkedList<PFormal> newformals = new LinkedList<PFormal>();
 	for(PFormal f: formals){
@@ -72,47 +74,52 @@ public class MethodInfo {
 		throw new VarClashException(msg); // There was a clash
 	    }}
 
+      this.formals = newformals;
+      
+      LinkedList<PVarDecl> newLoc = new LinkedList<PVarDecl>();
+      
+      
+      for(PFormal p: formals) {
+          AFormal f = (AFormal)p.clone();
+          AVarDecl temp = new AVarDecl();
+          temp.setType(f.getType());
+          temp.setId(f.getId());
+          newLoc.add(temp);
+      }
+      for(PVarDecl aaa : locals){
+          
+          ((AVarDecl)aaa).setId(new TId(((AVarDecl)aaa).getId().toString().replaceAll("\\s","")));
+          newLoc.add(aaa);
+      }
+
+      try {
+          this.locals = new VarTable(newLoc);}
+      catch(VarClashException e){
+          System.out.println("we are about to die now");
+          throw e;
+      }
+
     }
 
 
     public void allocateMem(){
 
-      // this.formals = newformals;
-      
-      // LinkedList<PVarDecl> newLoc = new LinkedList<PVarDecl>();
-      
-      
-      // for(PFormal p: formals) {
-      //     AFormal f = (AFormal)p.clone();
-      //     AVarDecl temp = new AVarDecl();
-      //     temp.setType(f.getType());
-      //     temp.setId(f.getId());
-      //     newLoc.add(temp);
-      // }
-      // for(PVarDecl a : locals){
-          
-      //     ((AVarDecl)a).setId(new TId(((AVarDecl)a).getId().toString().replaceAll("\\s","")));
-      //     newLoc.add(a);
-      // }
+     
       // // for(PVarDecl a : newLoc)
       // //   System.out.println(a.toString());
-      // try {
-      //     this.locals = new VarTable(newLoc);}
-      // catch(VarClashException e){
-      //     System.out.println("we are about to die now");
-      //     throw e;
-      // }
+      
 
 
         info = new InFrame(0);
         static_link = new InFrame(4);
         //return address here at 0
         //static link here at 4
+        // System.out.println(this.locals.getVarNames() + " size of varz");
         String[] tempKeys = new String[this.locals.getVarNames().size()];
         this.locals.getVarNames().toArray(tempKeys);
 
-        for(int i = 0; i < tempKeys.length; i++)
-            System.out.println(tempKeys[i] + " are we dumb ? " + i);
+        // for(int i = 0; i < tempKeys.length; i++)
+        //     System.out.println(tempKeys[i] + " are we dumb ? " + i);
 
         for(int i=0; i<tempKeys.length; i++){
 
@@ -159,9 +166,17 @@ public class MethodInfo {
 
     
     public void dumpIRT(){
+
 	   //TODO Fill in the guts of this method -- but once we get to the IRT checkpoint
-	if(getName().toString().equals("main"))
-	    return;
+	     // String a = getName().toString();
+      //  a = a.replaceAll("\\s","");
+
+      // System.out.println("about to look! "+ getName().toString() + ".    " + getName().toString().equals("main "));
+      // if(getName().toString().equals("main ")){
+      //   System.out.println("gross");
+      //   return;
+      // }
+	    
 
       System.out.print(getName().toString() + " (");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());

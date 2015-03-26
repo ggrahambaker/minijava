@@ -69,14 +69,15 @@ public class ClassInfo {
       }
    }
     
-    public void allocMemory(){
-	this.info = new InFrame(0);
-	String[] tempKeys = new String[this.vars.getVarNames().size()];
-	this.vars.getVarNames().toArray(tempKeys);
-	for(int i=0; i<vars.size(); i++){
-	    Access temp = new InFrame((i*4));
-	    this.vars.getInfo(tempKeys[i]).setAccess(temp);
-	}
+    public void allocateMem(){
+      System.out.println(this.getName().toString() + " -- alloc mem");
+    	this.info = new InFrame(0);
+    	String[] tempKeys = new String[this.vars.getVarNames().size()];
+    	this.vars.getVarNames().toArray(tempKeys);
+    	for(int i=0; i<vars.size(); i++){
+    	    Access temp = new InFrame((i*4));
+    	    this.vars.getInfo(tempKeys[i]).setAccess(temp);
+    	}
     }
     
     

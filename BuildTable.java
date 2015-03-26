@@ -46,6 +46,7 @@ public class BuildTable {
          
          // start.getPProgram().apply(typeVisit);
         IRTVisitor irt = new IRTVisitor(visitor.getTable());
+        start.getPProgram().apply(irt);
         //System.out.println("--------- irt dump ----------");
         visitor.getTable().dumpIRT();
 
