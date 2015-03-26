@@ -178,15 +178,15 @@ public class MethodInfo {
       // }
 	    
 
-      System.out.print(getName().toString() + " (");
+      System.out.print(getName().toString() + "(");
       ArrayList<PFormal> it = new ArrayList<PFormal>(getFormals());
       AFormal s;
       while(!it.isEmpty()){
         s=(AFormal)it.remove(0);
-        System.out.print(" "+s.getId().toString()+" : "+Types.toStr(s.getType()));
+        System.out.print(" "+s.getId().toString()+": "+Types.toStr(s.getType()));
         
         if(!it.isEmpty())
-          System.out.print(", "); 
+          System.out.print(","); 
         }
         if (getRetType() != null)
             System.out.println(" ) : " + Types.toStr(getRetType()));
