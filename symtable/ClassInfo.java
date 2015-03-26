@@ -109,7 +109,8 @@ public class ClassInfo {
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
 
-       // Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
+       System.out.println("Constructor fragment");
+       //Print.prExp(((InFrame)info).getTree(new ESEQ(new SEQ("dest"))));
 
        System.out.println("-------------------------------------");
        System.out.println("Instance var accessors:");

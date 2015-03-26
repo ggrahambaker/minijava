@@ -93,7 +93,8 @@ public class MethodInfo {
       }
 
       try {
-          this.locals = new VarTable(newLoc);}
+          this.locals = new VarTable(newLoc);
+        }
       catch(VarClashException e){
           System.out.println("we are about to die now");
           throw e;
