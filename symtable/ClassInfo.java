@@ -22,7 +22,7 @@ import Tree.*;
  
 public class ClassInfo {
    private TId className;         // TId holding our name, line number, etc.
-   private TId superClass;        // Our superclass, if we have one
+   private ClassInfo superClass;        // Our superclass, if we have one
    private VarTable vars;         // A VarTable holding info on all instance vars
    private MethodTable methods;   // Table of info on methods
 
@@ -46,7 +46,7 @@ public class ClassInfo {
     * @param vars       A list of all instance vars in the class
     * @param methods    A list of method descriptors
     */
-   public ClassInfo(TId className, TId superClass,
+   public ClassInfo(TId className, ClassInfo superClass,
                     LinkedList<PVarDecl> vars,
                     LinkedList<PMethod> methods) throws Exception { 
 
@@ -82,14 +82,14 @@ public class ClassInfo {
     
     
    public TId getName() { return className; }
-   public TId getSuper() { return superClass; }
+   public ClassInfo getSuper() { return superClass; }
    public VarTable getVarTable() { return vars; }
    public MethodTable getMethodTable() { return methods; }
    
    public void dump() {
        String s = className.getText();
        if(superClass != null) 
-	       s+="  Extends: "+getSuper().getText();
+	   s+="  Extends: "+getSuper().getName().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
@@ -103,7 +103,7 @@ public class ClassInfo {
 		// TODO:  You'll complete this one on the next checkpoint
        String s = className.getText();
        if(superClass != null) 
-	       s += "  Extends: "+getSuper().getText();
+	   s += "  Extends: "+getSuper().getName().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
@@ -117,7 +117,7 @@ public class ClassInfo {
        else {
 	   String[] tempKeys = new String[this.vars.getVarNames().size()];
 	   this.vars.getVarNames().toArray(tempKeys);
-	   MOVE malloc = new MOVE(dest, new CALL(new NAME(new Label("malloc")),new CONST(tempKeys.length*4) ));
+	   MOVE malloc = new MOVE(dest, new CALL(new NAME(new Label("malloc")),new ExpList(new CONST(tempKeys.length*4), null) ));
 	   Exp temp = malloc;
 	   for(String s :tempKeys )
 	       temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.vars.get(s).getAccess().getTree())),new CONST(0)) );
