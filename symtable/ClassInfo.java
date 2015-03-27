@@ -141,6 +141,7 @@ public class ClassInfo {
    public void dump() {
        String s = className.getText();
        if(superClass != null) 
+
          s+="  Extends: "+getSuper().getText();
        
        System.out.println("-------------------------------------");
@@ -154,6 +155,7 @@ public class ClassInfo {
 
        String s = className.getText();
 
+
        if(superClass != null){
 
          s += "  Extends: "+getSuper().getText();
@@ -162,6 +164,7 @@ public class ClassInfo {
 
        } 
         
+
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
@@ -174,6 +177,7 @@ public class ClassInfo {
      Print.prExp(eseq);
        }
        else {
+
         String[] tempKeys;
         if(superClass != null){
           int numVars = this.vars.getVarNames().size() + this.sup.getVarTable().getVarNames().size();
@@ -211,6 +215,7 @@ public class ClassInfo {
          temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.sup.getVarTable().getInfo(tempKeys[i]).getAccess().getTree())),new CONST(0)) );
      
      Print.prExp(new ESEQ(temp, new REG(new Reg("$dest"))));
+
        }
        //new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree()))
        // Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
