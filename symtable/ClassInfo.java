@@ -22,7 +22,7 @@ import Tree.*;
  
 public class ClassInfo {
    private TId className;         // TId holding our name, line number, etc.
-   private ClassInfo superClass;        // Our superclass, if we have one
+   private TId superClass;        // Our superclass, if we have one
    private VarTable vars;         // A VarTable holding info on all instance vars
    private MethodTable methods;   // Table of info on methods
 
@@ -46,7 +46,7 @@ public class ClassInfo {
     * @param vars       A list of all instance vars in the class
     * @param methods    A list of method descriptors
     */
-   public ClassInfo(TId className, ClassInfo superClass,
+   public ClassInfo(TId className, TId superClass,
                     LinkedList<PVarDecl> vars,
                     LinkedList<PMethod> methods) throws Exception { 
 
@@ -82,14 +82,14 @@ public class ClassInfo {
     
     
    public TId getName() { return className; }
-   public ClassInfo getSuper() { return superClass; }
+   public TId getSuper() { return superClass; }
    public VarTable getVarTable() { return vars; }
    public MethodTable getMethodTable() { return methods; }
    
    public void dump() {
        String s = className.getText();
        if(superClass != null) 
-	   s+="  Extends: "+getSuper().getName().getText();
+	   s+="  Extends: "+getSuper().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
@@ -103,7 +103,7 @@ public class ClassInfo {
 		// TODO:  You'll complete this one on the next checkpoint
        String s = className.getText();
        if(superClass != null) 
-	   s += "  Extends: "+getSuper().getName().getText();
+	   s += "  Extends: "+getSuper().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
