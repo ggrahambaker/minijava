@@ -21,10 +21,12 @@ import Tree.*;
  */
  
 public class ClassInfo {
+   
    private TId className;         // TId holding our name, line number, etc.
    private TId superClass;        // Our superclass, if we have one
    private VarTable vars;         // A VarTable holding info on all instance vars
    private MethodTable methods;   // Table of info on methods
+   private ClassInfo sup;
 
     /*
    We'll add these once we get to the IRT phase.  The IRTinfo object records
@@ -54,33 +56,83 @@ public class ClassInfo {
       this.className = className;
       this.superClass = superClass;
       try {
-	  this.vars = new VarTable(vars);}           // Populate table from list
+    this.vars = new VarTable(vars);}           // Populate table from list
       catch(VarClashException e){
-	        System.out.println("throwing e");
+          System.out.println("throwing e");
        throw e;
      }
       try {
-	  this.methods = new MethodTable(methods);
+    this.methods = new MethodTable(methods);
     }  // Ditto.
       catch(Exception e){
-	  System.out.println("throwing methods");
+    System.out.println("throwing methods");
     throw e;
 
       }
    }
+
+   public void addSuper(ClassInfo s){
+    this.sup = s;
+    System.out.println("added super!! " + this.sup.getName().getText());
+   }
     
     public void allocateMem(){
       System.out.println(this.getName().toString() + " -- alloc mem");
-    	this.info = new InFrame(0);
-    	String[] tempKeys = new String[this.vars.getVarNames().size()];
-    	this.vars.getVarNames().toArray(tempKeys);
-    	for(int i=0; i<vars.size(); i++){
-    	    Access temp = new InFrame((i*4));
-    	    this.vars.getInfo(tempKeys[i]).setAccess(temp);
-    	}
+      this.info = new InFrame(0);
+      String[] tempKeys = new String[this.vars.getVarNames().size()];
+      this.vars.getVarNames().toArray(tempKeys);
+      for(int i=0; i<vars.size(); i++){
+          Access temp = new InFrame((i*4));
+          this.vars.getInfo(tempKeys[i]).setAccess(temp);
+      }
+    }
+
+    public void allocateMemWithSuper(){
+      
+      this.info = new InFrame(0);
+      int numVars = this.vars.getVarNames().size() + this.sup.getVarTable().getVarNames().size();
+      String[] tempKeys = new String[numVars];
+      Set<String> superVars = this.sup.getVarTable().getVarNames();
+      Set<String> sub = this.vars.getVarNames();
+     int i = 0;
+      for(String a : superVars){
+         tempKeys[i] = a;
+        i++;
+      }
+      for(String a : sub){
+      tempKeys[i] = a;
+        i++;
+      }
+
+      
+     // System.out.println(tempKeys.length + " size of created! " + i + " num varz");
+      
+      
+     // System.out.println(sub.addAll(superVars) + " -- did this work?");
+      
+     
+      for( i=0; i < tempKeys.length; i++){
+          Access temp = new InFrame((i*4));
+          if (this.vars.getInfo(tempKeys[i]) != null)
+            this.vars.getInfo(tempKeys[i]).setAccess(temp);
+          else
+            this.sup.getVarTable().getInfo(tempKeys[i]).setAccess(temp);
+      }
     }
     
-    
+
+
+    /*public void allocateMem(int off){
+      System.out.println(this.getName().toString() + " -- alloc mem");
+      this.info = new InFrame(0);
+      String[] tempKeys = new String[this.vars.getVarNames().size()];
+      this.vars.getVarNames().toArray(tempKeys);
+      for(int i=0; i<vars.size(); i++){
+          Access temp = new InFrame(((i+off)*4));
+          this.vars.getInfo(tempKeys[i]).setAccess(temp);
+      }
+    }
+    */
    public TId getName() { return className; }
    public TId getSuper() { return superClass; }
    public VarTable getVarTable() { return vars; }
@@ -89,7 +141,7 @@ public class ClassInfo {
    public void dump() {
        String s = className.getText();
        if(superClass != null) 
-	       s+="  Extends: "+getSuper().getText();
+         s+="  Extends: "+getSuper().getText();
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
@@ -101,31 +153,66 @@ public class ClassInfo {
    public void dumpIRT() {
 
        String s = className.getText();
-       if(superClass != null) 
-	       s += "  Extends: "+getSuper().getText();
+
+       if(superClass != null){
+
+         s += "  Extends: "+getSuper().getText();
+
+
+
+       } 
+        
        
        System.out.println("-------------------------------------");
        System.out.println("Class: " +s);
        System.out.println("-------------------------------------");
 
+       REG dest = new REG(new Reg("$dest"));
        if (this.vars.getVarNames().size()==0){
-
-	   // REG dest = new REG(new Reg("$dest"));
-	   // MOVE static_link = new MOVE(dest, ((InFrame)info).getTree());
-	   // ESEQ eseq = new ESEQ(static_link,dest);
-	   // Print.prExp(eseq);
+     MOVE static_link = new MOVE(dest, ((InFrame)info).getTree());
+     ESEQ eseq = new ESEQ(static_link,dest);
+     Print.prExp(eseq);
        }
        else {
-	   //Stm temp = (Stm)static_link;
-       String[] tempKeys = new String[this.vars.getVarNames().size()];
-       /*this.vars.getVarNames().toArray(tempKeys);
-       for(String s :tempKeys ){
-	   temp = new SEQ(new MOVE(new REG(new Reg("$dest")),new CALL(vars.get(s).)), temp);
-	   
+        String[] tempKeys;
+        if(superClass != null){
+          int numVars = this.vars.getVarNames().size() + this.sup.getVarTable().getVarNames().size();
+          tempKeys = new String[numVars];
+          Set<String> superVars = this.sup.getVarTable().getVarNames();
+          Set<String> sub = this.vars.getVarNames();
+          int i = 0;
+          for(String a : sub){
+            tempKeys[i] = a;
+            i++;
+          }
+          for(String a : superVars){
+            tempKeys[i] = a;
+            i++;
+          }
+        }
+        else{
+          int numVars = this.vars.getVarNames().size();
+          tempKeys = new String[numVars];
+          this.vars.getVarNames().toArray(tempKeys);
+        }
+        ExpList el = new ExpList(new CONST(tempKeys.length*4), null); 
+       
+        MOVE malloc = new MOVE(dest, new CALL(new NAME( new Label("malloc")),el  ));
+        Stm temp;
+        if (this.vars.getInfo(tempKeys[0]) != null)
+          temp = new SEQ(malloc, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.vars.getInfo(tempKeys[0]).getAccess().getTree())),new CONST(0)) );
+        else
+          temp = new SEQ(malloc, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.sup.getVarTable().getInfo(tempKeys[0]).getAccess().getTree())),new CONST(0)) );
+ 
+     for(int i=1;i<tempKeys.length;i++)
+        if (this.vars.getInfo(tempKeys[i]) != null)
+          temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.vars.getInfo(tempKeys[i]).getAccess().getTree())),new CONST(0)) );          
+        else
+         temp = new SEQ(temp, new MOVE(new MEM(new BINOP(0, new REG(new Reg("base")), this.sup.getVarTable().getInfo(tempKeys[i]).getAccess().getTree())),new CONST(0)) );
+     
+     Print.prExp(new ESEQ(temp, new REG(new Reg("$dest"))));
        }
-       Print.prExp(new ESEQ(           , new REG(new Reg("$dest"))));*/
-       }
-		   //new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree()))
+       //new BINOP(0, new REG(new Reg("base")), table.get(s).getAccess().getTree()))
        // Print.prExp(((InFrame)info).getTree(new REG(new Reg("dest"))));
 
 
@@ -133,7 +220,6 @@ public class ClassInfo {
        System.out.println("Instance var accessors:");
        vars.dumpIRT();
        methods.dumpIRT();
-
        
 
    } 

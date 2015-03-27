@@ -26,11 +26,8 @@ public class IRTVisitor extends DepthFirstAdapter {
         //table.dump();
 
         ClassInfo ci = table.get(((AMainClassDecl)classInfo).getId().getText() + " ");
-        if(ci == null){
-
-        }
         //System.out.println(ci.getName().getText() + " eee");
-        // /ci.allocateMem();
+         ci.allocateMem();
         
         if(node.getId() != null)
         {
@@ -89,9 +86,11 @@ public class IRTVisitor extends DepthFirstAdapter {
     {
         inASubClassDecl(node);
         classInfo = node;
-            ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
-        
-            ci.allocateMem();
+        ClassInfo ci = table.get(((ASubClassDecl)classInfo).getId().getText());
+        ClassInfo sup = table.get(ci.getSuper().getText());
+        ci.addSuper(sup);
+        ci.allocateMemWithSuper();
+        //ci.allocateMem(sup.getVarTable().getVarNames().size());
 
         
 
